@@ -9,7 +9,7 @@ public class MyController {
 
     @GetMapping("/")
     public String showStronaGlowna(Model model){
-        model.addAttribute("message", "TUTAJ COS KIEDYS BEDZIE");
+        model.addAttribute("message", "masakra");
         return "mainpage";
     }
 
