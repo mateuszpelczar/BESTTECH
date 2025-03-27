@@ -1,0 +1,66 @@
+body{
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginBody > form  {
+    border-radius: 10px;
+    border: 1px solid rgba(6, 6, 6, 0.221);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.loginBody > p  {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+
+.loginBody {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login_email, .login_password, .login_statute_text {
+    display: flex;
+    flex-direction:column;
+    margin: 5px;
+}
+
+.login_email > input, .login_password > input{
+    border-radius: 5px;
+    border: 1px solid rgba(6, 6, 6, 0.221);
+    height: 20px;
+    margin-top: 5px;
+    padding: 10px;
+}
+.login_statute {
+    display: flex;
+    flex-direction: row;
+    margin: 15px 0px;
+}
+.login_statute > input{
+    width: 20px;
+    margin-right: 15px;
+}
+.login_statute_text > a{
+    text-decoration: none;
+}
+
+#register{
+    background-color: rgb(36, 36, 36);
+    color: white;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    margin: 10px 0px;
+}

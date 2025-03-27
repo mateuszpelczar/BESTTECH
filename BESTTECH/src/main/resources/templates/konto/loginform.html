@@ -3,29 +3,36 @@
 <head>
     <link rel="stylesheet" href="../../styles/kontoStyles.css">
     <meta charset="UTF-8">
+    <style>/* czcionka */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+
     <title>LOGOWANIE</title>
 </head>
 <body>
-    Okno logowania BEST-TECH
-    <form action="" method="post">
-        <div class="login_email">
-            <label for="">E-mail</label>
-            <input type="text">
-        </div>
+    <div class="loginBody">
+        <p>Okno logowania BEST-TECH</p>
+        <form action="" method="post">
+            <div class="login_email">
+                <label for="">E-mail</label>
+                <input type="text">
+            </div>
 
-        <div class="login_password">
-            <label for="">Hasło</label>
-            <input type="password">
-        </div>
+            <div class="login_password">
+                <label for="">Hasło</label>
+                <input type="password">
+            </div>
 
-        <div class="login_statute">
-            <input type="checkbox" name="" id="">
-            <label for="">Akceptuje</label>
-            <a href="">regulamin sklepu BEST-TECH</a>
-        </div>
+            <div class="login_statute">
+                <input type="checkbox" name="" id="">
+                <div class="login_statute_text">
+                    <label for="">Akceptuje</label>
+                    <a href="">regulamin sklepu BEST-TECH</a>
+                </div>
+            </div>
 
-        <button type="submit">Zaloguj!</button>
-    </form>
-
+            <button type="submit" id="register">Załóż konto!</button>
+        </form>
+    </div>
 </body>
 </html>
