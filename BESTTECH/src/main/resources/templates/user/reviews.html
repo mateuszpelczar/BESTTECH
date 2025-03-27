@@ -1,63 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../../styles/usersStyles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recenzje</title>
 </head>
 <body>
-        Opinie
-<form action=""method="post">
 
-    <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">★</label>
+<div class="opinions">
+    <div class="make_opinion">
+        <form action=""method="post">
+            <div class="rating_info">
+            <div class="rating_and_img">
+            <div class="opinion_img">
+                <img src="" alt="" srcset="">
+            </div>
+            
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5"></label>
 
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">★</label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4"></label>
 
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">★</label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3"></label>
 
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">★</label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2"></label>
+               
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1"></label>
 
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">★</label>
+            </div>
+        </div>
+        <div class="nazwa_data">
+            <div class="nazwa_Produkt">
+            <p> Produkt 1</p>
+            </div>
 
+
+            <div class="data">
+                <label for="">Data zakupu</label>
+                <input type="date" name="" id="">
+
+            </div>
+        </div>
+
+            <div class="informacje_opini_innych"> 
+                <button type="submit" id="more_opinion">Zobacz opinie innych użytkowników</button>
+            </div>
+        </div>
+            <div class="opinia">
+                <textarea name="" id="" style="resize: none;" placeholder="Tu napisz swoją opinie"></textarea>
+            </div>
+            <div class="buttons">
+                <button type="submit">Dodaj opinie</button>
+                <button type="submit">Dodaj opinie do innego zamówienia </button>
+                <button type="submit" id="delete_opinion">Usuń opinie</button>
+            </div>
+        </form>
     </div>
-
-    <div class="Nazwa Produkt">
-    <label for="">Nazwa</label>
-    <label for="">Produkt A</label>
-
-    </div>
-
-
-    <div class="Data">
-        <label for="">Data zakupu</label>
-        <label for="">10.01.2025 </label>
-
-    </div>
-
-
-    <div class="Informacje opini innych">
-        <label for="">Zobacz opinie innych użytkowników</label>
-
-
-    </div>
-
-    <div class="Opinia">
-        <label for="">Tu wpisz swój komentarz</label>
-
-
-    </div>
-
-    <button type="submit">Dodaj opinie</button>
-    <button type="submit">Dodaj opinie do innego zamówienia </button>
-    <button type="submit">Usuń opinie</button>
-
-</form>
-    
+</div>
 </body>
 </html>

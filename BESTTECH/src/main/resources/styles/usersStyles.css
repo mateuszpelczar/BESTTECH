@@ -1,0 +1,96 @@
+body{
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    font-family: "Montserrat", sans-serif;
+}
+
+.opinions {
+    padding: 30px;
+    background-color: rgba(100, 95, 77, 0.166);
+}
+.make_opinion {
+    border: 1px solid rgba(0, 0, 0, 0.348) ;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.675);
+    padding-bottom: 10px;
+    margin: 10px;
+}
+.rating_info{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+.rating_and_img{
+    /* background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: inset -11px -11px 20px -16px rgb(66 68 90 / 67%);
+    border-radius: 8px 0px 15px 0px; */
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.opinion_img {
+    width: 100px;
+    height: 100px;
+    background-color: black;
+}
+.rating {
+    cursor: default;
+}
+.rating > input{
+    cursor: pointer;
+}
+.nazwa_Produkt {
+    font-weight: bolder;
+    font-size: 20px;
+}
+.nazwa_data{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.data {
+}
+.informacje_opini_innych {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.opinia {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.opinia > textarea{
+    margin: 10px;
+    width: 80%;
+    height: 20vh;
+    background-color: rgba(198, 157, 10, 0.053);
+    border: 1px solid rgba(0, 0, 0, 0.353);
+    border-radius: 6px;
+    padding: 10px;
+}
+.buttons{
+    display: flex;
+    justify-content: center;
+}
+.buttons > button, #more_opinion{
+    margin: 0px 5px;
+    border: 0px;
+    padding: 13px;
+    border-radius: 5px;
+    background-color: rgb(2, 83, 2);
+    color: white;
+}
+#delete_opinion{
+    background-color: brown;
+}
+#more_opinion{
+margin-top: 5px;
+background-color: rgb(94, 71, 1);
+}
+
