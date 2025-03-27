@@ -10,7 +10,7 @@ public class MyController {
     @GetMapping("/")
     public String showStronaGlowna(Model model){
         model.addAttribute("message", "label");
-        return "mainpage";
+        return "index";
     }
 
 }
