@@ -1,11 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koszyk</title>
 </head>
 <body>
-    
+<h1>Twój koszyk</h1>
+
+
+<div th:if="${produkty.isEmpty()}">
+    <p>Twój koszyk jest pusty.</p>
+    <a href="/produkty">Wróć do zakupów</a>
+</div>
+
+
+<div th:unless="${produkty.isEmpty()}">
+    <form th:action="@{/koszyk/zmien-ilosc}" method="post">
+        <table border="1" cellpadding="10">
+            <thead>
+            <tr>
+                <th>Produkt</th>
+                <th>Cena</th>
+                <th>Ilość</th>
+                <th>Suma</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="entry : ${produkty}">
+                <td th:text="${entry.key.nazwa}">Nazwa produktu</td>
+                <td th:text="${entry.key.cena} + ' zł'">0.00 zł</td>
+                <td>
+                    <input type="number" name="ilosc" min="1" th:value="${entry.value}" />
+                    <input type="hidden" name="id" th:value="${entry.key.produktID}" />
+                </td>
+                <td th:text="${#numbers.formatDecimal(entry.key.cena * entry.value, 1, 'POINT', 2, 'NONE')} + ' zł'">0.00 zł</td>
+                <td>
+                    <form th:action="@{'/koszyk/usun/' + ${entry.key.produktID}}" method="post">
+                        <button type="submit">Usuń</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <button type="submit">Zaktualizuj ilości</button>
+    </form>
+
+    <form th:action="@{/koszyk/wyczysc}" method="post" style="margin-top: 15px;">
+        <button type="submit">Wyczyść koszyk</button>
+    </form>
+
+    <form th:action="@{/zamowienie/podsumowanie}" method="get" style="margin-top: 15px;">
+        <button type="submit">Przejdź do zamówienia</button>
+    </form>
+</div>
+
 </body>
 </html>
