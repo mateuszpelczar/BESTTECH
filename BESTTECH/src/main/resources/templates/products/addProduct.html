@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj nowy produkt</title>
+</head>
+<body>
+
+<h1>Dodaj nowy produkt</h1>
+
+<form method="post" action="/products/addproduct">
+    <label for="nazwa">Nazwa produktu:</label>
+    <input type="text" id="nazwa" name="nazwa" required>
+    <br>
+
+    <label for="opis">Opis:</label>
+    <textarea id="opis" name="opis" required></textarea>
+    <br>
+
+    <label for="cena">Cena:</label>
+    <input type="number" id="cena" name="cena" step="0.01" required>
+    <br>
+
+    <label for="stanMagazynowy">Stan magazynowy:</label>
+    <input type="number" id="stanMagazynowy" name="stanMagazynowy" required>
+    <br>
+
+    <label for="marka">Marka:</label>
+    <input type="text" id="marka" name="marka" required>
+    <br>
+
+    <label for="kategoriaID">Wybierz kategorię:</label>
+    <select id="kategoriaID" name="kategoriaID" required>
+        <option th:each="kategoria : ${kategorie}"
+                th:value="${kategoria.kategoriaID}"
+                th:text="${kategoria.nazwa}"></option>
+    </select>
+    <br>
+
+    <button type="submit">Dodaj produkt</button>
+</form>
+
+<a href="/products/showproducts">Powrót do listy produktów</a>
+
+</body>
+</html>

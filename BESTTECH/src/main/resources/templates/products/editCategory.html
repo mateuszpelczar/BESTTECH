@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edytuj kategorię</title>
+</head>
+<body>
+
+<h1>Edytuj kategorię</h1>
+
+<form method="post" action="/products/editcategory">
+    <input type="hidden" name="id" th:value="${kategoria.kategoriaID}">
+
+    <label for="nazwa">Nazwa:</label>
+    <input type="text" id="nazwa" name="nazwa" th:value="${kategoria.nazwa}" required>
+    <br>
+
+    <label for="opis">Opis:</label>
+    <textarea id="opis" name="opis" required th:text="${kategoria.opis}"></textarea>
+    <br>
+
+    <button type="submit">Zapisz</button>
+    <a href="/products/showcategories"><button type="button">Anuluj</button></a>
+</form>
+
+</body>
+</html>

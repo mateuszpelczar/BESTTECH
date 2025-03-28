@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj nową kategorię</title>
+</head>
+<body>
+<h1>Dodaj nową kategorię</h1>
+
+<form method="post" action="/products/addcategory">
+    <label for="nazwa">Nazwa kategorii:</label>
+    <input type="text" id="nazwa" name="nazwa" required>
+
+    <label for="opis">Opis:</label>
+    <textarea id="opis" name="opis"></textarea>
+
+    <button type="submit">Dodaj</button>
+</form>
+
+<p th:if="${message}" th:text="${message}" style="color: green;"></p>
+</body>
+</html>

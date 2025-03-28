@@ -20,4 +20,25 @@ public class Kategoria {
     @OneToMany(mappedBy = "kategoria")
     private List<Produkt> produkty;
 
+    public void setNazwa(String nazwa) {
+        this.nazwa = nazwa;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
+
+    }
+
+    public String getNazwa(){
+        return this.nazwa;
+    }
+
+    public String getOpis(){
+        return this.opis;
+    }
+
+    public Integer getKategoriaID() {
+        return this.kategoriaID;
+    }
+
 }

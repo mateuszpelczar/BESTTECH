@@ -30,4 +30,64 @@ public class Produkt {
 
     @OneToMany(mappedBy = "produkt")
     private List<Recenzja> recenzje;
+
+    public void setNazwa(String nazwa) {
+        this.nazwa = nazwa;
+    }
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
+
+    public void setCena(float cena) {
+        this.cena = cena;
+    }
+    public void setStanMagazynowy(int stanMagazynowy) {
+        this.stanMagazynowy = stanMagazynowy;
+    }
+
+    public void setMarka(String marka) {
+        this.marka = marka;
+    }
+
+    public void setDataDodania(Date dataDodania) {
+        this.dataDodania = dataDodania;
+    }
+
+    public void setKategoria(Kategoria kategoria) {
+        this.kategoria = kategoria;
+    }
+
+    public Integer getProduktID() {
+        return produktID;
+    }
+
+    public String getNazwa() {
+        return nazwa;
+    }
+
+    public String getOpis() {
+        return opis;
+    }
+
+    public float getCena() {
+        return cena;
+    }
+
+    public Integer getStanMagazynowy() {
+        return stanMagazynowy;
+    }
+
+    public String getMarka() {
+        return marka;
+    }
+
+    public Date getDataDodania() {
+        return dataDodania;
+    }
+
+    public Kategoria getKategoria() {
+        return kategoria;
+    }
+
+
 }

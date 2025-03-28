@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kategorie</title>
+</head>
+<body>
+
+<h1>Lista kategorii</h1>
+
+<!-- Formularz wyszukiwania -->
+<form method="get" action="/products/showcategories">
+    <label for="search">Szukaj kategorii:</label>
+    <input type="text" id="search" name="search" th:value="${param.search}">
+    <button type="submit">Szukaj</button>
+</form>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nazwa</th>
+        <th>Opis</th>
+        <th>Akcje</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="kategoria : ${kategorie}">
+        <td th:text="${kategoria.kategoriaID}"></td>
+        <td th:text="${kategoria.nazwa}"></td>
+        <td th:text="${kategoria.opis}"></td>
+        <td>
+            <!-- Przycisk edytuj -->
+            <a th:href="@{'/products/editcategory/' + ${kategoria.kategoriaID}}">
+                <button type="button">Edytuj</button>
+            </a>
+
+            <!-- Formularz usuwania -->
+            <form method="post" action="/products/deletecategory" style="display:inline;">
+                <input type="hidden" name="id" th:value="${kategoria.kategoriaID}">
+                <button type="submit" onclick="return confirm('Czy na pewno chcesz usunąć tę kategorię?')">Usuń</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

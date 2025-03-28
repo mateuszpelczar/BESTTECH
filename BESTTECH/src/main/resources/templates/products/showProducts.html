@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Produktów</title>
+</head>
+<body>
+<h1>Lista Produktów</h1>
+
+<form method="get" action="/products/showproducts">
+    <input type="text" name="search" placeholder="Szukaj produktu...">
+    <select name="categoryId">
+        <option value="">Wybierz kategorię</option>
+        <th:block th:each="kategoria : ${kategorie}" th:if="${kategorie != null and not #lists.isEmpty(kategorie)}">
+            <option th:value="${kategoria.KategoriaID}" th:text="${kategoria.nazwa}"></option>
+        </th:block>
+    </select>
+    <button type="submit">Filtruj</button>
+</form>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nazwa</th>
+        <th>Opis</th>
+        <th>Cena</th>
+        <th>Marka</th>
+        <th>Kategoria</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="produkt : ${produkty}">
+        <td th:text="${produkt.produktID}"></td>
+        <td th:text="${produkt.nazwa}"></td>
+        <td th:text="${produkt.opis}"></td>
+        <td th:text="${produkt.cena}"></td>
+        <td th:text="${produkt.marka}"></td>
+        <td th:text="${produkt.kategoria.nazwa}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
