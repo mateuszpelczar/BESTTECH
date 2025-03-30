@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wszystkie kategorie (ta strona jest dla użytkownika)</title>
+</head>
+<body>
+    <h1>Przejdź do produktów dla kategorii:</h1>
+
+    <ul>
+        <li th:each="kategoria : ${kategorie}">
+            <a th:href="@{/kategoria/{nazwa}(nazwa=${kategoria.nazwa})}" th:text="${kategoria.nazwa}"></a>
+        </li>
+    </ul>
+
+    <a href="/">Powrót </a>
+
+</body>
+</html>

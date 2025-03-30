@@ -27,6 +27,9 @@ public class ProductsController {
         return "products/mainpage";
     }
 
+
+
+    // poniżej dla admina
     @GetMapping("/showproducts")
     public String pokazProdukty(@RequestParam(required = false) String search,
                                 @RequestParam(required = false) Integer categoryId,
@@ -47,11 +50,13 @@ public class ProductsController {
         return "products/showProducts";
     }
 
+
     @GetMapping("/addproduct")
     public String dodajProdukt(Model model) {
         model.addAttribute("kategorie", kategoriaRepository.findAll()); // Przekazywanie listy kategorii
         return "products/addProduct";
     }
+
 
     @PostMapping("/addproduct")
     public String dodajProdukt(@RequestParam String nazwa,
@@ -90,12 +95,14 @@ public class ProductsController {
         return "products/showCategories";
     }
 
+
     //problem z usuwaniem kategorii, gdy istnieje produkt z daną kategorią !
     @PostMapping("/deletecategory")
     public String usunKategorie(@RequestParam Integer id) {
         kategoriaRepository.deleteById(id);
         return "redirect:/products/showcategories";
     }
+
 
     @GetMapping("/editcategory/{id}")
     public String pokazFormularzEdycji(@PathVariable Integer id, Model model) {
@@ -131,6 +138,8 @@ public class ProductsController {
         model.addAttribute("message", "Kategoria dodana pomyślnie!");
         return "products/addCategory";
     }
+
+
 
 
 }
