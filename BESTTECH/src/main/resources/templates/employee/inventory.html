@@ -1,11 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stan magazynowy</title>
 </head>
 <body>
-    
+
+<form th:action="@{/products/showproducts}" method="get">
+    <input type="text" name="search" placeholder="Szukaj produktu..." th:value="${param.search}">
+
+    <select name="categoryId">
+        <option value="">Wybierz kategorię</option>
+        <option th:each="kategoria : ${kategorie}"
+                th:value="${kategoria.kategoriaID}"
+                th:text="${kategoria.nazwa}"
+                th:selected="${param.categoryId != null and param.categoryId == kategoria.kategoriaID}">
+        </option>
+    </select>
+
+    <button type="submit">Filtruj</button>
+</form>
+</body>
+
+
+<table border="1">
+    <head>
+    <tr>
+        <th>ID</th>
+        <th>Nazwa</th>
+        <th>Kategoria</th>
+        <th>Stan magazynowy</th>
+    </tr>
+    </head>
+    <tbody>
+    <tr th:each="produkt : ${produkty}">
+        <td th:text="${produkt.produktID}"></td>
+        <td th:text="${produkt.nazwa}"></td>
+        <td th:text="${produkt.kategoria.nazwa}"></td>
+        <td th:text="${produkt.stanMagazynowy}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<a href="/products">Powrót</a>
+
+
 </body>
 </html>
