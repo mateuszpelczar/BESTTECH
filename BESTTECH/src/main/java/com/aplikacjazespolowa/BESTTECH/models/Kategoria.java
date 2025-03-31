@@ -7,8 +7,8 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+//@Getter
+//@Setter
 public class Kategoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,13 @@ public class Kategoria {
 
     @OneToMany(mappedBy = "kategoria")
     private List<Produkt> produkty;
+
+    public Kategoria(){}
+
+    public Kategoria(String nazwa, String opis){
+        this.nazwa= nazwa;
+        this.opis=opis;
+    }
 
     public void setNazwa(String nazwa) {
         this.nazwa = nazwa;

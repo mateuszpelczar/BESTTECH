@@ -1,6 +1,10 @@
 package com.aplikacjazespolowa.BESTTECH.controllers;
 
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.aplikacjazespolowa.BESTTECH.models.Produkt;
@@ -20,7 +24,29 @@ public class ProductsController {
     public ProductsController(ProduktRepository produktRepository, KategoriaRepository kategoriaRepository) {
         this.produktRepository = produktRepository;
         this.kategoriaRepository = kategoriaRepository;
+
+        }
+         @PostConstruct
+         @Transactional
+            public void DataLoader(){
+        if (kategoriaRepository.count()==0){
+            Kategoria laptopy  = new Kategoria("Laptopy", "Laptopy do pracy i gier");
+            Kategoria smartphony = new Kategoria("Smartphony", "Nowoczesne i biznesowe");
+            Kategoria akcesoria = new Kategoria("Akcesoria", "Myszki, klawiatury, słuchawki");
+
+            kategoriaRepository.saveAll(List.of(laptopy, smartphony, akcesoria));
+
+            produktRepository.saveAll(List.of(
+                    new Produkt("MacBook Pro", "Laptop Apple M2", 9999.99f, 10, "Apple", new Date(), laptopy),
+                    new Produkt("Dell XPS 15", "Laptop dla profesjonalistów", 7999.99f, 5, "Dell", new Date(), laptopy),
+                    new Produkt("iPhone 16", "Najnowszy iPhone", 5499.99f, 15, "Apple", new Date(), smartphony),
+                    new Produkt("Samsung Galaxy S24", "Smartfon Samsunga", 4499.99f, 20, "Samsung", new Date(), smartphony),
+                    new Produkt("Logitech MX Master", "Myszka bezprzewodowa", 399.99f, 25, "Logitech", new Date(), akcesoria)
+
+            ));
+        }
     }
+
 
     @GetMapping
     public String mainPage() {

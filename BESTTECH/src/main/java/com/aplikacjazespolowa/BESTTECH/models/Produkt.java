@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+//@Getter
+//@Setter
 public class Produkt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,19 @@ public class Produkt {
 
     @OneToMany(mappedBy = "produkt")
     private List<Recenzja> recenzje;
+
+    public Produkt(){}
+
+    public Produkt(String nazwa, String opis, float cena, Integer stanMagazynowy, String marka, Date dataDodania, Kategoria kategoria){
+
+        this.nazwa=nazwa;
+        this.opis=opis;
+        this.cena=cena;
+        this.stanMagazynowy=stanMagazynowy;
+        this.marka=marka;
+        this.dataDodania=dataDodania;
+        this.kategoria=kategoria;
+    }
 
     public void setNazwa(String nazwa) {
         this.nazwa = nazwa;
