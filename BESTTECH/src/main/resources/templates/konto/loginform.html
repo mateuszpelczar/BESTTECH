@@ -1,37 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" th:href="@{/kontoStyles.css}">
     <meta charset="UTF-8">
-    <style>/* czcionka */
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-    </style>
-
     <title>Logowanie</title>
+    <link rel="stylesheet" th:href="@{/kontoStyles.css}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+    </style>
 </head>
 <body>
-    <div class="loginBody">
-        <p>Okno logowania BEST-TECH</p>
-        <form action="" method="post">
-            <div class="login_email">
-                <label for="">E-mail</label>
-                <input type="text">
-            </div>
+<div class="loginBody">
+    <p>Okno logowania BEST-TECH</p>
 
-            <div class="login_password">
-                <label for="">Hasło</label>
-                <input type="password">
-            </div>
-
-            
-
-            <button type="submit" id="login">Zaloguj się!</button>
-       
-            <div class="login_statute">
-                <a href="">Zapomniałeś hasła?</a>
-        </div>
-        </form>
-        
+    <div th:if="${param.error}">
+        <p style="color: red;">Nieprawidłowy e-mail lub hasło.</p>
     </div>
+    <div th:if="${param.logout}">
+        <p style="color: green;">Zostałeś wylogowany.</p>
+    </div>
+
+    <form th:action="@{/konto/logowanie}" method="post">
+        <div class="login_email">
+            <label for="email">E-mail</label>
+            <input type="text" id="email" name="username" required>
+        </div>
+
+        <div class="login_password">
+            <label for="password">Hasło</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <button type="submit" id="login">Zaloguj się!</button>
+
+        <div class="login_statute">
+            <a href="#">Zapomniałeś hasła?</a>
+        </div>
+    </form>
+</div>
 </body>
 </html>
