@@ -109,6 +109,7 @@ public class ProductsController {
         return "redirect:/products/showproducts"; // Przekierowanie do strony z produktami
     }
 
+
     @GetMapping("/showcategories")
     public String pokazKategorie(@RequestParam(required = false) String search, Model model) {
         List<Kategoria> kategorie;

@@ -19,6 +19,8 @@ public class AccountController {
     }
 
 
+
+
     @GetMapping("/rejestracja")
     public String showRegisterForm() {
         return "konto/registerform";
@@ -31,9 +33,12 @@ public class AccountController {
         return "redirect:/konto/logowanie";
     }
 
+
     @GetMapping("/logowanie")
     public String logowanie() {
         return "konto/loginform";
     }
+
+
 }
 
