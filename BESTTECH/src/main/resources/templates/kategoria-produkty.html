@@ -8,7 +8,10 @@
 
 <h1 th:text="'Produkty w kategorii: ' + ${nazwaKategorii}"></h1>
 <ul>
-    <li th:each="produkt : ${produkty}" th:text="${produkt.nazwa}"></li>
+    <li th:each="produkt : ${produkty}">
+        <a th:href="@{'/product'(id=${produkt.getProduktID()}, nazwa=${produkt.getNazwa()})}"
+           th:text="${produkt.nazwa}"></a>
+    </li>
 </ul>
 <a href="/kategoria">Powrót do listy kategorii</a>
 

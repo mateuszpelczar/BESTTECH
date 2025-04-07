@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Szczegóły produktu: ' + ${produkt.getNazwa()}">Szczegóły produktu</title>
+</head>
+<body>
+
+<h1 th:text="${produkt.getNazwa()}">Nazwa produktu</h1>
+<p><strong>Cena:</strong> <span th:text="${produkt.cena}">0.00</span> zł</p>
+<p><strong>Opis:</strong> <span th:text="${produkt.opis}">Opis produktu</span></p>
+<p><strong>Marka:</strong> <span th:text="${produkt.marka}">Marka produktu</span></p>
+<p><strong>Ilość w magazynie:</strong> <span th:text="${produkt.stanMagazynowy}">0</span></p>
+<a href="/kategoria">Powrót do kategorii</a>
+
+<h2>Recenzje:</h2>
+<div th:if="${#lists.isEmpty(produkt.recenzje)}">
+    <p>Brak recenzji dla tego produktu.</p>
+</div>
+
+<ul th:if="${!#lists.isEmpty(produkt.recenzje)}">
+    <li th:each="recenzja : ${produkt.recenzje}">
+        <p><strong>Użytkownik:</strong> <span th:text="${recenzja.getKlient().getImie()}"></span></p>
+        <p><strong>Ocena:</strong> <span th:text="${recenzja.getOcena()}"></span>/5</p>
+        <p><strong>Data:</strong> <span th:text="${#dates.format(recenzja.getDataDodania(), 'dd-MM-yyyy')}"></span></p>
+        <p><strong>Treść:</strong> <span th:text="${recenzja.getTresc()}"></span></p>
+        <hr>
+    </li>
+</ul>
+
+
+</body>
+</html>

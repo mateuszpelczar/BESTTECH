@@ -70,8 +70,14 @@ public class Produkt {
         this.kategoria = kategoria;
     }
 
+
+
     public Integer getProduktID() {
         return produktID;
+    }
+
+    public List<Recenzja> getRecenzje() {
+        return recenzje;
     }
 
     public String getNazwa() {

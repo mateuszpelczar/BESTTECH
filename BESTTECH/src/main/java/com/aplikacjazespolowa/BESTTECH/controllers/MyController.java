@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MyController {
@@ -46,6 +48,26 @@ public class MyController {
         model.addAttribute("produkty", produkty);
 
         return "kategoria-produkty";
+    }
+
+    @GetMapping("/product")
+    public String pokazProdukt(@RequestParam("id") Integer id,
+                               @RequestParam("nazwa") String nazwa,
+                               Model model) {
+
+        Optional<Produkt> produktOptional = produktRepository.findById(id);
+
+        if (produktOptional.isEmpty()) {
+            // Można dodać stronę z błędem lub przekierować gdzieś
+            return "redirect:/kategoria";
+        }
+
+        Produkt produkt = produktOptional.get();
+
+
+        model.addAttribute("produkt", produkt);
+
+        return "products/product-szczegoly";
     }
 
 }
