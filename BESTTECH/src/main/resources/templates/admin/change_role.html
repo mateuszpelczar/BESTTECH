@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zmień role użytkownika</title>
+</head>
+<body>
+
+<h1>Zmień role użytkownika</h1>
+
+<p><strong>Email:</strong> <span th:text="${user.email}">email@example.com</span></p>
+
+<form th:action="@{/admin/manageusers/changerole/save}" method="post">
+    <input type="hidden" th:name="userId" th:value="${user.id}"/>
+
+    <p><strong>Dostępne role:</strong></p>
+    <ul>
+        <li th:each="role : ${allRoles}">
+            <label>
+                <input type="checkbox" name="roleIds"
+                       th:value="${role.id}"
+                       th:checked="${user.roles.contains(role)}"/>
+                <span th:text="${role.name}">ROLE_USER</span>
+            </label>
+        </li>
+    </ul>
+
+    <button type="submit">Zapisz</button>
+</form>
+
+<a href="/admin/manageusers"><h4>Powrót</h4></a>
+</body>
+</html>
