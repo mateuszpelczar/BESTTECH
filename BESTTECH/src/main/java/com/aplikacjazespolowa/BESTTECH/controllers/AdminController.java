@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -64,4 +66,38 @@ public class AdminController {
 
         return "redirect:/admin/manageusers";
     }
+
+    @GetMapping("/manageemployess")
+    public String manageEmployees(Model model){
+        List<DBUser> employees = userRepository.findByRoles_Name("EMPLOYEE");
+        model.addAttribute("employees",employees);
+        return "admin/manage_employees";
+    }
+
+    @GetMapping("/deleteemployee")
+    public String deleteEmployee(Model model){
+        List<DBUser> employees = userRepository.findByRoles_Name("EMPLOYEE");
+        model.addAttribute("employees",employees);
+        return "admin/delete_employee";
+    }
+
+    @PostMapping("/deleteemployee")
+    public String deletedEmployee(@RequestParam Integer userId, RedirectAttributes redirectAttributes) {
+        Optional<DBUser> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isPresent()) {
+            userRepository.deleteById(userId);
+            redirectAttributes.addFlashAttribute("message", "Użytkownik został pomyślnie usunięty.");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Użytkownik o podanym ID nie istnieje.");
+        }
+
+        return "redirect:/admin/deleteemployee";  // Ta ścieżka musi być zgodna z tym, jak masz ustawiony kontroler
+    }
+
+
+
+
+
+
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usun pracownika</title>
+</head>
+<body>
+
+<h1>Usun pracownika</h1>
+
+
+<table border="1" cellspacing="0" cellpadding="8">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Rola</th>
+        <th>Usun</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${employees}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <span th:each="role : ${user.roles}" th:text="${role.name}"></span>
+        </td>
+        <td>
+            <form method="post" action="/admin/deleteemployee">
+                <input type="hidden" name="userId" th:value="${user.id}"/>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                <button type="submit">Usun</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+    <a href="/admin/manageemployess">Powrot</a>
+
+
+</body>
+</html>

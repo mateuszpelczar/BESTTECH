@@ -6,27 +6,19 @@
     <title>Lista pracowników</title>
 </head>
 <body>
-<p>Panel Administratora</p>
-<p>Nawigacja</p>
-<ul>
-    <li>Zarządzanie kontami pracowników.</li>
-    <li>Zarządzanie raportami. </li>
-    <li>Zarządzanie profilem. </li>
-</ul>
-<p>Szczegółowe analizy</p>
-<form action="" method="post">
-    <div class="analizy">
-        <button type="submit" id="raport_finansowy">Raport finansowy</button>
-        <button type="submit" id="raport_logistyczny">Raport logistyczny</button>
-        <button type="submit" id="generuj_raport">Generuj nowy raport</button>
-    </div>
+<strong><p>Nawigacja</p></strong>
+
     <p>Zarzadzanie pracownikami </p>
     <div class="pracownik">
 
         <button type="submit" id="lista_zamowien">Lista zamówień</button>
-        <button type="submit" id="usun_konto_pracownika">Usuń konto pracownika</button>
+        <a href="/admin/deleteemployee">
+            <button type="button" id="usun_konto_pracownika">Usun konto pracownika</button>
+        </a>
         <button type="submit" id="edytuj_dane_pracownika">Edytuj dane pracownika</button>
 
-        <div>
+        </div>
+
+        <a href="/">Powrot do strony glownej</a>
 </body>
 </html>
