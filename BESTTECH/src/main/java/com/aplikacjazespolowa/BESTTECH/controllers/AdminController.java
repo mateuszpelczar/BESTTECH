@@ -92,7 +92,7 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("message", "Użytkownik o podanym ID nie istnieje.");
         }
 
-        return "redirect:/admin/deleteemployee";  // Ta ścieżka musi być zgodna z tym, jak masz ustawiony kontroler
+        return "redirect:/admin/deleteemployee";
     }
 
 
