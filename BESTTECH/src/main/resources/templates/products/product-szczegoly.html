@@ -11,6 +11,11 @@
 <p><strong>Opis:</strong> <span th:text="${produkt.opis}">Opis produktu</span></p>
 <p><strong>Marka:</strong> <span th:text="${produkt.marka}">Marka produktu</span></p>
 <p><strong>Ilość w magazynie:</strong> <span th:text="${produkt.stanMagazynowy}">0</span></p>
+
+<form th:action="@{'/koszyk/dodaj/' + ${produkt.produktID}}" method="post">
+    <button type="submit">Dodaj do koszyka</button>
+</form>
+
 <a href="/kategoria">Powrót do kategorii</a>
 
 <h2>Recenzje:</h2>
