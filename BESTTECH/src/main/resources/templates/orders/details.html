@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Szczegóły zamówienia</title>
+</head>
+<body>
+<h1>Szczegóły zamówienia</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nazwa</th>
+        <th>Marka</th>
+        <th>Cena</th>
+        <th>Ilość</th>
+        <th>Suma</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${orderDetails}">
+        <td th:text="${entry.key.nazwa}"></td>
+        <td th:text="${entry.key.marka}"></td>
+        <td th:text="${#numbers.formatDecimal(entry.key.cena, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
+        <td th:text="${entry.value}"></td>
+        <td th:text="${#numbers.formatDecimal(entry.key.cena * entry.value, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
+
+
+    </tr>
+    </tbody>
+</table>
+
+<tfoot>
+<tr>
+    <td colspan="4"><strong>Łączna kwota:</strong></td>
+    <td th:text="${#numbers.formatDecimal(totalCost, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
+</tr>
+</tfoot>
+
+
+<h2>Adres dostawy</h2>
+
+<form action="/order/submit" method="post">
+    <label>Ulica:</label><br/>
+    <input type="text" name="ulica" required><br/><br/>
+
+    <label>Miasto:</label><br/>
+    <input type="text" name="miasto" required><br/><br/>
+
+    <label>Kod pocztowy:</label><br/>
+    <input type="text" name="kodPocztowy" required><br/><br/>
+
+    <label>Kraj:</label><br/>
+    <input type="text" name="kraj" required><br/><br/>
+
+</form>
+
+<button type="submit">Złóż zamówienie</button>
+
+
+</body>
+</html>
