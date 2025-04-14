@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/konto")
+
 public class AccountController {
 
     private final RegisterService registerService;
@@ -17,7 +18,6 @@ public class AccountController {
     public AccountController(RegisterService registerService) {
         this.registerService = registerService;
     }
-
 
 
 
