@@ -11,7 +11,7 @@
 
 <div th:if="${produkty.isEmpty()}">
     <p>Twój koszyk jest pusty.</p>
-    <a href="/produkty">Wróć do zakupów</a>
+    <a href="/kategoria">Wróć do zakupów</a>
 </div>
 
 
@@ -35,11 +35,14 @@
                     <input type="number" name="ilosc" min="1" th:value="${entry.value}" />
                     <input type="hidden" name="id" th:value="${entry.key.produktID}" />
                 </td>
-                <td th:text="${#numbers.formatDecimal(entry.key.cena * entry.value, 1, 'POINT', 2, 'NONE')} + ' zł'">0.00 zł</td>
+                <td th:text="${#numbers.formatDecimal(entry.key.cena * entry.value, 1, 'POINT', 2, 'POINT')} + ' zł'">0.00 zł</td>
+
+
                 <td>
                     <form th:action="@{'/koszyk/usun/' + ${entry.key.produktID}}" method="post">
                         <button type="submit">Usuń</button>
                     </form>
+                </td>
                 </td>
             </tr>
             </tbody>
@@ -53,8 +56,12 @@
         <button type="submit">Wyczyść koszyk</button>
     </form>
 
-    <form th:action="@{/zamowienie/podsumowanie}" method="get" style="margin-top: 15px;">
+    <form th:action="@{/order/details}" method="get" style="margin-top: 15px;">
         <button type="submit">Przejdź do zamówienia</button>
+    </form>
+
+    <form th:action="@{/}" method="get" style="margin-top: 15px;">
+        <button type="submit">Strona główna</button>
     </form>
 </div>
 
