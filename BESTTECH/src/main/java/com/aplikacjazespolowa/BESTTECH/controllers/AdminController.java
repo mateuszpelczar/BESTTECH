@@ -1,7 +1,10 @@
 package com.aplikacjazespolowa.BESTTECH.controllers;
 
 import com.aplikacjazespolowa.BESTTECH.models.*;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,11 @@ public class AdminController {
     private DBUserRepository userRepository;
     @Autowired
     private DBRoleRepository roleRepository;
+    @Autowired
+    private LogsRepository logsRepository;
+    @Autowired
+    private HttpServletRequest request; //aby pobrac aktualnego uzytkownika;
+
 
 
     @GetMapping
@@ -82,19 +90,35 @@ public class AdminController {
     }
 
     @PostMapping("/deleteemployee")
-    public String deletedEmployee(@RequestParam Integer userId, RedirectAttributes redirectAttributes) {
+    public String deletedEmployee(@RequestParam Integer userId, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         Optional<DBUser> userOptional = userRepository.findById(userId);
 
         if (userOptional.isPresent()) {
+            DBUser user = userOptional.get();
+
+            //dodanie loga przez usunieciem
+            String currentUser = request.getUserPrincipal().getName();  //aktualnie zalogowany user
+            String deletedEmail = user.getEmail();  //email usuwanego
+            logsRepository.save(new LogsSystem("Usunieto pracownika: "+deletedEmail, currentUser, "WARN"));
+
             userRepository.deleteById(userId);
             redirectAttributes.addFlashAttribute("message", "Użytkownik został pomyślnie usunięty.");
         } else {
             redirectAttributes.addFlashAttribute("message", "Użytkownik o podanym ID nie istnieje.");
         }
 
+
+
+
         return "redirect:/admin/deleteemployee";
     }
 
+    @GetMapping("/admin/logs")
+    public String pokazLogi(Model model){
+        List<LogsSystem>logi = logsRepository.findAll(Sort.by(Sort.Direction.DESC, "timestamp"));
+        model.addAttribute("logi", logi);
+        return "admin/logs";
+    }
 
 
 

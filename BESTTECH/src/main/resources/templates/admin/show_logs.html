@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Logi systemowe</title>
+</head>
+<body>
+<h2>Logi systemowe</h2>
+<table border="2">
+    <tr>
+        <th>Data</th><br>
+        <th>Poziom</th><br>
+        <th>Akcja</th><br>
+        <th>Uzytkownik</th>
+    </tr>
+    <tr th:each="log : ${logs}">
+        <td th:text="${log.timestamp}">2025-01-01</td>
+        <td th:text="${log.level}"></td>
+        <td th:text="${log.action}">Przykładowa akcja</td>
+        <td th:text="${log.username}">admin@example.com</td>
+    </tr>
+
+    </tr>
+
+
+</table>
+
+</body>
+</html>
