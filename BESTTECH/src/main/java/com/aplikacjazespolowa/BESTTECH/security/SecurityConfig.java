@@ -25,7 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
 
-
+                .csrf(csrf -> csrf.disable()) // WYŁĄCZENIE CSRF
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/","/konto/rejestracja", "/konto/logowanie", "/resources/**", "/css/**", "/js/**").permitAll()
 //                        .requestMatchers("/admin/**").hasRole("ADMIN")
