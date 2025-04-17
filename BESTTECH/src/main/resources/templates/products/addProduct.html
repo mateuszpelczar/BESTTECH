@@ -8,7 +8,10 @@
 
 <h1>Dodaj nowy produkt</h1>
 
-<form method="post" action="/products/addproduct">
+<form method="post" th:action="@{/products/addproduct}">
+    <!-- CSRF Token (wymagany w Spring Security!) -->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
     <label for="nazwa">Nazwa produktu:</label>
     <input type="text" id="nazwa" name="nazwa" required>
     <br>
