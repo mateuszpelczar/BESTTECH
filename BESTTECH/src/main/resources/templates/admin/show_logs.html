@@ -3,13 +3,17 @@
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet" th:href="@{/css/logsStyles.css}">
 <head>
     <meta charset="UTF-8">
     <title>Logi systemowe</title>
 </head>
 <body>
-<h2>Logi systemowe</h2>
-<table border="2">
+
+<div class="container">
+<h2 class="title">Logi systemowe</h2>
+
+<table class="log-table">
     <tr>
         <th>Data</th><br>
         <th>Poziom</th><br>
@@ -27,6 +31,6 @@
 
 
 </table>
-
+</div>
 </body>
 </html>
