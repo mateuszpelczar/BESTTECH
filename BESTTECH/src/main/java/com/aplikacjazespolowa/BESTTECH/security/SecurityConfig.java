@@ -30,19 +30,21 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
 
                         //publiczne endpointy
-                        .requestMatchers("/","/konto/rejestracja", "/konto/logowanie", "/resources/**", "/css/**", "/js/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/products/showproducts","/kategoria/**").permitAll()
+                        .requestMatchers("/","/konto/rejestracja", "/konto/logowanie", "/resources/**", "/css/**", "/js/**","/koszyk").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/product","/kategoria/**").permitAll()
 
                         //dostep dla admina i pracownika
-                        .requestMatchers(HttpMethod.GET, "/products/addproduct", "/products/addcategory","/products/editcategory/{id}","/employee/inventory","/products/showcategories").hasAnyRole("ADMIN", "EMPLOYEE")
-                        .requestMatchers(HttpMethod.POST, "/products/addproduct", "/products/addcategory","/products/editcategory","/products/deletecategory").hasAnyRole("ADMIN", "EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET,"/products/showproducts", "/products/editproduct/{id}","/products/addproduct", "/products/addcategory","/products/editcategory/{id}","/employee/inventory","/products/showcategories").hasAnyRole("ADMIN", "EMPLOYEE")
+                        .requestMatchers(HttpMethod.POST, "/products/editproduct","/products/deleteproduct","/products/addproduct", "/products/addcategory","/products/editcategory","/products/deletecategory").hasAnyRole("ADMIN", "EMPLOYEE")
 
                         //dostep tylko dla admina
-                        .requestMatchers(HttpMethod.GET,"/admin/manageusers","/admin/manageusers/changerole","/admin/manageemployess","/admin/logs","/admin/deleteemployee").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/admin/manageusers/changerole/save","/admin/deleteemployee","/admin/deleteemployee").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/admin","/admin/manageusers","/admin/manageusers/changerole","/admin/manageemployess","/admin/logs","/admin/deleteemployee").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/admin","/admin/manageusers/changerole/save","/admin/deleteemployee","/admin/deleteemployee").hasRole("ADMIN")
 
-                        //dostep do koszyka dla zalogowanych users
-                        .requestMatchers(HttpMethod.GET,"/koszyk").authenticated()
+                        //dostep do koszyka dla niezalogowanych users
+                        .requestMatchers(HttpMethod.GET,"/koszyk").permitAll()
+
+                        //dla zalogowanych users
                         .requestMatchers(HttpMethod.POST,"/koszyk/**").authenticated()
 
                         //domyslnie reszta wymaga logowania

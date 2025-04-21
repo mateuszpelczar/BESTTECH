@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Edycja produktu</title>
+</head>
+<body>
+
+<h1>Edytuj produkt</h1>
+
+<div th:if="${error}">
+    <p th:text="${error}"></p>
+</div>
+
+<form method="post" action="/products/editproduct" th:object="${produkt}">
+    <input type="hidden" name="id" th:if="${produkt != null}" th:value="${produkt.produktID}" />
+
+    <label for="nazwa">Nazwa:</label>
+    <input type="text" id="nazwa" name="nazwa" th:value="${produkt != null ? produkt.nazwa : ''}" required /><br />
+
+    <label for="opis">Opis:</label>
+    <textarea id="opis" name="opis" required th:text="${produkt != null ? produkt.opis : ''}"></textarea><br />
+
+    <label for="cena">Cena:</label>
+    <input type="number" id="cena" name="cena" step="0.01" th:value="${produkt != null ? produkt.cena : 0}" required /><br />
+
+    <label for="marka">Marka:</label>
+    <input type="text" id="marka" name="marka" th:value="${produkt != null ? produkt.marka : ''}" required /><br />
+
+    <label for="stanMagazynowy">Stan Magazynowy:</label>
+    <input type="number" id="stanMagazynowy" name="stanMagazynowy" th:value="${produkt != null ? produkt.stanMagazynowy : 0}" required /><br />
+
+    <label for="kategoriaID">Kategoria:</label>
+    <select id="kategoriaID" name="kategoriaID" required>
+        <option th:each="kategoria : ${kategorie}" th:value="${kategoria.kategoriaID}"
+                th:text="${kategoria.nazwa}" th:selected="${produkt != null && produkt.kategoria != null && produkt.kategoria.kategoriaID == kategoria.kategoriaID}"></option>
+    </select><br />
+
+    <button type="submit">Zapisz</button>
+    <a href="/products/showproducts"><button type="button">Anuluj</button></a>
+</form>
+
+<a href="/products">Powrot</a>
+
+</body>
+</html>

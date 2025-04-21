@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Dodaj nowy produkt</title>
@@ -10,7 +10,7 @@
 
 <form method="post" th:action="@{/products/addproduct}">
     <!-- CSRF Token (wymagany w Spring Security!) -->
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+<!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
 
     <label for="nazwa">Nazwa produktu:</label>
     <input type="text" id="nazwa" name="nazwa" required>

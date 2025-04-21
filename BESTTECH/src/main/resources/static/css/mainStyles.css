@@ -60,6 +60,61 @@ a:hover{
     text-decoration: underline;
 }
 
+.nav_user{
+ display:flex;
+ align-items:center;
+ gap:15px;
+}
+
+.user-dropdown{
+    position:relative;
+    display:inline-block;
+    cursor: pointer;
+}
+
+.user-name{
+    font_weight:bold;
+    padding: 10px;
+}
+
+.dropdown_content {
+    display: none;
+    position: absolute;
+    right: 0;
+}
+
+.dropdown_content a{
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+
+}
+
+.dropdown_content a:hover{
+    background-color: #eee;
+}
+
+.user_dropdown:hover .dropdown_content{
+    display:block;
+}
+
+.cart-icon{
+    font-size: 1.5rem;
+    position:relative;
+}
+
+.cart-icon span{
+    font-size:0.9rem;
+    background:red;
+    color:white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
 
 .add_Box{
     width: 100%;

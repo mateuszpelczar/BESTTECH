@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Lista Produktów</title>
@@ -28,6 +28,7 @@
         <th>Marka</th>
         <th>Kategoria</th>
         <th>Stan magazynowy</th>
+        <th>Akcje</th>
     </tr>
     </thead>
     <tbody>
@@ -37,10 +38,20 @@
         <td th:text="${produkt.opis}"></td>
         <td th:text="${produkt.cena}"></td>
         <td th:text="${produkt.marka}"></td>
-        <td th:text="${produkt.kategoria.nazwa}"></td>
+        <td th:text="${produkt.kategoria != null ? produkt.kategoria.nazwa : 'Brak kategorii'}"></td>
         <td th:text="${produkt.stanMagazynowy}"></td>
+        <td>
+        <!-- Przycisk edytuj -->
+        <a th:href="@{'/products/editproduct/' + ${produkt.produktID}}">
+            <button type="button">Edytuj</button>
+        </a>
 
-
+        <!-- Formularz usuwania -->
+        <form method="post" action="/products/deleteproduct" style="...">
+            <input type="hidden" name="id" th:value="${produkt.produktID}">
+            <button type="submit" onclick="return confirm('Czy na pewno chcesz usunąć ten produkt?')">Usuń</button>
+        </form>
+        </td>
     </tr>
     </tbody>
 </table>

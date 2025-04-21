@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +25,14 @@ public class MyController {
     }
 
     @GetMapping("/")
-    public String showStronaGlowna(Model model){
-        model.addAttribute("message", "label");
+    public String showStronaGlowna(Model model, Principal principal) {
+        if (principal != null) {
+            System.out.println("Zalogowany: " + principal.getName());
+        }
+
         return "index";
     }
+
 
     // dla klienta
     @GetMapping("/kategoria")
