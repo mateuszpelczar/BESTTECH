@@ -34,8 +34,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/product","/kategoria/**").permitAll()
 
                         //dostep dla admina i pracownika
-                        .requestMatchers(HttpMethod.GET,"/products/showproducts", "/products/editproduct/{id}","/products/addproduct", "/products/addcategory","/products/editcategory/{id}","/employee/inventory","/products/showcategories").hasAnyRole("ADMIN", "EMPLOYEE")
-                        .requestMatchers(HttpMethod.POST, "/products/editproduct","/products/deleteproduct","/products/addproduct", "/products/addcategory","/products/editcategory","/products/deletecategory").hasAnyRole("ADMIN", "EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET,"/products","/products/showproducts", "/products/editproduct/{id}","/products/addproduct", "/products/addcategory","/products/editcategory/{id}","/employee/inventory","/products/showcategories").hasAnyRole("ADMIN", "EMPLOYEE")
+                        .requestMatchers(HttpMethod.POST, "/products","/products/editproduct","/products/deleteproduct","/products/addproduct", "/products/addcategory","/products/editcategory","/products/deletecategory").hasAnyRole("ADMIN", "EMPLOYEE")
 
                         //dostep tylko dla admina
                         .requestMatchers(HttpMethod.GET,"/admin","/admin/manageusers","/admin/manageusers/changerole","/admin/manageemployess","/admin/logs","/admin/deleteemployee").hasRole("ADMIN")
