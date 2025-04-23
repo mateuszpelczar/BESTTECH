@@ -42,4 +42,92 @@ public class Zamowienie {
 
     @OneToMany(mappedBy = "zamowienie", cascade = CascadeType.ALL)
     private List<Zwrot> zwroty;
+
+    public Integer getZamowienieID() {
+        return zamowienieID;
+    }
+
+    public void setZamowienieID(Integer zamowienieID) {
+        this.zamowienieID = zamowienieID;
+    }
+
+    public Date getDataZamowienia() {
+        return dataZamowienia;
+    }
+
+    public void setDataZamowienia(Date dataZamowienia) {
+        this.dataZamowienia = dataZamowienia;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Float getKosztCalkowity() {
+        return kosztCalkowity;
+    }
+
+    public void setKosztCalkowity(Float kosztCalkowity) {
+        this.kosztCalkowity = kosztCalkowity;
+    }
+
+    public Klient getKlient() {
+        return klient;
+    }
+
+    public void setKlient(Klient klient) {
+        this.klient = klient;
+    }
+
+    public AdresDostawy getAdresDostawy() {
+        return adresDostawy;
+    }
+
+    public void setAdresDostawy(AdresDostawy adresDostawy) {
+        this.adresDostawy = adresDostawy;
+    }
+
+    public List<SzczegolyZamowienia> getSzczegolyZamowienia() {
+        return szczegolyZamowienia;
+    }
+
+    public void setSzczegolyZamowienia(List<SzczegolyZamowienia> szczegolyZamowienia) {
+        this.szczegolyZamowienia = szczegolyZamowienia;
+    }
+
+    public List<Reklamacja> getReklamacje() {
+        return reklamacje;
+    }
+
+    public void setReklamacje(List<Reklamacja> reklamacje) {
+        this.reklamacje = reklamacje;
+    }
+
+    public Faktura getFaktura() {
+        return faktura;
+    }
+
+    public void setFaktura(Faktura faktura) {
+        this.faktura = faktura;
+    }
+
+    public Dostawa getDostawa() {
+        return dostawa;
+    }
+
+    public void setDostawa(Dostawa dostawa) {
+        this.dostawa = dostawa;
+    }
+
+    public List<Zwrot> getZwroty() {
+        return zwroty;
+    }
+
+    public void setZwroty(List<Zwrot> zwroty) {
+        this.zwroty = zwroty;
+    }
 }

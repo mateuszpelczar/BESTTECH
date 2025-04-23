@@ -4,42 +4,46 @@
     <title>Szczegóły zamówienia</title>
 </head>
 <body>
-<h1>Szczegóły zamówienia</h1>
+<form th:action="@{/order/submit}" method="post">
+    <h1>Dostawa i płatność</h1>
 
-<table>
-    <thead>
-    <tr>
-        <th>Nazwa</th>
-        <th>Marka</th>
-        <th>Cena</th>
-        <th>Ilość</th>
-        <th>Suma</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="entry : ${orderDetails}">
-        <td th:text="${entry.key.nazwa}"></td>
-        <td th:text="${entry.key.marka}"></td>
-        <td th:text="${#numbers.formatDecimal(entry.key.cena, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
-        <td th:text="${entry.value}"></td>
-        <td th:text="${#numbers.formatDecimal(entry.key.cena * entry.value, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
+    <!-- TABELA ZAMÓWIENIA -->
+    <table>
+        <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Marka</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+            <th>Suma</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entry : ${orderDetails}">
+            <td th:text="${entry.key.nazwa}"></td>
+            <td th:text="${entry.key.marka}"></td>
+            <td th:text="${#numbers.formatDecimal(entry.key.cena, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
+            <td th:text="${entry.value}"></td>
+            <td th:text="${#numbers.formatDecimal(entry.key.cena * entry.value, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4"><strong>Łączna kwota:</strong></td>
+            <td th:text="${#numbers.formatDecimal(totalCost, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
+        </tr>
+        </tfoot>
+    </table>
 
+    <!-- Sposób dostawy -->
+    <label>Sposób dostawy:</label><br/>
+    <select name="sposobDostawy" required>
+        <option value="kurier">Kurier</option>
+        <option value="paczkomat">Paczkomat</option>
+    </select><br/><br/>
 
-    </tr>
-    </tbody>
-</table>
-
-<tfoot>
-<tr>
-    <td colspan="4"><strong>Łączna kwota:</strong></td>
-    <td th:text="${#numbers.formatDecimal(totalCost, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
-</tr>
-</tfoot>
-
-
-<h2>Adres dostawy</h2>
-
-<form action="/order/submit" method="post">
+    <!-- Adres dostawy -->
+    <h2>Adres dostawy</h2>
     <label>Ulica:</label><br/>
     <input type="text" name="ulica" required><br/><br/>
 
@@ -52,10 +56,22 @@
     <label>Kraj:</label><br/>
     <input type="text" name="kraj" required><br/><br/>
 
+    <!-- Sposób płatności -->
+    <label>Sposób płatności:</label><br/>
+    <select name="sposobPlatnosci" required>
+        <option value="przelew">Przelew</option>
+        <option value="blik">Blik</option>
+    </select><br/><br/>
+
+    <!-- Typ klienta -->
+    <label>Kupujesz jako:</label><br/>
+    <select name="typKlienta" required>
+        <option value="osobaPrywatna">Osoba prywatna</option>
+        <option value="firma">Firma</option>
+    </select><br/><br/>
+
+    <button type="submit">Złóż zamówienie</button>
 </form>
-
-<button type="submit">Złóż zamówienie</button>
-
 
 </body>
 </html>

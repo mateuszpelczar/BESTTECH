@@ -22,4 +22,44 @@ public class SzczegolyZamowienia {
 
     private Integer ilosc;
     private Float cenaJednostkowa;
+
+    public Integer getSzczegolyID() {
+        return szczegolyID;
+    }
+
+    public void setSzczegolyID(Integer szczegolyID) {
+        this.szczegolyID = szczegolyID;
+    }
+
+    public Zamowienie getZamowienie() {
+        return zamowienie;
+    }
+
+    public void setZamowienie(Zamowienie zamowienie) {
+        this.zamowienie = zamowienie;
+    }
+
+    public Produkt getProdukt() {
+        return produkt;
+    }
+
+    public void setProdukt(Produkt produkt) {
+        this.produkt = produkt;
+    }
+
+    public Integer getIlosc() {
+        return ilosc;
+    }
+
+    public void setIlosc(Integer ilosc) {
+        this.ilosc = ilosc;
+    }
+
+    public Float getCenaJednostkowa() {
+        return cenaJednostkowa;
+    }
+
+    public void setCenaJednostkowa(Float cenaJednostkowa) {
+        this.cenaJednostkowa = cenaJednostkowa;
+    }
 }

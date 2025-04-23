@@ -1,14 +1,16 @@
 package com.aplikacjazespolowa.BESTTECH.controllers;
 
-import com.aplikacjazespolowa.BESTTECH.models.AdresDostawy;
-import com.aplikacjazespolowa.BESTTECH.models.Produkt;
-import com.aplikacjazespolowa.BESTTECH.models.ProduktRepository;
+import com.aplikacjazespolowa.BESTTECH.models.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,8 +19,23 @@ import java.util.Map;
 public class OrderController {
     private final ProduktRepository produktRepository;
 
-    public OrderController(ProduktRepository produktRepository) {
+    private final AdresDostawyRepository adresDostawyRepository;
+
+    private final ZamowienieRepository zamowienieRepository;
+    private final SzczegolyZamowieniaRepository szczegolyZamowieniaRepository;
+
+    private final DostawaRepository dostawaRepository;
+    private final KlientRepository klientRepository;
+
+    public OrderController(ProduktRepository produktRepository,AdresDostawyRepository adresDostawyRepository,
+                           ZamowienieRepository zamowienieRepository, SzczegolyZamowieniaRepository szczegolyZamowieniaRepository,
+                           DostawaRepository dostawaRepository, KlientRepository klientRepository) {
         this.produktRepository = produktRepository;
+        this.adresDostawyRepository = adresDostawyRepository;
+        this.zamowienieRepository = zamowienieRepository;
+        this.szczegolyZamowieniaRepository = szczegolyZamowieniaRepository;
+        this.dostawaRepository = dostawaRepository;
+        this.klientRepository = klientRepository;
     }
 
     @GetMapping("/details")
@@ -42,6 +59,89 @@ public class OrderController {
         model.addAttribute("orderDetails", orderDetails);
         model.addAttribute("adresDostawy", new AdresDostawy());
         return "orders/details";
+    }
+
+    @PostMapping("/submit")
+    public String submitOrder(
+            @RequestParam String ulica,
+            @RequestParam String miasto,
+            @RequestParam String kodPocztowy,
+            @RequestParam String kraj,
+            @RequestParam String sposobDostawy,
+            @RequestParam String sposobPlatnosci,
+            @RequestParam String typKlienta,
+            HttpSession session
+    ) {
+        //przykladowy klient na potrzebe zamowienia (az nie bedzie klientow w bazie)
+        Klient klient = klientRepository.findById(1)
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono klienta o ID 1"));
+
+
+        Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
+        if (cart == null || cart.isEmpty()) {
+            return "redirect:/cart"; // brak produktów
+        }
+
+        // Oblicz koszt całkowity
+        float totalCost = 0;
+        Map<Produkt, Integer> produkty = new HashMap<>();
+        for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
+            produktRepository.findById(entry.getKey()).ifPresent(produkt -> {
+                produkty.put(produkt, entry.getValue());
+            });
+        }
+        for (Map.Entry<Produkt, Integer> entry : produkty.entrySet()) {
+            totalCost += entry.getKey().getCena() * entry.getValue();
+        }
+
+        // Nowy adres dostawy
+        AdresDostawy adres = new AdresDostawy();
+        adres.setUlica(ulica);
+        adres.setMiasto(miasto);
+        adres.setKodPocztowy(kodPocztowy);
+        adres.setKraj(kraj);
+        adres.setKlient(klient);
+        adresDostawyRepository.save(adres);
+
+        // Nowe zamówienie
+        Zamowienie zamowienie = new Zamowienie();
+        zamowienie.setDataZamowienia(new Date());
+        zamowienie.setStatus("w realizacji");
+        zamowienie.setKosztCalkowity(totalCost);
+        zamowienie.setKlient(klient);
+        zamowienie.setAdresDostawy(adres);
+        zamowienieRepository.save(zamowienie);
+
+        // Szczegóły zamówienia
+        for (Map.Entry<Produkt, Integer> entry : produkty.entrySet()) {
+            SzczegolyZamowienia szczegol = new SzczegolyZamowienia();
+            szczegol.setZamowienie(zamowienie);
+            szczegol.setProdukt(entry.getKey());
+            szczegol.setIlosc(entry.getValue());
+            szczegol.setCenaJednostkowa(entry.getKey().getCena());
+            szczegolyZamowieniaRepository.save(szczegol);
+        }
+
+        // Dostawa
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 1);
+        Date dataWysylki = calendar.getTime();
+
+        calendar.add(Calendar.DATE, 1);
+        Date przewidywanaDostawy = calendar.getTime();
+
+        Dostawa dostawa = new Dostawa();
+        dostawa.setZamowienie(zamowienie);
+        dostawa.setDataWysylki(dataWysylki);
+        dostawa.setPrzewidywanaDostawy(przewidywanaDostawy);
+        dostawa.setStatus("w trakcie");
+        dostawa.setMetodaDostawy(sposobDostawy);
+        dostawaRepository.save(dostawa);
+
+        // Wyczyść koszyk po złożeniu
+        session.removeAttribute("cart");
+
+        return "redirect:/order/confirmation"; // np. strona z potwierdzeniem zamówienia
     }
 
 }

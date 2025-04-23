@@ -23,6 +23,51 @@ public class Dostawa {
     private String status;
     private String metodaDostawy;
 
+    public Integer getDostawaID() {
+        return dostawaID;
+    }
 
+    public void setDostawaID(Integer dostawaID) {
+        this.dostawaID = dostawaID;
+    }
 
+    public Zamowienie getZamowienie() {
+        return zamowienie;
+    }
+
+    public void setZamowienie(Zamowienie zamowienie) {
+        this.zamowienie = zamowienie;
+    }
+
+    public Date getDataWysylki() {
+        return dataWysylki;
+    }
+
+    public void setDataWysylki(Date dataWysylki) {
+        this.dataWysylki = dataWysylki;
+    }
+
+    public Date getPrzewidywanaDostawy() {
+        return przewidywanaDostawy;
+    }
+
+    public void setPrzewidywanaDostawy(Date przewidywanaDostawy) {
+        this.przewidywanaDostawy = przewidywanaDostawy;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getMetodaDostawy() {
+        return metodaDostawy;
+    }
+
+    public void setMetodaDostawy(String metodaDostawy) {
+        this.metodaDostawy = metodaDostawy;
+    }
 }
