@@ -16,7 +16,7 @@ public class AdresDostawy {
     private Integer adresDostawyID;
 
     @ManyToOne
-    @JoinColumn(name="id", nullable=false)
+    @JoinColumn(name="userID", nullable=false)
     private DBUser klient;
 
     private String ulica;

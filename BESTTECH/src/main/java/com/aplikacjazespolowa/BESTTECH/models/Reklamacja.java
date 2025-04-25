@@ -21,5 +21,5 @@ public class Reklamacja {
     private String status;
     private Date dataZgloszenia;
     private String opis;
-    private String statuss;
+
 }

@@ -20,7 +20,7 @@ public class Zamowienie {
     private Float kosztCalkowity;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "userID")
     private DBUser klient;
 
     @ManyToOne

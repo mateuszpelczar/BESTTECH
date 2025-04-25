@@ -19,7 +19,7 @@ public class Recenzja {
     private Produkt produkt;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "userID")
     private DBUser klient;
 
     private Integer ocena;
