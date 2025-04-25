@@ -16,8 +16,8 @@ public class AdresDostawy {
     private Integer adresDostawyID;
 
     @ManyToOne
-    @JoinColumn(name="klientID", nullable=false)
-    private Klient klient;
+    @JoinColumn(name="id", nullable=false)
+    private DBUser klient;
 
     private String ulica;
 
@@ -29,11 +29,11 @@ public class AdresDostawy {
         this.adresDostawyID = adresDostawyID;
     }
 
-    public Klient getKlient() {
+    public DBUser getKlient() {
         return klient;
     }
 
-    public void setKlient(Klient klient) {
+    public void setKlient(DBUser klient) {
         this.klient = klient;
     }
 

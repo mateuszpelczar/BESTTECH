@@ -16,6 +16,8 @@
         <div class="login_email">
             <label for="email">E-mail</label>
             <input type="text" id="email" name="email" required>
+            <!-- Komunikat błędu -->
+            <p th:if="${emailError}" th:text="${emailError}" style="color: red; margin-top: 5px;"></p>
         </div>
 
         <div class="login_password">
@@ -32,6 +34,8 @@
         </div>
 
         <button type="submit" id="register">Załóż konto!</button>
+
+
     </form>
 </div>
 </body>

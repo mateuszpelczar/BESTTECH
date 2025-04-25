@@ -2,6 +2,8 @@ package com.aplikacjazespolowa.BESTTECH.controllers;
 
 import com.aplikacjazespolowa.BESTTECH.models.*;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,17 +27,18 @@ public class OrderController {
     private final SzczegolyZamowieniaRepository szczegolyZamowieniaRepository;
 
     private final DostawaRepository dostawaRepository;
-    private final KlientRepository klientRepository;
+
+    private final DBUserRepository dbUserRepository;
 
     public OrderController(ProduktRepository produktRepository,AdresDostawyRepository adresDostawyRepository,
                            ZamowienieRepository zamowienieRepository, SzczegolyZamowieniaRepository szczegolyZamowieniaRepository,
-                           DostawaRepository dostawaRepository, KlientRepository klientRepository) {
+                           DostawaRepository dostawaRepository, DBUserRepository dbUserRepository) {
         this.produktRepository = produktRepository;
         this.adresDostawyRepository = adresDostawyRepository;
         this.zamowienieRepository = zamowienieRepository;
         this.szczegolyZamowieniaRepository = szczegolyZamowieniaRepository;
         this.dostawaRepository = dostawaRepository;
-        this.klientRepository = klientRepository;
+        this.dbUserRepository = dbUserRepository;
     }
 
     @GetMapping("/details")
@@ -72,9 +75,12 @@ public class OrderController {
             @RequestParam String typKlienta,
             HttpSession session
     ) {
-        //przykladowy klient na potrzebe zamowienia (az nie bedzie klientow w bazie)
-        Klient klient = klientRepository.findById(1)
-                .orElseThrow(() -> new RuntimeException("Nie znaleziono klienta o ID 1"));
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        DBUser klient = dbUserRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono zalogowanego użytkownika"));
 
 
         Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");

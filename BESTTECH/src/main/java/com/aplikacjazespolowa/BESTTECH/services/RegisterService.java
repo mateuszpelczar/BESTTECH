@@ -26,6 +26,12 @@ public class RegisterService {
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
 
+        if (userRepo.existsByEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Użytkownik z podanym adresem e-mail już istnieje.");
+
+        }
+
+
         DBRole clientRole = roleRepo.findByName("CLIENT")
                 .orElseThrow(() -> new RuntimeException("Brak roli CLIENT w bazie"));
 

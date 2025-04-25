@@ -20,8 +20,8 @@ public class Zamowienie {
     private Float kosztCalkowity;
 
     @ManyToOne
-    @JoinColumn(name = "klientID")
-    private Klient klient;
+    @JoinColumn(name = "id")
+    private DBUser klient;
 
     @ManyToOne
     @JoinColumn(name = "adresDostawyID")
@@ -75,11 +75,11 @@ public class Zamowienie {
         this.kosztCalkowity = kosztCalkowity;
     }
 
-    public Klient getKlient() {
+    public DBUser getKlient() {
         return klient;
     }
 
-    public void setKlient(Klient klient) {
+    public void setKlient(DBUser klient) {
         this.klient = klient;
     }
 

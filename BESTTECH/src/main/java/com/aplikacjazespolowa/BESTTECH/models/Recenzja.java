@@ -19,16 +19,14 @@ public class Recenzja {
     private Produkt produkt;
 
     @ManyToOne
-    @JoinColumn(name = "klientID")
-    private Klient klient;
+    @JoinColumn(name = "id")
+    private DBUser klient;
 
     private Integer ocena;
     private String tresc;
     private Date dataDodania;
 
-    @ManyToOne
-    @JoinColumn(name = "pracownikID")
-    private Pracownik pracownik;
+
 
     public Integer getRecenzjaID() {
         return recenzjaID;
@@ -46,11 +44,11 @@ public class Recenzja {
         this.produkt = produkt;
     }
 
-    public Klient getKlient() {
+    public DBUser getKlient() {
         return klient;
     }
 
-    public void setKlient(Klient klient) {
+    public void setKlient(DBUser user) {
         this.klient = klient;
     }
 
@@ -78,11 +76,5 @@ public class Recenzja {
         this.dataDodania = dataDodania;
     }
 
-    public Pracownik getPracownik() {
-        return pracownik;
-    }
 
-    public void setPracownik(Pracownik pracownik) {
-        this.pracownik = pracownik;
-    }
 }

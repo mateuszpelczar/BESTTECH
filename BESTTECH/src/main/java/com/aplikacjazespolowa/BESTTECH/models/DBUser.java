@@ -2,6 +2,7 @@ package com.aplikacjazespolowa.BESTTECH.models;
 
 import jakarta.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -11,8 +12,30 @@ public class DBUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(unique = true)
     private String email;
     private String password;
+
+    private String imie;
+    private String nazwisko;
+    private String telefon;
+
+
+
+    // dla klienta
+
+    @OneToMany(mappedBy = "klient", cascade = CascadeType.ALL)
+    private List<AdresDostawy> adresyDostawy;
+
+    @OneToMany(mappedBy = "klient", cascade = CascadeType.ALL)
+    private List<Zamowienie> zamowienia;
+
+    @OneToMany(mappedBy = "klient", cascade = CascadeType.ALL)
+    private List<Recenzja> recenzje_klient;
+
+
+
+    //
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
