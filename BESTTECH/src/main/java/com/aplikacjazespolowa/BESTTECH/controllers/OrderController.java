@@ -144,4 +144,8 @@ public class OrderController {
         return "redirect:/order/confirmation"; // np. strona z potwierdzeniem zamówienia
     }
 
+    @GetMapping("/confirmation")
+    public String showConfirmationPage() {
+        return "orders/confirmation";
+    }
 }
