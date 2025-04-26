@@ -91,6 +91,7 @@ public class OrderController {
         // Oblicz koszt całkowity
         float totalCost = 0;
         Map<Produkt, Integer> produkty = new HashMap<>();
+
         for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
             produktRepository.findById(entry.getKey()).ifPresent(produkt -> {
                 produkty.put(produkt, entry.getValue());
@@ -120,12 +121,22 @@ public class OrderController {
 
         // Szczegóły zamówienia
         for (Map.Entry<Produkt, Integer> entry : produkty.entrySet()) {
+            Produkt produkt = entry.getKey();
+            Integer iloscZamowiona = entry.getValue();
+
+            // Tworzenie szczegółów zamówienia
             SzczegolyZamowienia szczegol = new SzczegolyZamowienia();
             szczegol.setZamowienie(zamowienie);
-            szczegol.setProdukt(entry.getKey());
-            szczegol.setIlosc(entry.getValue());
-            szczegol.setCenaJednostkowa(entry.getKey().getCena());
+            szczegol.setProdukt(produkt);
+            szczegol.setIlosc(iloscZamowiona);
+            szczegol.setCenaJednostkowa(produkt.getCena());
             szczegolyZamowieniaRepository.save(szczegol);
+
+            // Aktualizacja stanu magazynowego
+            int nowyStanMagazynowy = produkt.getStanMagazynowy() - iloscZamowiona;
+            produkt.setStanMagazynowy(nowyStanMagazynowy);
+
+            produktRepository.save(produkt); // zapisujemy zmiany w bazie
         }
 
         // Dostawa
