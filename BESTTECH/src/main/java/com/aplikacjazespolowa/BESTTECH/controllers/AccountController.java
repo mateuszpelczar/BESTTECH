@@ -1,17 +1,19 @@
 package com.aplikacjazespolowa.BESTTECH.controllers;
 
-import com.aplikacjazespolowa.BESTTECH.models.DBRole;
-import com.aplikacjazespolowa.BESTTECH.models.DBRoleRepository;
-import com.aplikacjazespolowa.BESTTECH.models.DBUser;
-import com.aplikacjazespolowa.BESTTECH.models.DBUserRepository;
+import com.aplikacjazespolowa.BESTTECH.models.*;
 import com.aplikacjazespolowa.BESTTECH.services.RegisterService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/konto")
@@ -22,6 +24,9 @@ public class AccountController {
     private final DBUserRepository userRepo;
     private final DBRoleRepository roleRepo;
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ZamowienieRepository zamowienieRepository;
 
     public AccountController(DBUserRepository userRepo, DBRoleRepository roleRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
@@ -66,6 +71,26 @@ public class AccountController {
     }
 
 
+    @GetMapping("/zamowienia")
+    public String showZamowieniaKlienta(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        DBUser user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono zalogowanego użytkownika"));
+
+        List<Zamowienie> zamowienia = zamowienieRepository.findByKlient_id(user.getId());
+
+        List<String> statusOrder = Arrays.asList("w realizacji", "w drodze", "dostarczone");
+
+        List<Zamowienie> posortowaneZamowienia = zamowienia.stream()
+                .sorted(Comparator.comparingInt(z -> statusOrder.indexOf(z.getStatus())))
+                .collect(Collectors.toList());
+
+        model.addAttribute("zamowienia", posortowaneZamowienia);
+
+        return "/konto/zamowienia";
+    }
 
 
 }
