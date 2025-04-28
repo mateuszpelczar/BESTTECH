@@ -20,10 +20,7 @@ public class DBUser {
     private String nazwisko;
     private String telefon;
 
-
-
     // dla klienta
-
     @OneToMany(mappedBy = "klient", cascade = CascadeType.ALL)
     private List<AdresDostawy> adresyDostawy;
 
@@ -33,10 +30,7 @@ public class DBUser {
     @OneToMany(mappedBy = "klient", cascade = CascadeType.ALL)
     private List<Recenzja> recenzje_klient;
 
-
-
-    //
-
+    // role
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -44,6 +38,8 @@ public class DBUser {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<DBRole> roles = new HashSet<>();
+
+    // Gettery i settery
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -53,6 +49,24 @@ public class DBUser {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public String getImie() { return imie; }
+    public void setImie(String imie) { this.imie = imie; }
+
+    public String getNazwisko() { return nazwisko; }
+    public void setNazwisko(String nazwisko) { this.nazwisko = nazwisko; }
+
+    public String getTelefon() { return telefon; }
+    public void setTelefon(String telefon) { this.telefon = telefon; }
+
+    public List<AdresDostawy> getAdresyDostawy() { return adresyDostawy; }
+    public void setAdresyDostawy(List<AdresDostawy> adresyDostawy) { this.adresyDostawy = adresyDostawy; }
+
+    public List<Zamowienie> getZamowienia() { return zamowienia; }
+    public void setZamowienia(List<Zamowienie> zamowienia) { this.zamowienia = zamowienia; }
+
+    public List<Recenzja> getRecenzje_klient() { return recenzje_klient; }
+    public void setRecenzje_klient(List<Recenzja> recenzje_klient) { this.recenzje_klient = recenzje_klient; }
 
     public Set<DBRole> getRoles() { return roles; }
     public void setRoles(Set<DBRole> roles) { this.roles = roles; }

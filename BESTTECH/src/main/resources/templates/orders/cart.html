@@ -32,8 +32,9 @@
                 <td th:text="${entry.key.nazwa}">Nazwa produktu</td>
                 <td th:text="${entry.key.cena} + ' zł'">0.00 zł</td>
                 <td>
-                    <input type="number" name="ilosc" min="1" th:value="${entry.value}" />
+                    <input type="number" name="ilosc" min="1"  th:max="${entry.key.stanMagazynowy}" th:value="${entry.value}" />
                     <input type="hidden" name="id" th:value="${entry.key.produktID}" />
+                    <p style="font-size: 12px; color: gray;">Dostępnych: <span th:text="${entry.key.stanMagazynowy}">0</span> szt.</p>
                 </td>
                 <td th:text="${#numbers.formatDecimal(entry.key.cena * entry.value, 1, 'POINT', 2, 'POINT')} + ' zł'">0.00 zł</td>
 

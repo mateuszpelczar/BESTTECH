@@ -61,13 +61,34 @@ public class CartController {
     }
 
     @PostMapping("/zmien-ilosc")
-    public String updateQuantity(@RequestParam("id") Integer produktId,
-                                 @RequestParam("ilosc") Integer ilosc,
-                                 HttpSession session) {
+    public String updateQuantities(
+            @RequestParam("id") List<Integer> ids,
+            @RequestParam("ilosc") List<Integer> ilosci,
+            HttpSession session
+    ) {
         Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
 
-        if (cart != null && ilosc > 0) {
-            cart.put(produktId, ilosc);
+        if (cart != null) {
+            for (int i = 0; i < ids.size(); i++) {
+                Integer produktId = ids.get(i);
+                Integer ilosc = ilosci.get(i);
+
+                Produkt produkt = produktRepository.findById(produktId).orElse(null);
+
+                if (produkt != null) {
+                    int dostepnaIlosc = produkt.getStanMagazynowy();
+
+                    if (ilosc > dostepnaIlosc) {
+                        ilosc = dostepnaIlosc;
+                    }
+
+                    if (ilosc > 0) {
+                        cart.put(produktId, ilosc);
+                    } else {
+                        cart.remove(produktId);
+                    }
+                }
+            }
             session.setAttribute("cart", cart);
         }
 

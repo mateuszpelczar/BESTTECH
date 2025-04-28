@@ -26,7 +26,10 @@ public class Recenzja {
     private String tresc;
     private Date dataDodania;
 
+    @Column(nullable = false)
+    private String status = "OCZEKUJACA"; // Domyślnie nowa recenzja ma status OCZEKUJACA
 
+    // Gettery i settery
 
     public Integer getRecenzjaID() {
         return recenzjaID;
@@ -48,7 +51,7 @@ public class Recenzja {
         return klient;
     }
 
-    public void setKlient(DBUser user) {
+    public void setKlient(DBUser klient) {
         this.klient = klient;
     }
 
@@ -76,5 +79,11 @@ public class Recenzja {
         this.dataDodania = dataDodania;
     }
 
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

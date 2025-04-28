@@ -41,6 +41,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/admin","/admin/manageusers","/admin/manageusers/changerole","/admin/manageemployess","/admin/logs","/admin/deleteemployee").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/admin","/admin/manageusers/changerole/save","/admin/deleteemployee","/admin/deleteemployee").hasRole("ADMIN")
 
+                        // dostęp do zarządzania opiniami tylko dla ADMIN i EMPLOYEE
+                        .requestMatchers(HttpMethod.GET, "/opinie/zarzadzaj_opiniami").hasAnyRole("ADMIN", "EMPLOYEE")
+
                         //dostep do koszyka dla niezalogowanych users
                         .requestMatchers(HttpMethod.GET,"/koszyk").permitAll()
 

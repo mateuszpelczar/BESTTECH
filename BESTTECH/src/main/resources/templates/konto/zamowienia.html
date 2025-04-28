@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zamówienia klienta</title>
+</head>
+<body>
+<h1>Twoje Zamówienia</h1>
+
+<div th:if="${#lists.isEmpty(zamowienia)}">
+    <p>Brak zamówień.</p>
+</div>
+
+<div th:unless="${#lists.isEmpty(zamowienia)}">
+    <div th:each="zamowienie : ${zamowienia}">
+        <h2>Zamówienie ID: <span th:text="${zamowienie.zamowienieID}"></span></h2>
+        <p>Status: <span th:text="${zamowienie.status}"></span></p>
+        <p>Koszt całkowity: <span th:text="${zamowienie.kosztCalkowity}"></span> zł</p>
+
+        <h3>Szczegóły zamówienia:</h3>
+        <ul>
+            <li th:each="szczegol : ${zamowienie.szczegolyZamowienia}">
+                Produkt: <span th:text="${szczegol.produkt.nazwa}"></span>,
+                Ilość: <span th:text="${szczegol.ilosc}"></span>,
+                Cena jednostkowa: <span th:text="${szczegol.cenaJednostkowa}"></span> zł
+            </li>
+        </ul>
+        <hr/>
+    </div>
+</div>
+</body>
+</html>
