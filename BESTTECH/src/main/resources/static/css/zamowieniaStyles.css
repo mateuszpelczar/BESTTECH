@@ -1,0 +1,210 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container {
+    width: 85%;
+    max-width: 1200px;
+    margin: 40px auto;
+    flex: 1;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    color: #2c3e50;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+h1:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #3498db, #9b59b6);
+}
+
+.zamowienie-box {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 4px solid #3498db;
+}
+
+.zamowienie-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.zamowienie-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.zamowienie-id {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #2c3e50;
+}
+
+.zamowienie-id span {
+    color: #7f8c8d;
+    font-weight: 400;
+}
+
+.zamowienie-status {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.status-zrealizowane {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: #27ae60;
+    border: 1px solid #2ecc71;
+}
+
+.status-w-trakcie {
+    background-color: rgba(241, 196, 15, 0.1);
+    color: #f39c12;
+    border: 1px solid #f1c40f;
+}
+
+.status-anulowane {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+.zamowienie-details {
+    margin-top: 20px;
+}
+
+.zamowienie-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.zamowienie-summary span {
+    color: #3498db;
+}
+
+.produkty-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.produkt-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.produkt-item:last-child {
+    border-bottom: none;
+}
+
+.produkt-info {
+    flex: 2;
+    font-weight: 500;
+}
+
+.produkt-quantity {
+    flex: 1;
+    text-align: center;
+    color: #7f8c8d;
+}
+
+.produkt-price {
+    flex: 1;
+    text-align: right;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.brak-zamowien {
+    text-align: center;
+    padding: 60px 0;
+    color: #95a5a6;
+    font-size: 1.2rem;
+}
+
+.brak-zamowien i {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 20px;
+    color: #bdc3c7;
+}
+
+/* Animacje */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.zamowienie-box {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .main-container {
+        width: 92%;
+    }
+
+    .zamowienie-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .produkt-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 0;
+    }
+
+    .produkt-info, .produkt-quantity, .produkt-price {
+        width: 100%;
+        text-align: left;
+    }
+
+    .produkt-quantity:before {
+        content: "Ilość: ";
+        color: #7f8c8d;
+    }
+
+    .produkt-price:before {
+        content: "Cena: ";
+        color: #7f8c8d;
+    }
+}
