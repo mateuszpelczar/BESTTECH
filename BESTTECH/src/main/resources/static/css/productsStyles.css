@@ -1,0 +1,77 @@
+.body_produktSzczegoly{
+    /* background-color: rgb(129, 129, 129); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.produkt{
+    /* background-color: rgb(188, 188, 188); */
+    width: 100%;
+    padding-bottom: 100px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    -webkit-box-shadow: inset 0px -53px 100px -100px rgba(66, 68, 90, 1);
+    -moz-box-shadow: inset 0px -53px 100px -100px rgba(66, 68, 90, 1);
+    box-shadow: inset 0px -53px 100px -100px rgba(66, 68, 90, 1);
+}
+.produkt_TextImg{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.produkt_img{
+    background-color: black;
+    width: 200px;
+    height: 200px;
+}
+.produkt_text{}
+
+.btn_addToCart{
+    border: 0px;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: #1b8700;
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+}
+
+
+.recenzje{
+    /* background-color: rgb(216, 216, 216); */
+    
+}
+
+.recenzje > h2{
+    text-align: center;
+} 
+
+.recenzja{
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.062);
+    margin: 10px 0px;
+    padding: 10px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    -webkit-box-shadow: 8px 8px 24px -9px rgba(66, 68, 90, 1);
+-moz-box-shadow: 8px 8px 24px -9px rgba(66, 68, 90, 1);
+box-shadow: 8px 8px 24px -9px rgba(66, 68, 90, 1);
+}
+
+.dane{
+    margin: 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
+}
+
+.recenzja div {
+    max-width: 100%;
+}
