@@ -8,6 +8,7 @@ body{
     flex-direction: column;
     justify-content: center;
     cursor: default;  
+    min-height: 100vh; 
 }
 
 .nav {
