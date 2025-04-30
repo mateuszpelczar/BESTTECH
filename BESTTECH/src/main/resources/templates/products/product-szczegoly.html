@@ -72,12 +72,15 @@
         <div class="produkt_TextImg">
             <div class="produkt_img"></div>
             
+            <div class="produkt_opis">
+                <p><strong>Opis:</strong> </p><p><span th:text="${produkt.opis}">Opis produktu</span></p>
+            </div>
             
             <div class="produkt_text">
-                <p><strong>Cena:</strong> <span th:text="${produkt.cena}">0.00</span> zł</p>
-                <p><strong>Opis:</strong> <span th:text="${produkt.opis}">Opis produktu</span></p>
+                
                 <p><strong>Marka:</strong> <span th:text="${produkt.marka}">Marka produktu</span></p>
                 <p><strong>Ilość w magazynie:</strong> <span th:text="${produkt.stanMagazynowy}">0</span></p>
+                <p><strong>Cena:</strong> <span th:text="${produkt.cena}">0.00</span> zł</p>
 
                 <form th:action="@{'/koszyk/dodaj/' + ${produkt.produktID}}" method="post">
                     <button type="submit" class="btn_addToCart">Dodaj do koszyka</button>
@@ -89,20 +92,21 @@
         
     </div>
 
-    <div class="recenzje">
+    <div class="recenzje_box">
         <h2>Recenzje:</h2>
         <div th:if="${#lists.isEmpty(produkt.recenzje)}">
             <p>Brak recenzji dla tego produktu.</p>
         </div>
 
-        <div class="recenzja" th:if="${!#lists.isEmpty(produkt.recenzje)}">
-            <div th:each="recenzja : ${produkt.recenzje}">
-                <div>
+        <div  th:if="${!#lists.isEmpty(produkt.recenzje)}">
+            <div class="recenzje" th:each="recenzja : ${produkt.recenzje}">
+                <div class="recenzja">
                     <p><strong>Użytkownik:</strong></p> <p class="dane" th:text="${recenzja.getKlient().getImie()}"></p>
                     <p><strong>Ocena:</strong></p> <p class="dane" th:text="${recenzja.getOcena()}">/5</p>
                     <p><strong>Data:</strong></p> <p class="dane" th:text="${#dates.format(recenzja.getDataDodania(), 'dd-MM-yyyy')}"></p>
                     <p><strong>Treść:</strong></p> <p class="dane" th:text="${recenzja.getTresc()}"></p>
                 </div>
+
             </div>
         </div>
     </div>

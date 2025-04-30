@@ -18,7 +18,7 @@
 }
 .produkt_TextImg{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-evenly;
 }
 
@@ -27,7 +27,16 @@
     width: 200px;
     height: 200px;
 }
+.produkt_opis{
+    max-width: 400px;
+}
 .produkt_text{}
+
+.produkt_opis span {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
 
 .btn_addToCart{
     border: 0px;
@@ -42,23 +51,27 @@
 
 
 .recenzje{
-    /* background-color: rgb(216, 216, 216); */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
     
 }
 
-.recenzje > h2{
+.recenzje_box > h2{
     text-align: center;
 } 
 
 .recenzja{
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.062);
-    margin: 10px 0px;
     padding: 10px;
     max-width: 500px;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 10px;
+    min-width: 200px;
     -webkit-box-shadow: 8px 8px 24px -9px rgba(66, 68, 90, 1);
 -moz-box-shadow: 8px 8px 24px -9px rgba(66, 68, 90, 1);
 box-shadow: 8px 8px 24px -9px rgba(66, 68, 90, 1);
