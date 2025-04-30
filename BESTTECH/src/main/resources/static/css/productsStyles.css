@@ -1,4 +1,6 @@
-.body_produktSzczegoly{
+/* produkt szczegoly */
+
+.body{
     /* background-color: rgb(129, 129, 129); */
     display: flex;
     flex-direction: column;
@@ -88,3 +90,27 @@ box-shadow: 8px 8px 24px -9px rgba(66, 68, 90, 1);
 .recenzja div {
     max-width: 100%;
 }
+
+/* addProduct */
+
+.btn_addProduct{
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+}
+.btn_back{
+    margin: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+.boxImputLabel{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.formAddProduct{
+    width: 350px;
+}
+

@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-<div class="body_produktSzczegoly">
+<div class="body">
     <div class="produkt">
         <h1 th:text="${produkt.getNazwa()}">Nazwa produktu</h1>
         <div class="produkt_TextImg">
@@ -101,10 +101,10 @@
         <div  th:if="${!#lists.isEmpty(produkt.recenzje)}">
             <div class="recenzje" th:each="recenzja : ${produkt.recenzje}">
                 <div class="recenzja">
-                    <p><strong>Użytkownik:</strong></p> <p class="dane" th:text="${recenzja.getKlient().getImie()}"></p>
-                    <p><strong>Ocena:</strong></p> <p class="dane" th:text="${recenzja.getOcena()}">/5</p>
-                    <p><strong>Data:</strong></p> <p class="dane" th:text="${#dates.format(recenzja.getDataDodania(), 'dd-MM-yyyy')}"></p>
-                    <p><strong>Treść:</strong></p> <p class="dane" th:text="${recenzja.getTresc()}"></p>
+                    <strong>Użytkownik:</strong> <p class="dane" th:text="${recenzja.getKlient().getImie()}"></p>
+                    <strong>Ocena:</strong> <p class="dane" th:text="${recenzja.getOcena() + ' / 5'}"></p>
+                    <strong>Data:</strong> <p class="dane" th:text="${#dates.format(recenzja.getDataDodania(), 'dd-MM-yyyy')}"></p>
+                    <strong>Treść:</strong> <p class="dane" th:text="${recenzja.getTresc()}"></p>
                 </div>
 
             </div>
