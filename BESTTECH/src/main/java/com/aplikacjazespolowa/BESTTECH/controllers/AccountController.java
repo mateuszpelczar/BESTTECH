@@ -5,11 +5,13 @@ import com.aplikacjazespolowa.BESTTECH.services.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -99,6 +101,45 @@ public class AccountController {
 
         return "/konto/zamowienia";
     }
+
+    @GetMapping("/zmien-haslo")
+    public String showChangePasswordForm() {
+        return "konto/changepassword";
+    }
+
+    @PostMapping("/zmien-haslo")
+    public String changePassword(@RequestParam String oldPassword,
+                                 @RequestParam String newPassword,
+                                 @RequestParam String confirmPassword,
+                                 Model model
+                                 ) {
+
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("error", "Nowe hasła nie są takie same.");
+            return "konto/changepassword";
+        }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+
+        DBUser user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono użytkownika."));
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            model.addAttribute("error", "Aktualne hasło jest nieprawidłowe.");
+            return "konto/changepassword";
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepo.save(user);
+        model.addAttribute("success", "Hasło zostało zmienione pomyślnie.");
+        return "konto/changepassword";
+    }
+
+
+
+
 
 
 }
