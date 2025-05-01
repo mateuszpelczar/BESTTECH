@@ -42,11 +42,19 @@ public class AccountController {
 
 
     @PostMapping("/rejestracja")
-    public String register(@RequestParam String email, @RequestParam String password, Model model) {
+    public String register(@RequestParam String email,
+                           @RequestParam String password,
+                           @RequestParam String imie,
+                           @RequestParam String nazwisko,
+                           @RequestParam String telefon,
+                           Model model) {
 
         DBUser user = new DBUser();
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
+        user.setImie(imie);
+        user.setNazwisko(nazwisko);
+        user.setTelefon(telefon);
 
         if (userRepo.existsByEmail(user.getEmail())) {
             model.addAttribute("emailError", "Użytkownik z takim e-mailem już istnieje.");

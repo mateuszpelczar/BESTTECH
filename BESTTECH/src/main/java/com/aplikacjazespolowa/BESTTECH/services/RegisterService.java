@@ -21,15 +21,18 @@ public class RegisterService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void register(String email, String password) {
+    public void register(String email, String password, String imie, String nazwisko, String telefon) {
+
+        if (userRepo.existsByEmail(email)) {
+            throw new IllegalArgumentException("Użytkownik z podanym adresem e-mail już istnieje.");
+        }
+
         DBUser user = new DBUser();
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
-
-        if (userRepo.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("Użytkownik z podanym adresem e-mail już istnieje.");
-
-        }
+        user.setImie(imie);
+        user.setNazwisko(nazwisko);
+        user.setTelefon(telefon);
 
 
         DBRole clientRole = roleRepo.findByName("CLIENT")
