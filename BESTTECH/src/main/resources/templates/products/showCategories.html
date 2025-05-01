@@ -1,51 +1,135 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
+    <link rel="stylesheet" th:href="@{/css/nav_footer.css}">
+    <link rel="stylesheet" href="../../static/css/nav_footer.css">
+
+    <link rel="stylesheet" th:href="@{/css/productsStyles.css}">
+    <link rel="stylesheet" href="../../static/css/productsStyles.css">
     <meta charset="UTF-8">
     <title>Kategorie</title>
 </head>
 <body>
-
-<h1>Lista kategorii</h1>
-
-<!-- Formularz wyszukiwania -->
-<form method="get" action="/products/showcategories">
-    <label for="search">Szukaj kategorii:</label>
-    <input type="text" id="search" name="search" th:value="${param.search}">
-    <button type="submit">Szukaj</button>
-</form>
-
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nazwa</th>
-        <th>Opis</th>
-        <th>Akcje</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="kategoria : ${kategorie}">
-        <td th:text="${kategoria.kategoriaID}"></td>
-        <td th:text="${kategoria.nazwa}"></td>
-        <td th:text="${kategoria.opis}"></td>
-        <td>
-            <!-- Przycisk edytuj -->
-            <a th:href="@{'/products/editcategory/' + ${kategoria.kategoriaID}}">
-                <button type="button">Edytuj</button>
+    <!-- Pasek nawigacji -->
+    <div class="nav">
+        <div class="nav_img"></div>
+    
+        <div class="nav_links">
+    
+            <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
+            <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
+            <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
+            <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
+            <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
+            <div class="nav_box dropdown">
+                <a href="/kategoria">Kategorie produktów</a>
+                <div class="dropdown-content">
+                    <a href="/kategoria/Smartphony">Smartphony</a>
+                    <a href="/kategoria/Laptopy">Laptopy</a>
+                    <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
+                    <a href="/kategoria/Zasilacze">Zasilacze</a>
+                    <a href="/kategoria/TV">TV</a>
+                    <a href="/kategoria">Wszystkie kategorie</a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="nav_right">
+            <div class="nav_box" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">
+                <a href="/products">Panel pracownika</a>
+            </div>
+            <div class="nav_box" sec:authorize="hasAnyRole('ADMIN')">
+                <a href="/admin">Panel admina</a>
+            </div>
+    
+            <a href="/koszyk" class="cart_icon">
+                🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
             </a>
+    
+            <div class="nav_auth" sec:authorize="isAnonymous()">
+                <a href="/konto/logowanie" class="nav_login">Logowanie</a>
+                <a href="/konto/rejestracja" class="nav_register">Rejestracja</a>
+            </div>
+    
+            <div class="nav_user" sec:authorize="isAuthenticated()">
+                <div class="user_dropdown">
+                    <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
+                    <div class="dropdown_content">
+                        <a href="#">Twoje konto</a>
+                        <a href="/konto/zamowienia">Zamówienia</a>
+                        <a href="#">Zwroty i reklamacje</a>
+                        <a href="/opinie">Opinie</a>
+                        <a href="/konto/wyloguj">Wyloguj się</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body">
+        <h1>Lista kategorii</h1>
 
-            <!-- Formularz usuwania -->
-            <form method="post" action="/products/deletecategory" style="display:inline;">
-                <input type="hidden" name="id" th:value="${kategoria.kategoriaID}">
-                <button type="submit" onclick="return confirm('Czy na pewno chcesz usunąć tę kategorię?')">Usuń</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <!-- Formularz wyszukiwania -->
+        <form class="szukajKategorii" method="get" action="/products/showcategories">
+            <input placeholder="Szukaj kategorii" type="text" id="search" name="search" th:value="${param.search}">
+            <button type="submit">Szukaj</button>
+        </form>
 
-<a href="/products">Powrót </a>
+        <div class="lista">
+            <div class="product" th:each="kategoria : ${kategorie}">
+                <div class="id_name">
+                    <div class="idName">
+                        <div th:utext="${'<strong>ID:</strong> ' + kategoria.kategoriaID}">ID: id</div>
+                    </div>
+                    <div class="nazwaName">
+                        <div th:utext="${'<strong>Nazwa:</strong> ' + kategoria.nazwa}">Nazwa: nazwa</div>
+                    </div>
+                </div>
+                    <div class="opisName">
+                        <strong>Opis:</strong>
+                        <div th:text="${kategoria.opis}">szczegółowy opis kategorii</div>
+                    </div>
+                <div>
+                    <div class="buttonsCategory">
+                        <!-- Przycisk edytuj -->
+                        <a th:href="@{'/products/editcategory/' + ${kategoria.kategoriaID}}">
+                            <button class="btn_buttonsCategory" type="button">Edytuj</button>
+                        </a>
 
+                        <!-- Formularz usuwania -->
+                        <form method="post" action="/products/deletecategory" style="display:inline;">
+                            <input type="hidden" name="id" th:value="${kategoria.kategoriaID}">
+                            <button class="btn_buttonsCategory" type="submit" onclick="return confirm('Czy na pewno chcesz usunąć tę kategorię?')">Usuń</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+        <a href="/products">Powrót </a>
+    </div>
+
+    <!-- Stopka -->
+<footer>
+    <div class="footer_logos"></div>
+    <div class="footer_box">
+        <h5>Zamówienia</h5>
+        <h6>Dostawa i płatność</h6>
+        <h6>Zwroty i reklamacje</h6>
+    </div>
+    <div class="footer_box">
+        <h5>Promocje i inspiracje</h5>
+        <h6>Wyprzedaż</h6>
+        <h6>Promocje</h6>
+    </div>
+    <div class="footer_box">
+        <h5>BEST_TECH</h5>
+        <h6>O nas</h6>
+        <h6>Regulamin</h6>
+    </div>
+</footer>
 </body>
 </html>

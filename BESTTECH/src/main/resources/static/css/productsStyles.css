@@ -132,4 +132,66 @@ box-shadow: 8px 8px 24px -9px rgba(66, 68, 90, 1);
     cursor: pointer;
 }
 
+/* show categories */
+.lista{
+    /* background-color: #1b8700; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.product{
+    border: 2px solid #e1e1e1;
+    background-color: rgb(243 243 243);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    -webkit-box-shadow: 8px 8px 24px -7px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 8px 8px 24px -7px rgba(66, 68, 90, 1);
+    box-shadow: 11px 11px 23px -16px rgba(66, 68, 90, 1);
 
+}
+.id_name{
+    /* background-color: blue; */
+}
+.idName, .nazwaName,.opisName{
+/* background-color: aqua; */
+margin: 0px 0px 10px 0px;
+}
+.opisName{
+/* background-color: chocolate; */
+max-width: 350px;
+}
+.opisName > div{
+    margin-left: 20px;
+}
+.buttonsCategory{
+    /* background-color: blueviolet; */
+    display: flex;
+    justify-content: space-evenly;
+}
+.btn_buttonsCategory{
+    padding: 5px 20px;
+}
+
+.szukajKategorii{
+    border: 1px solid #a5a5a5;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+.szukajKategorii > input{
+    margin-right: -3px;
+    border: 0;
+    border-radius: 3px;
+    padding: 5px;
+}
+.szukajKategorii > input:focus-visible{
+    outline: none;
+}
+.szukajKategorii > button{
+    border: 0;
+    border-radius: 0px 3px 3px 0px;
+    padding: 5px;
+    cursor: pointer;
+}
