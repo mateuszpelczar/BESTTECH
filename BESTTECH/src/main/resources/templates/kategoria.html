@@ -69,17 +69,11 @@
 <main>
     <h1>Przejdź do produktów dla kategorii:</h1>
 
-    <ul>
         <div th:each="kategoria : ${kategorie}">
-          <div class="out"><a class="in" th:href="@{/kategoria/{nazwa}(nazwa=${kategoria.nazwa})}" th:text="${kategoria.nazwa}">Podzespoły</a></div>
-
-          <div class="out"><a class="in" th:href="@{/kategoria/{nazwa}(nazwa=${kategoria.nazwa})}" th:text="${kategoria.nazwa}">Smarfony</a></div>
-          <div class="out"><a class="in" th:href="@{/kategoria/{nazwa}(nazwa=${kategoria.nazwa})}" th:text="${kategoria.nazwa}">akcesoria</a></div>
-          <div class="out"><a class="in" th:href="@{/kategoria/{nazwa}(nazwa=${kategoria.nazwa})}" th:text="${kategoria.nazwa}">Laptopy</a></div>
-          <div class="out"><a class="in" th:href="@{/kategoria/{nazwa}(nazwa=${kategoria.nazwa})}" th:text="${kategoria.nazwa}">zasilacze</a></div>
-          <div class="out"><a class="in" th:href="@{/kategoria/{nazwa}(nazwa=${kategoria.nazwa})}" th:text="${kategoria.nazwa}">TV</a></div>
+            <a class="out" th:href="@{/kategoria/{nazwa}(nazwa=${kategoria.nazwa})}" >
+                <div class="in" th:text="${kategoria.nazwa}">Podzespoły</div>
+            </a>
         </div>
-    </ul>
 
     <a href="/">Powrót </a>
 </main>
