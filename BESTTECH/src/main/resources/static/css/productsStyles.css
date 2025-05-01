@@ -1,15 +1,6 @@
 /* produkt szczegoly */
 
-.body{
-    /* background-color: rgb(129, 129, 129); */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    /* min-height: 100vh;  */
-    flex: 1;
-}
+
 .produkt{
     /* background-color: rgb(188, 188, 188); */
     width: 100%;

@@ -12,7 +12,7 @@
 </head>
 <body>
 <!-- Pasek nawigacji -->
-<div class="nav">
+<nav>
     <div class="nav_img"></div>
 
     <div class="nav_links">
@@ -65,9 +65,9 @@
             </div>
         </div>
     </div>
-</div>
+</nav>
 
-<div class="body">
+<main>
     <h1>Dodaj nową kategorię</h1>
 
 <form method="post" th:action="@{/products/addcategory}" class="formAddProduct">
@@ -88,7 +88,7 @@
 <p th:if="${message}" th:text="${message}" style="color: green;"></p>
 
     <button class="btn_back"><a href="/products/showproducts">Powrót do listy produktów</a></button>
-</div>
+</main>
 
 
     <!-- Stopka -->
