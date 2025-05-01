@@ -28,24 +28,14 @@
         <div class="nav_box dropdown">
             <a href="/kategoria">Kategorie produktów</a>
             <div class="dropdown-content">
-                <a href="/kategoria/Smartphony">Smartphony</a>
-                <a href="/kategoria/Laptopy">Laptopy</a>
-                <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
-                <a href="/kategoria/Zasilacze">Zasilacze</a>
-                <a href="/kategoria/TV">TV</a>
+                <a href="#">Drukarki</a>
+                <a href="#">Programy</a>
                 <a href="/kategoria">Wszystkie kategorie</a>
             </div>
         </div>
     </div>
 
     <div class="nav_right">
-        <div class="nav_box" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">
-            <a href="/products">Panel pracownika</a>
-        </div>
-        <div class="nav_box" sec:authorize="hasAnyRole('ADMIN')">
-            <a href="/admin">Panel admina</a>
-        </div>
-
         <a href="/koszyk" class="cart_icon">
             🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
         </a>
@@ -63,10 +53,13 @@
                     <a href="/konto/zamowienia">Zamówienia</a>
                     <a href="#">Zwroty i reklamacje</a>
                     <a href="/opinie">Opinie</a>
+                    <a href="/products" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Panel pracownika</a>
+                    <a href="/admin" sec:authorize="hasAnyRole('ADMIN')">Panel admina</a>
                     <a href="/konto/wyloguj">Wyloguj się</a>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 

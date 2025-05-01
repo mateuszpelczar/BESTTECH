@@ -23,8 +23,8 @@ body{
 .nav_auth{
 display: flex;
 align-items: center;
-gap: 5px;
-margin-left: 15px;
+gap: 15px;
+margin-left: 5px;
 }
 
 .nav_box{
@@ -48,7 +48,7 @@ width: 50px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 5px;
+    gap: 15px;
 }
 .nav_links > a{
 display: flex;
@@ -120,6 +120,8 @@ display:block;
 .cart-icon{
 font-size: 1.5rem;
 position:relative;
+margin-right: 5px;
+text-decoration: none;
 
 }
 
@@ -128,10 +130,10 @@ font-size:0.9rem;
 background:red;
 color:white;
 border-radius: 50%;
-padding: 2px 6px;
+padding: 2px 2px;
 position: absolute;
 top: -10px;
-right: -10px;
+right: -2px;
 }
 
 /*   Dla rozwijanej listy kategorii     */

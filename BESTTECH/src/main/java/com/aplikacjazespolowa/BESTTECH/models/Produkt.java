@@ -21,6 +21,8 @@ public class Produkt {
     private Integer stanMagazynowy;
     private String marka;
     private Date dataDodania;
+
+
     @ManyToOne
     @JoinColumn(name = "kategoriaID")
     private Kategoria kategoria;
