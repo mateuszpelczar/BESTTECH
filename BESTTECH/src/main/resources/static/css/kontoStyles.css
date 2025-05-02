@@ -3,9 +3,6 @@ body{
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .loginBody > form  {
@@ -80,3 +77,12 @@ body{
     margin-top: 10px;
     cursor: pointer;
 }
+
+
+/* changepassword */
+
+.changepassword_H2{
+    margin: 50px 0px;
+}
+
+

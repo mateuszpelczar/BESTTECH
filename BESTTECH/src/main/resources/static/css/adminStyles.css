@@ -1,0 +1,106 @@
+
+.pracownik{
+    display: flex;
+    flex-direction: column;
+}
+.pracownik > a{
+    text-align: center;
+    border: 1px solid rgb(177 177 177);
+    background-color: rgb(217 214 204);
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px 0px;
+    text-decoration: none;
+}
+
+.pracownik > a:hover{
+    border: 1px solid rgb(147 146 146);
+    background-color: rgb(209 207 198);
+}
+
+.btnBack{
+    text-align: center;
+    border: 1px solid rgb(79 79 79);
+    background-color: rgb(145 142 132);
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px 0px;
+    text-decoration: none;
+    color: #f1f1f1;
+}
+.btnBack:hover{
+    border: 1px solid rgb(39 38 38);
+    background-color: rgb(119 116 108);
+    text-decoration: none;
+}
+
+/* manage_users */
+
+.lista{
+    /* background-color: #1b8700; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.lista2{
+    /* background-color: #1b8700; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.product{
+    border: 2px solid #e1e1e1;
+    background-color: rgb(243 243 243);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    -webkit-box-shadow: 8px 8px 24px -7px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 8px 8px 24px -7px rgba(66, 68, 90, 1);
+    box-shadow: 11px 11px 23px -16px rgba(66, 68, 90, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.buttonsCategory{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+}
+.btn_changeRole{
+    padding: 5px 20px;
+    margin: 15px 0px 5px 0px;
+    border: 1px solid #0000005e;
+    background: #ffffff61;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.btn_changeRole:hover{
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.06);
+}
+.allText{
+    margin: 0px 0px 5px 0px;
+}
+.allText > span{
+    margin-left: 15px;
+}
+
+/* changeRole */
+
+.btn_save_changeRole{
+    margin: 15px 0px;
+    padding: 10px;
+    border-radius: 7px;
+    border: 1px solid #979797;
+}
+.form_changeRole{
+    display: flex;
+    flex-direction: column;
+}
+
+
+

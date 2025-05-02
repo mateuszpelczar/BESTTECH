@@ -1,33 +1,115 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
+    <link rel="stylesheet" th:href="@{/css/nav_footer.css}">
+    <link rel="stylesheet" href="../../static/css/nav_footer.css">
+
+    <link rel="stylesheet" th:href="@{/css/adminStyles.css}">
+    <link rel="stylesheet" href="../../static/css/adminStyles.css">
     <meta charset="UTF-8">
     <title>Zmień role użytkownika</title>
 </head>
 <body>
-
+        <!-- Pasek nawigacji -->
+        <nav>
+            <div class="nav_img"></div>
+        
+            <div class="nav_links">
+        
+                <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
+                <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
+                <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
+                <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
+                <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
+                <div class="nav_box dropdown">
+                    <a href="/kategoria">Kategorie produktów</a>
+                    <div class="dropdown-content">
+                        <a href="/kategoria/Smartphony">Smartphony</a>
+                        <a href="/kategoria/Laptopy">Laptopy</a>
+                        <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
+                        <a href="/kategoria/Zasilacze">Zasilacze</a>
+                        <a href="/kategoria/TV">TV</a>
+                        <a href="/kategoria">Wszystkie kategorie</a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="nav_right">
+                <div class="nav_box" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">
+                    <a href="/products">Panel pracownika</a>
+                </div>
+                <div class="nav_box" sec:authorize="hasAnyRole('ADMIN')">
+                    <a href="/admin">Panel admina</a>
+                </div>
+        
+                <a href="/koszyk" class="cart_icon">
+                    🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+                </a>
+        
+                <div class="nav_auth" sec:authorize="isAnonymous()">
+                    <a href="/konto/logowanie" class="nav_login">Logowanie</a>
+                    <a href="/konto/rejestracja" class="nav_register">Rejestracja</a>
+                </div>
+        
+                <div class="nav_user" sec:authorize="isAuthenticated()">
+                    <div class="user_dropdown">
+                        <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
+                        <div class="dropdown_content">
+                            <a href="#">Twoje konto</a>
+                            <a href="/konto/zamowienia">Zamówienia</a>
+                            <a href="#">Zwroty i reklamacje</a>
+                            <a href="/opinie">Opinie</a>
+                            <a href="/konto/wyloguj">Wyloguj się</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    
+  <main>
 <h1>Zmień role użytkownika</h1>
 
 <p><strong>Email:</strong> <span th:text="${user.email}">email@example.com</span></p>
 
-<form th:action="@{/admin/manageusers/changerole/save}" method="post">
+<form class="form_changeRole" th:action="@{/admin/manageusers/changerole/save}" method="post">
     <input type="hidden" th:name="userId" th:value="${user.id}"/>
 
     <p><strong>Dostępne role:</strong></p>
-    <ul>
-        <li th:each="role : ${allRoles}">
+    
+        <div th:each="role : ${allRoles}">
             <label>
                 <input type="checkbox" name="roleIds"
                        th:value="${role.id}"
                        th:checked="${user.roles.contains(role)}"/>
                 <span th:text="${role.name}">ROLE_USER</span>
             </label>
-        </li>
-    </ul>
+        </div>
+    
 
-    <button type="submit">Zapisz</button>
+    <button class="btn_save_changeRole" type="submit">Zapisz</button>
 </form>
 
 <a href="/admin/manageusers"><h4>Powrót</h4></a>
+
+</main>
+<!-- Stopka -->
+<footer>
+    <div class="footer_logos"></div>
+    <div class="footer_box">
+        <h5>Zamówienia</h5>
+        <h6>Dostawa i płatność</h6>
+        <h6>Zwroty i reklamacje</h6>
+    </div>
+    <div class="footer_box">
+        <h5>Promocje i inspiracje</h5>
+        <h6>Wyprzedaż</h6>
+        <h6>Promocje</h6>
+    </div>
+    <div class="footer_box">
+        <h5>BEST_TECH</h5>
+        <h6>O nas</h6>
+        <h6>Regulamin</h6>
+    </div>
+</footer>
 </body>
 </html>
