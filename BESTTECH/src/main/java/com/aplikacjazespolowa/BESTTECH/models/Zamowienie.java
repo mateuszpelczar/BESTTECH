@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -129,5 +130,11 @@ public class Zamowienie {
 
     public void setZwroty(List<Zwrot> zwroty) {
         this.zwroty = zwroty;
+    }
+
+    @Transient
+    public long getDniOdZamowienia() {
+        if (dataZamowienia == null) return Long.MAX_VALUE;
+        return ChronoUnit.DAYS.between(dataZamowienia.toInstant(), new Date().toInstant());
     }
 }

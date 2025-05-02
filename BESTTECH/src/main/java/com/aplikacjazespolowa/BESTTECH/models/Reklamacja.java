@@ -22,4 +22,21 @@ public class Reklamacja {
     private Date dataZgloszenia;
     private String opis;
 
+    public void setZamowienie(Zamowienie zamowienie) {
+        this.zamowienie = zamowienie;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setDataZgloszenia(Date dataZgloszenia) {
+        this.dataZgloszenia = dataZgloszenia;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
+
+
 }

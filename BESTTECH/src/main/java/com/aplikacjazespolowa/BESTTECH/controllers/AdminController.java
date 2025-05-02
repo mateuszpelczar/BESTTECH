@@ -121,6 +121,15 @@ public class AdminController {
     }
 
 
+    @Autowired
+    private ZamowienieRepository zamowienieRepository;
+
+    @GetMapping("/zwroty-reklamacje-administrator")
+    public String zarzadzanieZwrotamiReklamacji(Model model) {
+        List<Zamowienie> zamowienia = zamowienieRepository.findAll();
+        model.addAttribute("zamowienia", zamowienia);
+        return "admin/returnsMOD";
+    }
 
 
 
