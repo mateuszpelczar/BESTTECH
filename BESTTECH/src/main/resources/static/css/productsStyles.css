@@ -17,6 +17,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .produkt_img{
@@ -186,3 +187,10 @@ max-width: 350px;
     padding: 5px;
     cursor: pointer;
 }
+
+@media (max-width: 400px) {
+    .produkt_TextImg {
+        align-items: center;
+        flex-direction: column;
+    }
+    }

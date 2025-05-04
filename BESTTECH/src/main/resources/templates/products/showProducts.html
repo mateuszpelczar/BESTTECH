@@ -92,7 +92,7 @@
     <button type="submit">Filtruj</button>
 </form>
 
-<table border="1">
+<!-- <table border="1">
     <thead>
     <tr>
         <th>ID</th>
@@ -114,21 +114,67 @@
         <td th:text="${produkt.marka}"></td>
         <td th:text="${produkt.kategoria != null ? produkt.kategoria.nazwa : 'Brak kategorii'}"></td>
         <td th:text="${produkt.stanMagazynowy}"></td>
-        <td>
+        <td> -->
         <!-- Przycisk edytuj -->
-        <a th:href="@{'/products/editproduct/' + ${produkt.produktID}}">
+        <!-- <a th:href="@{'/products/editproduct/' + ${produkt.produktID}}">
             <button type="button">Edytuj</button>
-        </a>
+        </a> -->
 
         <!-- Formularz usuwania -->
-        <form method="post" action="/products/deleteproduct" style="...">
+        <!-- <form method="post" action="/products/deleteproduct" style="...">
             <input type="hidden" name="id" th:value="${produkt.produktID}">
             <button type="submit" onclick="return confirm('Czy na pewno chcesz usunąć ten produkt?')">Usuń</button>
         </form>
         </td>
     </tr>
     </tbody>
-</table>
+</table> -->
+
+
+
+<div class="lista">
+    <div class="product" th:each="produkt : ${produkty}">
+        <div class="id_name">
+            <div class="idName">
+                <div th:utext="${'<strong>ID:</strong> ' + produkt.produktID}">ID: id</div>
+            </div>
+            <div class="nazwaName">
+                <div th:utext="${'<strong>Nazwa:</strong> ' + produkt.nazwa}">Nazwa: nazwa</div>
+            </div>
+            <div class="nazwaName">
+                <div th:utext="${'<strong>Marka:</strong> ' + produkt.marka}">Marka: Marka</div>
+            </div>
+            <div class="nazwaName">
+                <div th:utext="${'<strong>Kategoria:</strong> ' + (produkt.kategoria != null ? produkt.kategoria.nazwa : 'Brak kategorii')}">Kategoria: kategoria</div>
+            </div>
+            <div class="nazwaName">
+                <div th:utext="${'<strong>Stan magazynowy:</strong> ' + produkt.stanMagazynowy}">Stan magazynowy: Stan magazynowy</div>
+            </div>
+            <div class="nazwaName">
+                <div th:utext="${'<strong>Cena:</strong> ' + produkt.cena}">Cena: Cena</div>
+            </div>
+        </div>
+            <div class="opisName">
+                <strong>Opis:</strong>
+                <div th:text="${produkt.opis}">szczegółowy opis kategorii</div>
+            </div>
+        <div>
+            <div class="buttonsCategory">
+                <!-- Przycisk edytuj -->
+                <a th:href="@{'/products/editproduct/' + ${produkt.produktID}}">
+                    <button class="btn_buttonsCategory" type="button">Edytuj</button>
+                </a>
+
+                <!-- Formularz usuwania -->
+                <form method="post" action="/products/deleteproduct" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${produkt.produktID}">
+                    <button class="btn_buttonsCategory" type="submit" onclick="return confirm('Czy na pewno chcesz usunąć ten produkt?')">Usuń</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <a href="/products">Powrót </a>
 </main>
