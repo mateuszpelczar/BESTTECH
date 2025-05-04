@@ -11,61 +11,72 @@
     <title>Edycja produktu</title>
 </head>
 <body>
-<!-- Pasek nawigacji -->
-<nav>
-    <div class="nav_img"></div>
-
-    <div class="nav_links">
-
-        <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
-        <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
-        <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
-        <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
-        <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
-        <div class="nav_box dropdown">
-            <a href="/kategoria">Kategorie produktów</a>
+    <!-- Pasek nawigacji -->
+    <nav>
+        <div class="nav_img"></div>
+    
+        <div class="nav_links">
+    
+            <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
+            <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
+            <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
+            <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
+            <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
+            <div class="nav_box dropdown">
+                <a href="/kategoria">Kategorie produktów</a>
+                <div class="dropdown-content">
+                    <a href="#">Drukarki</a>
+                    <a href="#">Programy</a>
+                    <a href="/kategoria">Wszystkie kategorie</a>
+                </div>
+            </div>
+            <div class="nav_box2 dropdown2">
+                <a href="/kategoria">Kategorie produktów</a>
             <div class="dropdown-content">
-                <a href="/kategoria/Smartphony">Smartphony</a>
-                <a href="/kategoria/Laptopy">Laptopy</a>
-                <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
-                <a href="/kategoria/Zasilacze">Zasilacze</a>
-                <a href="/kategoria/TV">TV</a>
-                <a href="/kategoria">Wszystkie kategorie</a>
+                    <a href="/kategoria/Smartphony">Smartphony</a>
+                    <a href="/kategoria/Laptopy">Laptopy</a>
+                    <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
+                    <a href="/kategoria/Zasilacze">Zasilacze</a>
+                    <a href="/kategoria/TV">TV</a>
+                    <a href="#">Drukarki</a>
+                    <a href="#">Programy</a>
+                    <a href="/kategoria">Wszystkie kategorie</a>
             </div>
         </div>
-    </div>
-
-    <div class="nav_right">
-        <div class="nav_box" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">
-            <a href="/products">Panel pracownika</a>
+    
+            </div>
         </div>
-        <div class="nav_box" sec:authorize="hasAnyRole('ADMIN')">
-            <a href="/admin">Panel admina</a>
-        </div>
-
-        <a href="/koszyk" class="cart_icon">
-            🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
-        </a>
-
-        <div class="nav_auth" sec:authorize="isAnonymous()">
-            <a href="/konto/logowanie" class="nav_login">Logowanie</a>
-            <a href="/konto/rejestracja" class="nav_register">Rejestracja</a>
-        </div>
-
-        <div class="nav_user" sec:authorize="isAuthenticated()">
-            <div class="user_dropdown">
-                <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
-                <div class="dropdown_content">
-                    <a href="#">Twoje konto</a>
-                    <a href="/konto/zamowienia">Zamówienia</a>
-                    <a href="#">Zwroty i reklamacje</a>
-                    <a href="/opinie">Opinie</a>
-                    <a href="/konto/wyloguj">Wyloguj się</a>
+    
+        <div class="nav_right">
+            <a href="/koszyk" class="cart_icon">
+                🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+            </a>
+    
+            <div class="nav_auth" sec:authorize="isAnonymous()">
+                <a href="/konto/logowanie" class="nav_login">Logowanie</a>
+                <!-- <a href="/konto/rejestracja" class="nav_register">Rejestracja</a> -->
+            </div>
+    
+            <div class="nav_user" sec:authorize="isAuthenticated()">
+                <div class="user_dropdown">
+                    <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
+                    <div class="dropdown_content">
+                        <a href="/koszyk" class="cart_icon2">
+                            koszyk: <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+                        </a>
+                        <a href="/konto/zmien-haslo">Twoje konto (zmiana hasla)</a>
+                        <a href="/konto/zamowienia">Zamówienia</a>
+                        <a href="/zwroty-reklamacje">Zwroty i reklamacje</a>
+                        <a href="/opinie">Opinie</a>
+                        <a href="/products" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Panel pracownika</a>
+                        <a href="/admin" sec:authorize="hasAnyRole('ADMIN')">Panel admina</a>
+                        <a href="/konto/wyloguj">Wyloguj się</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</nav>
+        </div>
+    </nav>
 <main>
     <h1>Edytuj produkt</h1>
 

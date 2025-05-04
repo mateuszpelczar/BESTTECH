@@ -33,12 +33,17 @@ nav {
 .nav_auth{
 display: flex;
 align-items: center;
-gap: 15px;
+gap: 5px;
 margin-left: 5px;
 }
 
 .nav_box{
 margin: 4px;
+text-align: center;
+}
+.nav_box2{
+    display: none;
+    text-align: center;
 }
 
 .nav_img{
@@ -60,6 +65,11 @@ width: 50px;
     align-items: center;
     gap: 15px;
 }
+
+.cart_icon2{
+display: none;
+}
+
 .nav_links > a{
 display: flex;
 justify-content: flex-start;
@@ -72,11 +82,16 @@ color: rgb(240, 240, 240);
 }
 
 .nav_login{
-background-color: green;
-color: rgb(240, 240, 240);
+    background-color: green;
+    color: rgb(240, 240, 240);
+    padding: 7px;
+    border-radius: 5px;
 }
 .nav_register{
-background-color: rgb(67, 67, 67);
+    background-color: rgb(67, 67, 67);
+    padding: 7px;
+    border-radius: 5px;
+    color: white;
 }
 a{
 text-decoration: none;
@@ -120,11 +135,16 @@ right: 0;
 }
 
 .dropdown_content a:hover{
-background-color: #eee;
+    background-color: #0000000a;
 }
 
 .user_dropdown:hover .dropdown_content{
-display:block;
+    display: block;
+    background-color: rgba(255, 255, 255, 1);
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 1) 7%, rgb(231 231 231) 100%);
+    border-radius: 0px 0px 0px 15px;
+    border: solid #d5d5d5;
+    border-width: 0px 0px 3px 2px;
 }
 
 .cart-icon{
@@ -152,6 +172,13 @@ right: -2px;
 .dropdown {
     position: relative; /* Ustawia kontekst dla absolutnie pozycjonowanej listy */
     display: flex; /* Zachowaj flex, aby link był wyśrodkowany */
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdown2 {
+    position: relative; /* Ustawia kontekst dla absolutnie pozycjonowanej listy */
+    display: none; /* Zachowaj flex, aby link był wyśrodkowany */
     justify-content: center;
     align-items: center;
 }
@@ -215,4 +242,42 @@ footer{
 .footer_box > h6{
     font-weight: 100;
     cursor: pointer;
+}
+
+@media (max-width: 980px) {
+    .dropdown{
+        display: none;
+    }
+    .dropdown2{
+        display: flex;
+    }
+    .nav_box{
+        display: none;
+    }
+    .nav_box2{
+        display: flex;
+    }
+    .user_name{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 500px) {
+    .cart_icon2{
+        display: flex;
+        }
+    .cart_icon{
+        display: none;
+        }
+    .nav_img {
+        margin-right: 5px;
+    }
+    }
+
+@media (max-width: 400px) {
+nav{
+    padding: 0px 1px;
+}
 }
