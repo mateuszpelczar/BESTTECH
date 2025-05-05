@@ -3,12 +3,84 @@
 <head>
     <title>Szczegóły zamówienia</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/nav_footer.css}">
+    <link rel="stylesheet" href="../../static/css/nav_footer.css">
+
+    <link rel="stylesheet" th:href="@{/css/ordersStyles.css}">
+    <link rel="stylesheet" href="../../static/css/ordersStyles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+        <!-- Pasek nawigacji -->
+        <nav>
+            <div class="nav_img"></div>
+        
+            <div class="nav_links">
+        
+                <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
+                <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
+                <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
+                <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
+                <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
+                <div class="nav_box dropdown">
+                    <a href="/kategoria">Kategorie produktów</a>
+                    <div class="dropdown-content">
+                        <a href="#">Drukarki</a>
+                        <a href="#">Programy</a>
+                        <a href="/kategoria">Wszystkie kategorie</a>
+                    </div>
+                </div>
+                <div class="nav_box2 dropdown2">
+                    <a href="/kategoria">Kategorie produktów</a>
+                <div class="dropdown-content">
+                        <a href="/kategoria/Smartphony">Smartphony</a>
+                        <a href="/kategoria/Laptopy">Laptopy</a>
+                        <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
+                        <a href="/kategoria/Zasilacze">Zasilacze</a>
+                        <a href="/kategoria/TV">TV</a>
+                        <a href="#">Drukarki</a>
+                        <a href="#">Programy</a>
+                        <a href="/kategoria">Wszystkie kategorie</a>
+                </div>
+            </div>
+        
+                </div>
+            </div>
+        
+            <div class="nav_right">
+                <a href="/koszyk" class="cart_icon">
+                    🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+                </a>
+        
+                <div class="nav_auth" sec:authorize="isAnonymous()">
+                    <a href="/konto/logowanie" class="nav_login">Logowanie</a>
+                    <!-- <a href="/konto/rejestracja" class="nav_register">Rejestracja</a> -->
+                </div>
+        
+                <div class="nav_user" sec:authorize="isAuthenticated()">
+                    <div class="user_dropdown">
+                        <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
+                        <div class="dropdown_content">
+                            <a href="/koszyk" class="cart_icon2">
+                                koszyk: <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+                            </a>
+                            <a href="/konto/zmien-haslo">Twoje konto (zmiana hasla)</a>
+                            <a href="/konto/zamowienia">Zamówienia</a>
+                            <a href="/zwroty-reklamacje">Zwroty i reklamacje</a>
+                            <a href="/opinie">Opinie</a>
+                            <a href="/products" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Panel pracownika</a>
+                            <a href="/admin" sec:authorize="hasAnyRole('ADMIN')">Panel admina</a>
+                            <a href="/konto/wyloguj">Wyloguj się</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </nav>
+            <main>
 <form th:action="@{/order/submit}" method="post">
     <h1>Dostawa i płatność</h1>
-
+<div class="">
     <!-- TABELA ZAMÓWIENIA -->
     <table>
         <thead>
@@ -36,7 +108,26 @@
         </tr>
         </tfoot>
     </table>
+</div>
+ 
+<div class="adresAndMore">
+    <div class="ordersAdres">
+        <!-- Adres dostawy -->
+        
+        <h2>Adres dostawy</h2>
+        <label>Ulica:</label><br/>
+        <input type="text" name="ulica" required><br/><br/>
 
+        <label>Miasto:</label><br/>
+        <input type="text" name="miasto" required><br/><br/>
+
+        <label>Kod pocztowy:</label><br/>
+        <input type="text" name="kodPocztowy" required><br/><br/>
+
+        <label>Kraj:</label><br/>
+        <input type="text" name="kraj" required><br/><br/>
+    </div>
+    <div class="">
     <!-- Sposób dostawy -->
     <label>Sposób dostawy:</label><br/>
     <select name="sposobDostawy" required>
@@ -44,35 +135,41 @@
         <option value="paczkomat">Paczkomat</option>
     </select><br/><br/>
 
-    <!-- Adres dostawy -->
-    <h2>Adres dostawy</h2>
-    <label>Ulica:</label><br/>
-    <input type="text" name="ulica" required><br/><br/>
+        <!-- Sposób płatności -->
+        <label>Sposób płatności:</label><br/>
+        <select name="sposobPlatnosci" required>
+            <option value="gotowka">Gotówka</option>
+        </select><br/><br/>
 
-    <label>Miasto:</label><br/>
-    <input type="text" name="miasto" required><br/><br/>
-
-    <label>Kod pocztowy:</label><br/>
-    <input type="text" name="kodPocztowy" required><br/><br/>
-
-    <label>Kraj:</label><br/>
-    <input type="text" name="kraj" required><br/><br/>
-
-    <!-- Sposób płatności -->
-    <label>Sposób płatności:</label><br/>
-    <select name="sposobPlatnosci" required>
-        <option value="gotowka">Gotówka</option>
-    </select><br/><br/>
-
-    <!-- Typ klienta -->
-    <label>Kupujesz jako:</label><br/>
-    <select name="typKlienta" required>
-        <option value="osobaPrywatna">Osoba prywatna</option>
-        <option value="firma">Firma</option>
-    </select><br/><br/>
-
+        <!-- Typ klienta -->
+        <label>Kupujesz jako:</label><br/>
+        <select name="typKlienta" required>
+            <option value="osobaPrywatna">Osoba prywatna</option>
+            <option value="firma">Firma</option>
+        </select><br/><br/>
+    </div>
+</div>
     <button type="submit">Złóż zamówienie</button>
 </form>
-
+</main>
+<!-- Stopka -->
+<footer>
+    <div class="footer_logos"></div>
+    <div class="footer_box">
+        <h5>Zamówienia</h5>
+        <h6>Dostawa i płatność</h6>
+        <h6>Zwroty i reklamacje</h6>
+    </div>
+    <div class="footer_box">
+        <h5>Promocje i inspiracje</h5>
+        <h6>Wyprzedaż</h6>
+        <h6>Promocje</h6>
+    </div>
+    <div class="footer_box">
+        <h5>BEST_TECH</h5>
+        <h6>O nas</h6>
+        <h6>Regulamin</h6>
+    </div>
+</footer>
 </body>
 </html>

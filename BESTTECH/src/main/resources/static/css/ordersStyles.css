@@ -1,0 +1,9 @@
+.adresAndMore{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+.ordersAdres{
+    margin: 0px 20px;
+
+}
