@@ -56,6 +56,14 @@
     justify-content: center;
     
 }
+.recenzje_box{
+    width: 100%;
+    margin-top: 40px;
+    padding-top: 20px;
+    -webkit-box-shadow: inset 0px 53px 100px -100px rgba(66, 68, 90, 1);
+    -moz-box-shadow: inset 0px -53px 100px -100px rgba(66, 68, 90, 1);
+    box-shadow: inset 0px 53px 100px -100px rgba(66, 68, 90, 1);
+}
 
 .recenzje_box > h2{
     text-align: center;
@@ -187,6 +195,46 @@ max-width: 350px;
     padding: 5px;
     cursor: pointer;
 }
+
+/* produkt-szczegoly */
+
+.recommended{
+    padding: 0 10%;
+    }
+    .recomended_items{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+        align-content: center;
+        margin: 0px 30px;
+        overflow-x: overlay;
+    }
+    
+    .recomended_item{
+        border: 1px solid rgba(128, 128, 128, 0.253);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 150px;
+        height: 250px;
+        padding: 10px;
+        margin: 10px;
+    }
+    .recomended_item_img{
+        background-color: rgb(174, 174, 174);
+        width: 150px;
+        height: 150px;
+    }
+    .recomended_item_name{
+    
+    }
+    .recomended_item_price{
+    font-weight: bolder;
+}
+
+
 
 @media (max-width: 400px) {
     .produkt_TextImg {
