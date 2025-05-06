@@ -84,7 +84,7 @@ color: rgb(240, 240, 240);
 
 .nav_login{
     background-color: green;
-    color: rgb(240, 240, 240);
+    color: rgb(240, 240, 240) !important;
     padding: 7px;
     border-radius: 5px;
 }
@@ -92,11 +92,11 @@ color: rgb(240, 240, 240);
     background-color: rgb(67, 67, 67);
     padding: 7px;
     border-radius: 5px;
-    color: white;
+    color: rgb(240, 240, 240) !important;
 }
 a{
-text-decoration: none;
-color: black;
+text-decoration: none !important;
+color: black !important;
 }
 
 a:hover{
