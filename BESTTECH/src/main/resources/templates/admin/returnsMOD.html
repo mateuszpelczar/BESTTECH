@@ -1,12 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>Zwroty i Reklamacje - panel zarządzania</title>
+    <link rel="stylesheet" th:href="@{/css/mainStyles.css}">
+    <link rel="stylesheet" th:href="@{/css/nav_footer.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-centered {
+            margin-left: auto;
+            margin-right: auto;
+            float: none;
+        }
+        .disabled-button {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+    </style>
 </head>
-<body>
-<h1>Tutaj będzie panel admina i pracownika do zarządzania zwrotami i recenzajmi </h1>
+<body class="bg-light">
 
+<nav>
+    <div class="nav_img"></div>
+
+    <div class="nav_links">
+
+        <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
+        <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
+        <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
+        <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
+        <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
+        <div class="nav_box dropdown">
+            <a href="/kategoria">Kategorie produktów</a>
+            <div class="dropdown-content">
+                <a href="#">Drukarki</a>
+                <a href="#">Programy</a>
+                <a href="/kategoria">Wszystkie kategorie</a>
+            </div>
+        </div>
+        <div class="nav_box2 dropdown2">
+            <a href="/kategoria">Kategorie produktów</a>
+            <div class="dropdown-content">
+                <a href="/kategoria/Smartphony">Smartphony</a>
+                <a href="/kategoria/Laptopy">Laptopy</a>
+                <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
+                <a href="/kategoria/Zasilacze">Zasilacze</a>
+                <a href="/kategoria/TV">TV</a>
+                <a href="#">Drukarki</a>
+                <a href="#">Programy</a>
+                <a href="/kategoria">Wszystkie kategorie</a>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <div class="nav_right">
+        <a href="/koszyk" class="cart_icon">
+            🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+        </a>
+
+        <div class="nav_auth" sec:authorize="isAnonymous()">
+            <a href="/konto/logowanie" class="nav_login">Logowanie</a>
+            <!-- <a href="/konto/rejestracja" class="nav_register">Rejestracja</a> -->
+        </div>
+
+        <div class="nav_user" sec:authorize="isAuthenticated()">
+            <div class="user_dropdown">
+                <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
+                <div class="dropdown_content">
+                    <a href="/koszyk" class="cart_icon2">
+                        koszyk: <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+                    </a>
+                    <a href="/konto/zmien-haslo">Twoje konto (zmiana hasla)</a>
+                    <a href="/konto/zamowienia">Zamówienia</a>
+                    <a href="/zwroty-reklamacje">Zwroty i reklamacje</a>
+                    <a href="/opinie">Opinie</a>
+                    <a href="/products" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Panel pracownika</a>
+                    <a href="/admin" sec:authorize="hasAnyRole('ADMIN')">Panel admina</a>
+                    <a href="/konto/wyloguj">Wyloguj się</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</nav>
+
+<main>
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">Panel admina – Zwroty i Reklamacje</h1>
+
+        <div class="mb-5 text-center">
+            <h4 class="text-success">Zaakceptowane:</h4>
+            <ul class="list-unstyled">
+                <li th:each="zamowienie : ${zamowienia}" th:if="${zamowienie.zwroty.?[status == 'zaakceptowany'].size() > 0}">
+                    Zwrot – zamówienie <b th:text="${zamowienie.zamowienieID}"></b> – <span th:text="${zamowienie.klient.email}"></span>
+                </li>
+                <li th:each="zamowienie : ${zamowienia}" th:if="${zamowienie.reklamacje.?[status == 'zaakceptowana'].size() > 0}">
+                    Reklamacja – zamówienie <b th:text="${zamowienie.zamowienieID}"></b> – <span th:text="${zamowienie.klient.email}"></span>
+                </li>
+            </ul>
+
+            <h4 class="text-danger mt-4">Odrzucone:</h4>
+            <ul class="list-unstyled">
+                <li th:each="zamowienie : ${zamowienia}" th:if="${zamowienie.zwroty.?[status == 'odrzucony'].size() > 0}">
+                    Zwrot – zamówienie <b th:text="${zamowienie.zamowienieID}"></b> – <span th:text="${zamowienie.klient.email}"></span>
+                </li>
+                <li th:each="zamowienie : ${zamowienia}" th:if="${zamowienie.reklamacje.?[status == 'odrzucona'].size() > 0}">
+                    Reklamacja – zamówienie <b th:text="${zamowienie.zamowienieID}"></b> – <span th:text="${zamowienie.klient.email}"></span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Lista wszystkich zgłoszeń -->
+        <div class="row" th:each="zamowienie : ${zamowienia}">
+            <div class="col-md-8 card-centered mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">
+                            Zamówienie <span th:text="${zamowienie.zamowienieID}">ID</span> –
+                            <span th:text="${zamowienie.klient.email}">email</span> –
+                            <span th:text="${zamowienie.szczegolyZamowienia[0].produkt.nazwa}">Produkt</span>
+                        </h5>
+
+                        <p class="text-muted text-center">
+                            Data zamówienia: <span th:text="${#dates.format(zamowienie.dataZamowienia, 'dd.MM.yyyy')}"></span> |
+                            Dni od zamówienia:
+                            <span th:text="${dniOdZamowieniaMap[zamowienie.zamowienieID]}"></span>
+                        </p>
+
+                        <!-- Zwroty -->
+                        <div th:if="${zamowienie.zwroty != null and !zamowienie.zwroty.isEmpty()}">
+                            <h6 class="text-primary">Zwroty:</h6>
+                            <div th:each="zwrot : ${zamowienie.zwroty}" class="mb-3 border p-3 rounded bg-white">
+                                <p><strong>Status:</strong> <span th:text="${zwrot.status}"></span></p>
+                                <p><strong>Data zgłoszenia:</strong> <span th:text="${#dates.format(zwrot.dataZwrotu, 'dd.MM.yyyy')}"></span></p>
+                                <p><strong>Powód:</strong> <span th:text="${zwrot.powod}"></span></p>
+                                <p><strong>Komentarz administratora:</strong> <span th:text="${zwrot.komentarzAdmina}">brak</span></p>
+
+                                <form th:action="@{/admin/zwroty/dodaj-komentarz}" method="post" class="mb-3">
+                                    <input type="hidden" name="zwrotID" th:value="${zwrot.zwrotID}" />
+                                    <textarea class="form-control mb-2" name="komentarz" placeholder="Dodaj komentarz..."></textarea>
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">Zapisz komentarz</button>
+                                </form>
+
+                                <div class="d-flex gap-2 mt-2">
+                                    <form th:action="@{/admin/zwroty/akceptuj}" method="post">
+                                        <input type="hidden" name="zwrotID" th:value="${zwrot.zwrotID}" />
+                                        <button type="submit" class="btn btn-success"
+                                                th:classappend="${zwrot.status == 'zaakceptowany' or zwrot.status == 'odrzucony'} ? ' disabled-button'">
+                                            Akceptuj
+                                        </button>
+                                    </form>
+                                    <form th:action="@{/admin/zwroty/odrzuc}" method="post">
+                                        <input type="hidden" name="zwrotID" th:value="${zwrot.zwrotID}" />
+                                        <button type="submit" class="btn btn-danger"
+                                                th:classappend="${zwrot.status == 'zaakceptowany' or zwrot.status == 'odrzucony'} ? ' disabled-button'">
+                                            Odrzuć
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reklamacje -->
+                        <div th:if="${zamowienie.reklamacje != null and !zamowienie.reklamacje.isEmpty()}">
+                            <h6 class="text-warning">Reklamacje:</h6>
+                            <div th:each="reklamacja : ${zamowienie.reklamacje}" class="mb-3 border p-3 rounded bg-white">
+                                <p><strong>Status:</strong> <span th:text="${reklamacja.status}"></span></p>
+                                <p><strong>Data zgłoszenia:</strong> <span th:text="${#dates.format(reklamacja.dataZgloszenia, 'dd.MM.yyyy')}"></span></p>
+                                <p><strong>Opis:</strong> <span th:text="${reklamacja.opis}"></span></p>
+                                <p><strong>Komentarz administratora:</strong> <span th:text="${reklamacja.komentarzAdmina}">brak</span></p>
+
+                                <form th:action="@{/admin/reklamacje/dodaj-komentarz}" method="post" class="mb-3">
+                                    <input type="hidden" name="reklamacjaID" th:value="${reklamacja.reklamacjaID}" />
+                                    <textarea class="form-control mb-2" name="komentarz" placeholder="Dodaj komentarz..."></textarea>
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">Zapisz komentarz</button>
+                                </form>
+
+                                <div class="d-flex gap-2 mt-2">
+                                    <form th:action="@{/admin/reklamacje/akceptuj}" method="post">
+                                        <input type="hidden" name="reklamacjaID" th:value="${reklamacja.reklamacjaID}" />
+                                        <button type="submit" class="btn btn-success"
+                                                th:classappend="${reklamacja.status == 'zaakceptowana' or reklamacja.status == 'odrzucona'} ? ' disabled-button'">
+                                            Akceptuj
+                                        </button>
+                                    </form>
+                                    <form th:action="@{/admin/reklamacje/odrzuc}" method="post">
+                                        <input type="hidden" name="reklamacjaID" th:value="${reklamacja.reklamacjaID}" />
+                                        <button type="submit" class="btn btn-danger"
+                                                th:classappend="${reklamacja.status == 'zaakceptowana' or reklamacja.status == 'odrzucona'} ? ' disabled-button'">
+                                            Odrzuć
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    <div class="footer_logos"></div>
+    <div class="footer_box">
+        <h5>Zamówienia</h5>
+        <h6>Dostawa i płatność</h6>
+        <h6>Zwroty i reklamacje</h6>
+    </div>
+    <div class="footer_box">
+        <h5>Promocje i inspiracje</h5>
+        <h6>Wyprzedaż</h6>
+        <h6>Promocje</h6>
+    </div>
+    <div class="footer_box">
+        <h5>BEST_TECH</h5>
+        <h6>O nas</h6>
+        <h6>Regulamin</h6>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

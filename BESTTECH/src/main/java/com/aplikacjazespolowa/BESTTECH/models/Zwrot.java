@@ -25,6 +25,17 @@ public class Zwrot {
     private String status;
     private String powod;
 
+    private String komentarzAdmina;
+
+    public String getKomentarzAdmina() {
+        return komentarzAdmina;
+    }
+
+    public void setKomentarzAdmina(String komentarzAdmina) {
+        this.komentarzAdmina = komentarzAdmina;
+    }
+
+
     public Integer getZwrotID() {
         return zwrotID;
     }

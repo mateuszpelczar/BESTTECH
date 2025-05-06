@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -30,6 +32,11 @@ public class AdminController {
     private LogsRepository logsRepository;
     @Autowired
     private HttpServletRequest request; //aby pobrac aktualnego uzytkownika;
+    @Autowired
+    private ZwrotRepository zwrotRepository;
+
+    @Autowired
+    private ReklamacjaRepository reklamacjaRepository;
 
 
 
@@ -128,8 +135,68 @@ public class AdminController {
     public String zarzadzanieZwrotamiReklamacji(Model model) {
         List<Zamowienie> zamowienia = zamowienieRepository.findAll();
         model.addAttribute("zamowienia", zamowienia);
+
+        Map<Integer, Integer> dniOdZamowieniaMap = new HashMap<>();
+        Date dzisiaj = new Date();
+        for (Zamowienie z : zamowienia) {
+            if (z.getDataZamowienia() != null && z.getZamowienieID() != null) {
+                long dni = ChronoUnit.DAYS.between(z.getDataZamowienia().toInstant(), dzisiaj.toInstant());
+                dniOdZamowieniaMap.put(z.getZamowienieID(), (int) dni);
+            }
+        }
+
+
+        model.addAttribute("dniOdZamowieniaMap", dniOdZamowieniaMap);
         return "admin/returnsMOD";
     }
+
+
+    // Akceptacja zwrotu
+    @PostMapping("/zwroty/akceptuj")
+    public String akceptujZwrot(@RequestParam("zwrotID") Integer id) {
+        Zwrot zwrot = zwrotRepository.findById(id).orElse(null);
+        if (zwrot != null) {
+            zwrot.setStatus("zaakceptowany");
+            zwrotRepository.save(zwrot);
+        }
+        return "redirect:/admin/zwroty-reklamacje-administrator";
+    }
+
+
+
+    // Odrzucenie reklamacji
+    @PostMapping("/reklamacje/odrzuc")
+    public String odrzucReklamacje(@RequestParam("reklamacjaID") Integer id) {
+        Reklamacja reklamacja = reklamacjaRepository.findById(id).orElse(null);
+        if (reklamacja != null) {
+            reklamacja.setStatus("odrzucona");
+            reklamacjaRepository.save(reklamacja);
+        }
+        return "redirect:/admin/zwroty-reklamacje-administrator";
+    }
+
+    @PostMapping("/zwroty/dodaj-komentarz")
+    public String dodajKomentarzDoZwrotu(@RequestParam("zwrotID") Integer id,
+                                         @RequestParam("komentarz") String komentarz) {
+        Zwrot zwrot = zwrotRepository.findById(id).orElse(null);
+        if (zwrot != null) {
+            zwrot.setKomentarzAdmina(komentarz);
+            zwrotRepository.save(zwrot);
+        }
+        return "redirect:/admin/zwroty-reklamacje-administrator";
+    }
+
+    @PostMapping("/reklamacje/dodaj-komentarz")
+    public String dodajKomentarzDoReklamacji(@RequestParam("reklamacjaID") Integer id,
+                                             @RequestParam("komentarz") String komentarz) {
+        Reklamacja reklamacja = reklamacjaRepository.findById(id).orElse(null);
+        if (reklamacja != null) {
+            reklamacja.setKomentarzAdmina(komentarz);
+            reklamacjaRepository.save(reklamacja);
+        }
+        return "redirect:/admin/zwroty-reklamacje-administrator";
+    }
+
 
 
 
