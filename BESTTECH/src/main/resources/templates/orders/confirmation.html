@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" th:href="@{/css/nav_footer.css}">
+    <link rel="stylesheet" href="../../static/css/nav_footer.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Potwierdzenie zamówienia</title>
 </head>
 <body>
-<h2>Dziękujemy za złożenie zamówienia!</h2>
-<p>Twoje zamówienie zostało przyjęte i jest w realizacji.</p>
-<a href="/">Wróć do strony głównej</a>
+    <main>
+        <div style="height: 100vh;width: 100%;display: flex;flex-direction: column;align-items: center;justify-content: center;">
+            <div style="height: 40vh;">
+                <h2>Dziękujemy za złożenie zamówienia!</h2>
+                <p>Twoje zamówienie zostało przyjęte i jest w realizacji.</p>
+                <a href="/" style="text-decoration: underline;font-weight: 700;">Wróć do strony głównej</a>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
