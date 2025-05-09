@@ -81,9 +81,7 @@
 <main>
     <h1>Dodaj nowy produkt</h1>
 
-    <form method="post" th:action="@{/products/addproduct}" class="formAddProduct">
-        <!-- CSRF Token (wymagany w Spring Security!) -->
-        <!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+    <form method="post" th:action="@{/products/addproduct}" enctype="multipart/form-data" class="formAddProduct">
         <div class="boxImputLabel">
             <label for="nazwa">Nazwa produktu:</label>
             <input type="text" id="nazwa" name="nazwa" required>
@@ -116,6 +114,12 @@
                         th:value="${kategoria.kategoriaID}"
                         th:text="${kategoria.nazwa}"></option>
             </select>
+        </div>
+
+        <!-- Nowe pole do przesyłania zdjęcia -->
+        <div class="boxImputLabel">
+            <label for="zdjecie">Zdjęcie produktu:</label>
+            <input type="file" id="zdjecie" name="zdjecie" accept="image/*">
         </div>
 
         <button type="submit" class="btn_addProduct">Dodaj produkt</button>

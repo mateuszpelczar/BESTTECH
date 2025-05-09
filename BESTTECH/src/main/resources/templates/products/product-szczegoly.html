@@ -14,7 +14,8 @@
 
 <!-- Pasek nawigacji -->
 <nav>
-    <div class="nav_img"></div>
+    <div class="nav_img">
+    </div>
 
     <div class="nav_links">
 
@@ -82,7 +83,9 @@
     <div class="produkt">
         <h1 th:text="${produkt.getNazwa()}">Nazwa produktu</h1>
         <div class="produkt_TextImg">
-            <div class="produkt_img"></div>
+            <div class="produkt_img">
+                <img th:if="${zdjecieBase64 != null}" th:src="@{'data:image/png;base64,' + zdjecieBase64}" alt="Zdjęcie produktu">
+            </div>
 
             <div class="produkt_opis">
                 <p><strong>Opis:</strong> </p><p><span th:text="${produkt.opis}">Opis produktu</span></p>
@@ -152,7 +155,7 @@
         </div>
 
         <div  th:if="${!#lists.isEmpty(produkt.recenzje)}">
-            <div class="recenzje" th:each="recenzja : ${produkt.recenzje}">
+            <div class="recenzje" th:each="recenzja : ${produkt.recenzje}" th:if="${recenzja.status== 'ZAAKCEPTOWANA'}">
                 <div class="recenzja">
                     <strong>Użytkownik:</strong> <p class="dane" th:text="${recenzja.getKlient().getImie()}"></p>
                     <strong>Ocena:</strong> <p class="dane" th:text="${recenzja.getOcena() + ' / 5'}"></p>

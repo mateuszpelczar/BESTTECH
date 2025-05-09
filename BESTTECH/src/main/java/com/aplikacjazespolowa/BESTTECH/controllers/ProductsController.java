@@ -1,19 +1,31 @@
 package com.aplikacjazespolowa.BESTTECH.controllers;
 
 import com.aplikacjazespolowa.BESTTECH.models.*;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.websocket.Session;
+import org.postgresql.PGConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.postgresql.largeobject.LargeObject;
+import org.postgresql.largeobject.LargeObjectManager;
+import java.sql.Connection;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Base64;
 
 @Controller
 @RequestMapping("/products")
@@ -76,6 +88,7 @@ public class ProductsController {
         }
         List<Kategoria> kategorie = kategoriaRepository.findAll();
 
+
         model.addAttribute("produkty", produkty);
         model.addAttribute("kategorie", kategorie);
         return "products/showProducts";
@@ -96,6 +109,7 @@ public class ProductsController {
                                @RequestParam Integer stanMagazynowy,
                                @RequestParam String marka,
                                @RequestParam Integer kategoriaID,
+                               @RequestParam(required = false) MultipartFile zdjecie,
                                Model model,RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
         // pobranie kategorii
@@ -114,6 +128,16 @@ public class ProductsController {
         produkt.setMarka(marka);
         produkt.setDataDodania(new Date()); // Ustawiamy bieżącą datę
         produkt.setKategoria(kategoria);
+
+        try{
+            if(zdjecie != null && !zdjecie.isEmpty()){
+                produkt.setZdjecie(zdjecie.getBytes());
+            }
+        }catch (IOException e){
+            redirectAttributes.addFlashAttribute("error", "Blad podczas odczytu pliku obrazu");
+            return "redirect:/products/addproduct/";
+
+        }
 
         //log
         String currentUser=request.getUserPrincipal().getName();
@@ -293,6 +317,10 @@ public class ProductsController {
 
         redirectAttributes.addFlashAttribute("message","Dodano nowa kategorie: " + addingCategory);
         return "/products/showcategories";
+    }
+
+    public String convertToBase64(byte[] bytes){
+        return  bytes != null ? Base64.getEncoder().encodeToString(bytes) : null;
     }
 
 

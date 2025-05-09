@@ -21,6 +21,9 @@ public class Produkt {
     private Integer stanMagazynowy;
     private String marka;
     private Date dataDodania;
+    @Lob
+    private byte[] zdjecie;
+
 
 
     @ManyToOne
@@ -44,6 +47,7 @@ public class Produkt {
         this.marka=marka;
         this.dataDodania=dataDodania;
         this.kategoria=kategoria;
+
     }
 
     public void setNazwa(String nazwa) {
@@ -70,6 +74,10 @@ public class Produkt {
 
     public void setKategoria(Kategoria kategoria) {
         this.kategoria = kategoria;
+    }
+
+    public void setZdjecie(byte[] zdjecie){
+        this.zdjecie=zdjecie;
     }
 
 
@@ -109,6 +117,12 @@ public class Produkt {
     public Kategoria getKategoria() {
         return kategoria;
     }
+
+    public byte[] getZdjecie(){
+        return zdjecie;
+    }
+
+
 
 
 }
