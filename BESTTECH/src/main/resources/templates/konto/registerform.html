@@ -5,56 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rejestracja</title>
     <link rel="stylesheet" th:href="@{/css/kontoStyles.css}">
+    <link rel="stylesheet" href="../../static/css/kontoStyles.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
     </style>
 </head>
 <body>
 <main>
-<div class="loginBody">
-    <p>Okno rejestracji BEST-TECH</p>
+    <div class="loginBody">
+        <p>Okno rejestracji BEST-TECH</p>
 
-    <form th:action="@{/konto/rejestracja}" method="post">
-        <div class="login_email">
-            <label for="email">E-mail</label>
-            <input type="text" id="email" name="email" required>
-            <!-- Komunikat błędu -->
-            <p th:if="${emailError}" th:text="${emailError}" style="color: red; margin-top: 5px;"></p>
-        </div>
-
-        <div class="login_password">
-            <label for="password">Hasło</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-
-        <div class="login_email">
-            <label for="imie">Imię</label>
-            <input type="text" id="imie" name="imie" required>
-        </div>
-
-        <div class="login_email">
-            <label for="nazwisko">Nazwisko</label>
-            <input type="text" id="nazwisko" name="nazwisko" required>
-        </div>
-
-        <div class="login_email">
-            <label for="telefon">Telefon</label>
-            <input type="text" id="telefon" name="telefon" required>
-        </div>
-
-        <div class="login_statute">
-            <input type="checkbox" id="accept" required>
-            <div class="login_statute_text">
-                <label for="accept">Akceptuję</label>
-                <a href="#">regulamin sklepu BEST-TECH</a>
+        <form th:action="@{/konto/rejestracja}" method="post">
+            <div class="login_email">
+                <label for="email">E-mail</label>
+                <input type="text" id="email" name="email" required>
+                <!-- Komunikat błędu -->
+                <p th:if="${emailError}" th:text="${emailError}" style="color: red; margin-top: 5px;"></p>
             </div>
-        </div>
 
-        <button type="submit" id="register">Załóż konto!</button>
+            <div class="login_password">
+                <label for="password">Hasło</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="login_email">
+                <label for="imie">Imię</label>
+                <input type="text" id="imie" name="imie" required>
+            </div>
+
+            <div class="login_email">
+                <label for="nazwisko">Nazwisko</label>
+                <input type="text" id="nazwisko" name="nazwisko" required>
+            </div>
+
+            <div class="login_email">
+                <label for="telefon">Telefon</label>
+                <input type="text" id="telefon" name="telefon" required>
+            </div>
+
+            <div class="login_statute">
+                <input type="checkbox" id="accept" required>
+                <div class="login_statute_text">
+                    <label for="accept">Akceptuję</label>
+                    <a href="#">regulamin sklepu BEST-TECH</a>
+                </div>
+            </div>
+
+            <button type="submit" id="register">Załóż konto!</button>
 
 
-    </form>
-</div>
+        </form>
+    </div>
 </main>
 </body>
 </html>

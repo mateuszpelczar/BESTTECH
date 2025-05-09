@@ -112,7 +112,7 @@ public class AccountController {
                                  @RequestParam String newPassword,
                                  @RequestParam String confirmPassword,
                                  Model model
-                                 ) {
+    ) {
 
         if (!newPassword.equals(confirmPassword)) {
             model.addAttribute("error", "Nowe hasła nie są takie same.");

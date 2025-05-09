@@ -12,107 +12,107 @@
     <title>Usun pracownika</title>
 </head>
 <body>
-    <!-- Pasek nawigacji -->
-    <nav>
-        <div class="nav_img"></div>
-    
-        <div class="nav_links">
-    
-            <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
-            <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
-            <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
-            <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
-            <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
-            <div class="nav_box dropdown">
-                <a href="/kategoria">Kategorie produktów</a>
-                <div class="dropdown-content">
-                    <a href="#">Drukarki</a>
-                    <a href="#">Programy</a>
-                    <a href="/kategoria">Wszystkie kategorie</a>
-                </div>
-            </div>
-            <div class="nav_box2 dropdown2">
-                <a href="/kategoria">Kategorie produktów</a>
+<!-- Pasek nawigacji -->
+<nav>
+    <div class="nav_img"></div>
+
+    <div class="nav_links">
+
+        <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
+        <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
+        <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
+        <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
+        <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
+        <div class="nav_box dropdown">
+            <a href="/kategoria">Kategorie produktów</a>
             <div class="dropdown-content">
-                    <a href="/kategoria/Smartphony">Smartphony</a>
-                    <a href="/kategoria/Laptopy">Laptopy</a>
-                    <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
-                    <a href="/kategoria/Zasilacze">Zasilacze</a>
-                    <a href="/kategoria/TV">TV</a>
-                    <a href="#">Drukarki</a>
-                    <a href="#">Programy</a>
-                    <a href="/kategoria">Wszystkie kategorie</a>
+                <a href="/kategoria/Drukarki">Drukarki</a>
+                <a href="/kategoria/Programy">Programy</a>
+                <a href="/kategoria">Wszystkie kategorie</a>
             </div>
         </div>
-    
+        <div class="nav_box2 dropdown2">
+            <a href="/kategoria">Kategorie produktów</a>
+            <div class="dropdown-content">
+                <a href="/kategoria/Smartphony">Smartphony</a>
+                <a href="/kategoria/Laptopy">Laptopy</a>
+                <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
+                <a href="/kategoria/Zasilacze">Zasilacze</a>
+                <a href="/kategoria/TV">TV</a>
+                <a href="/kategoria/Drukarki">Drukarki</a>
+                <a href="/kategoria/Programy">Programy</a>
+                <a href="/kategoria">Wszystkie kategorie</a>
             </div>
         </div>
-    
-        <div class="nav_right">
-            <a href="/koszyk" class="cart_icon">
-                🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
-            </a>
-    
-            <div class="nav_auth" sec:authorize="isAnonymous()">
-                <a href="/konto/logowanie" class="nav_login">Logowanie</a>
-                <!-- <a href="/konto/rejestracja" class="nav_register">Rejestracja</a> -->
-            </div>
-    
-            <div class="nav_user" sec:authorize="isAuthenticated()">
-                <div class="user_dropdown">
-                    <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
-                    <div class="dropdown_content">
-                        <a href="/koszyk" class="cart_icon2">
-                            koszyk: <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
-                        </a>
-                        <a href="/konto/zmien-haslo">Twoje konto (zmiana hasla)</a>
-                        <a href="/konto/zamowienia">Zamówienia</a>
-                        <a href="/zwroty-reklamacje">Zwroty i reklamacje</a>
-                        <a href="/opinie">Opinie</a>
-                        <a href="/products" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Panel pracownika</a>
-                        <a href="/admin" sec:authorize="hasAnyRole('ADMIN')">Panel admina</a>
-                        <a href="/konto/wyloguj">Wyloguj się</a>
-                    </div>
+
+    </div>
+    </div>
+
+    <div class="nav_right">
+        <a href="/koszyk" class="cart_icon">
+            🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+        </a>
+
+        <div class="nav_auth" sec:authorize="isAnonymous()">
+            <a href="/konto/logowanie" class="nav_login">Logowanie</a>
+            <!-- <a href="/konto/rejestracja" class="nav_register">Rejestracja</a> -->
+        </div>
+
+        <div class="nav_user" sec:authorize="isAuthenticated()">
+            <div class="user_dropdown">
+                <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
+                <div class="dropdown_content">
+                    <a href="/koszyk" class="cart_icon2">
+                        koszyk: <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+                    </a>
+                    <a href="/konto/zmien-haslo">Twoje konto (zmiana hasla)</a>
+                    <a href="/konto/zamowienia">Zamówienia</a>
+                    <a href="/zwroty-reklamacje">Zwroty i reklamacje</a>
+                    <a href="/opinie">Opinie</a>
+                    <a href="/products" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Panel pracownika</a>
+                    <a href="/admin" sec:authorize="hasAnyRole('ADMIN')">Panel admina</a>
+                    <a href="/konto/wyloguj">Wyloguj się</a>
                 </div>
             </div>
         </div>
-        </div>
-    </nav>
-    
-  <main>
+    </div>
+    </div>
+</nav>
 
-<h1>Usun pracownika</h1>
+<main>
+
+    <h1>Usun pracownika</h1>
 
 
-<!-- <table border="1" cellspacing="0" cellpadding="8">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Email</th>
-        <th>Rola</th>
-        <th>Usun</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${employees}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.email}"></td>
-        <td>
-            <span th:each="role : ${user.roles}" th:text="${role.name} + ' '"></span>
-        </td>
-        <td>
-            <form method="post" action="/admin/deleteemployee">
-                <input type="hidden" name="userId" th:value="${user.id}"/> -->
-<!--                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>-->
-                <!-- <button type="submit">Usun</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
+    <!-- <table border="1" cellspacing="0" cellpadding="8">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Rola</th>
+            <th>Usun</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${employees}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <span th:each="role : ${user.roles}" th:text="${role.name} + ' '"></span>
+            </td>
+            <td>
+                <form method="post" action="/admin/deleteemployee">
+                    <input type="hidden" name="userId" th:value="${user.id}"/> -->
+    <!--                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>-->
+    <!-- <button type="submit">Usun</button>
+</form>
+</td>
+</tr>
+</tbody>
 </table> -->
 
 
-    
+
 
     <div class="lista2">
         <div class="product" th:each="user : ${employees}">
@@ -131,7 +131,7 @@
             <div class="buttonsCategory">
                 <form method="post" action="/admin/deleteemployee">
                     <input type="hidden" name="userId" th:value="${user.id}"/>
-    <!--                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>-->
+                    <!--                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>-->
                     <button type="submit">Usun</button>
                 </form>
             </div>

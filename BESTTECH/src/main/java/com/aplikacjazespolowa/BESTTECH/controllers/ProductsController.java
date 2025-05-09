@@ -106,20 +106,20 @@ public class ProductsController {
         }
         Kategoria kategoria=kOpt.get();
 
-            Produkt produkt = new Produkt();
-            produkt.setNazwa(nazwa);
-            produkt.setOpis(opis);
-            produkt.setCena(cena);
-            produkt.setStanMagazynowy(stanMagazynowy);
-            produkt.setMarka(marka);
-            produkt.setDataDodania(new Date()); // Ustawiamy bieżącą datę
-            produkt.setKategoria(kategoria);
+        Produkt produkt = new Produkt();
+        produkt.setNazwa(nazwa);
+        produkt.setOpis(opis);
+        produkt.setCena(cena);
+        produkt.setStanMagazynowy(stanMagazynowy);
+        produkt.setMarka(marka);
+        produkt.setDataDodania(new Date()); // Ustawiamy bieżącą datę
+        produkt.setKategoria(kategoria);
 
-            //log
-            String currentUser=request.getUserPrincipal().getName();
-            logsRepository.save(new LogsSystem("Dodano nowy produkt: " + nazwa ,currentUser,"INFO"));
+        //log
+        String currentUser=request.getUserPrincipal().getName();
+        logsRepository.save(new LogsSystem("Dodano nowy produkt: " + nazwa ,currentUser,"INFO"));
 
-            produktRepository.save(produkt); // Zapisujemy produkt do bazy
+        produktRepository.save(produkt); // Zapisujemy produkt do bazy
 
         redirectAttributes.addFlashAttribute("message","Produkt zostal dodany.");
         return "redirect:/products/showproducts"; // Przekierowanie do strony z produktami
@@ -202,98 +202,98 @@ public class ProductsController {
 
 
     @GetMapping("/showcategories")
-        public String pokazKategorie (@RequestParam(required = false) String search, Model model){
-            List<Kategoria> kategorie;
-            if (search != null && !search.isEmpty()) {
-                kategorie = kategoriaRepository.findByNazwaContainingIgnoreCase(search);
-            } else {
-                kategorie = kategoriaRepository.findAll();
-            }
-            model.addAttribute("kategorie", kategorie);
-            return "products/showCategories";
+    public String pokazKategorie (@RequestParam(required = false) String search, Model model){
+        List<Kategoria> kategorie;
+        if (search != null && !search.isEmpty()) {
+            kategorie = kategoriaRepository.findByNazwaContainingIgnoreCase(search);
+        } else {
+            kategorie = kategoriaRepository.findAll();
         }
+        model.addAttribute("kategorie", kategorie);
+        return "products/showCategories";
+    }
 
 
-        //problem z usuwaniem kategorii, gdy istnieje produkt z daną kategorią !
-        @PostMapping("/deletecategory")
-        public String usunKategorie (@RequestParam Integer id, HttpServletRequest request, RedirectAttributes redirectAttributes){
-            Optional<Kategoria> kOpt=kategoriaRepository.findById(id);
-            if(kOpt.isEmpty()){
-                redirectAttributes.addFlashAttribute("error",
-                        "Kategoria o ID " + id + " nie została znaleziona");
-                return "redirect:/products/showcategories";
-            }
-            Kategoria kategoria=kOpt.get();
-
-            //log
-            String currentUser=request.getUserPrincipal().getName();
-            String deletedCategoryName=kategoria.getNazwa();
-            logsRepository.save(new LogsSystem("Usunieto kategorie " + deletedCategoryName, currentUser,"WARN"));
-
-            kategoriaRepository.deleteById(id);
-            redirectAttributes.addFlashAttribute("message","Kategoria \"" + deletedCategoryName + "\" została usunieta");
+    //problem z usuwaniem kategorii, gdy istnieje produkt z daną kategorią !
+    @PostMapping("/deletecategory")
+    public String usunKategorie (@RequestParam Integer id, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        Optional<Kategoria> kOpt=kategoriaRepository.findById(id);
+        if(kOpt.isEmpty()){
+            redirectAttributes.addFlashAttribute("error",
+                    "Kategoria o ID " + id + " nie została znaleziona");
             return "redirect:/products/showcategories";
         }
+        Kategoria kategoria=kOpt.get();
+
+        //log
+        String currentUser=request.getUserPrincipal().getName();
+        String deletedCategoryName=kategoria.getNazwa();
+        logsRepository.save(new LogsSystem("Usunieto kategorie " + deletedCategoryName, currentUser,"WARN"));
+
+        kategoriaRepository.deleteById(id);
+        redirectAttributes.addFlashAttribute("message","Kategoria \"" + deletedCategoryName + "\" została usunieta");
+        return "redirect:/products/showcategories";
+    }
 
 
-        @GetMapping("/editcategory/{id}")
-        public String pokazFormularzEdycji (@PathVariable Integer id, Model model){
-            Kategoria kategoria = kategoriaRepository.findById(id).orElse(null);
-            if (kategoria == null) {
-                return "redirect:/showcategories";
-            }
-            model.addAttribute("kategoria", kategoria);
-            return "products/editCategory";
+    @GetMapping("/editcategory/{id}")
+    public String pokazFormularzEdycji (@PathVariable Integer id, Model model){
+        Kategoria kategoria = kategoriaRepository.findById(id).orElse(null);
+        if (kategoria == null) {
+            return "redirect:/showcategories";
         }
-        @PostMapping("/editcategory")
-        public String edytujKategorie (@RequestParam Integer id, @RequestParam String nazwa, @RequestParam String opis,HttpServletRequest request, RedirectAttributes redirectAttributes){
+        model.addAttribute("kategoria", kategoria);
+        return "products/editCategory";
+    }
+    @PostMapping("/editcategory")
+    public String edytujKategorie (@RequestParam Integer id, @RequestParam String nazwa, @RequestParam String opis,HttpServletRequest request, RedirectAttributes redirectAttributes){
 
-            Optional<Kategoria> kopt=kategoriaRepository.findById(id);
-            if(kopt.isEmpty()){
-                redirectAttributes.addFlashAttribute("error","Kategorii o id: " + id + "nie mozna edytowac");
-                return "redirect:/products/showcategories";
-            }
-            Kategoria kategoria = kopt.get();
-
-            //log
-            String currentUser=request.getUserPrincipal().getName();
-            String editCategoryName=kategoria.getNazwa();
-            logsRepository.save(new LogsSystem("Zaktualizowano kategorię" + editCategoryName, currentUser,"INFO"));
-
-                kategoria.setNazwa(nazwa);
-                kategoria.setOpis(opis);
-                kategoriaRepository.save(kategoria);
-
-            redirectAttributes.addFlashAttribute("message","Kategoria zostala zaktualizowana");
+        Optional<Kategoria> kopt=kategoriaRepository.findById(id);
+        if(kopt.isEmpty()){
+            redirectAttributes.addFlashAttribute("error","Kategorii o id: " + id + "nie mozna edytowac");
             return "redirect:/products/showcategories";
         }
+        Kategoria kategoria = kopt.get();
 
-        @GetMapping("/addcategory")
-        public String dodajKategorie () {
-            return "products/addCategory";
-        }
+        //log
+        String currentUser=request.getUserPrincipal().getName();
+        String editCategoryName=kategoria.getNazwa();
+        logsRepository.save(new LogsSystem("Zaktualizowano kategorię" + editCategoryName, currentUser,"INFO"));
 
-        @PostMapping("/addcategory")
-        public String dodajKategorie (@RequestParam String nazwa, @RequestParam String opis, Model model,HttpServletRequest request, RedirectAttributes redirectAttributes){
+        kategoria.setNazwa(nazwa);
+        kategoria.setOpis(opis);
+        kategoriaRepository.save(kategoria);
+
+        redirectAttributes.addFlashAttribute("message","Kategoria zostala zaktualizowana");
+        return "redirect:/products/showcategories";
+    }
+
+    @GetMapping("/addcategory")
+    public String dodajKategorie () {
+        return "products/addCategory";
+    }
+
+    @PostMapping("/addcategory")
+    public String dodajKategorie (@RequestParam String nazwa, @RequestParam String opis, Model model,HttpServletRequest request, RedirectAttributes redirectAttributes){
 
         //tworzenie nowej kategorii
-            Kategoria kategoria = new Kategoria();
-            kategoria.setNazwa(nazwa);
-            kategoria.setOpis(opis);
+        Kategoria kategoria = new Kategoria();
+        kategoria.setNazwa(nazwa);
+        kategoria.setOpis(opis);
 
 
-            //zapisanie log przed zapisem do bazy, zapisanie po raz 1
-            Kategoria saved = kategoriaRepository.save(kategoria);
+        //zapisanie log przed zapisem do bazy, zapisanie po raz 1
+        Kategoria saved = kategoriaRepository.save(kategoria);
 
-            //log
-            String CurrentUser=request.getUserPrincipal().getName();
-            String addingCategory=saved.getNazwa();
-            logsRepository.save(new LogsSystem("Dodano nowa kategorie:  " + addingCategory, CurrentUser,"INFO"));
+        //log
+        String CurrentUser=request.getUserPrincipal().getName();
+        String addingCategory=saved.getNazwa();
+        logsRepository.save(new LogsSystem("Dodano nowa kategorie:  " + addingCategory, CurrentUser,"INFO"));
 
 
-            redirectAttributes.addFlashAttribute("message","Dodano nowa kategorie: " + addingCategory);
-            return "/products/showcategories";
-        }
+        redirectAttributes.addFlashAttribute("message","Dodano nowa kategorie: " + addingCategory);
+        return "/products/showcategories";
+    }
 
 
 

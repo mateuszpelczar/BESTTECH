@@ -11,146 +11,146 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-        <!-- Pasek nawigacji -->
-        <nav>
-            <div class="nav_img"></div>
-        
-            <div class="nav_links">
-        
-                <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
-                <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
-                <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
-                <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
-                <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
-                <div class="nav_box dropdown">
-                    <a href="/kategoria">Kategorie produktów</a>
-                    <div class="dropdown-content">
-                        <a href="#">Drukarki</a>
-                        <a href="#">Programy</a>
-                        <a href="/kategoria">Wszystkie kategorie</a>
-                    </div>
-                </div>
-                <div class="nav_box2 dropdown2">
-                    <a href="/kategoria">Kategorie produktów</a>
-                <div class="dropdown-content">
-                        <a href="/kategoria/Smartphony">Smartphony</a>
-                        <a href="/kategoria/Laptopy">Laptopy</a>
-                        <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
-                        <a href="/kategoria/Zasilacze">Zasilacze</a>
-                        <a href="/kategoria/TV">TV</a>
-                        <a href="#">Drukarki</a>
-                        <a href="#">Programy</a>
-                        <a href="/kategoria">Wszystkie kategorie</a>
-                </div>
-            </div>
-        
-                </div>
-            </div>
-        
-            <div class="nav_right">
-                <a href="/koszyk" class="cart_icon">
-                    🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
-                </a>
-        
-                <div class="nav_auth" sec:authorize="isAnonymous()">
-                    <a href="/konto/logowanie" class="nav_login">Logowanie</a>
-                    <!-- <a href="/konto/rejestracja" class="nav_register">Rejestracja</a> -->
-                </div>
-        
-                <div class="nav_user" sec:authorize="isAuthenticated()">
-                    <div class="user_dropdown">
-                        <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
-                        <div class="dropdown_content">
-                            <a href="/koszyk" class="cart_icon2">
-                                koszyk: <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
-                            </a>
-                            <a href="/konto/zmien-haslo">Twoje konto (zmiana hasla)</a>
-                            <a href="/konto/zamowienia">Zamówienia</a>
-                            <a href="/zwroty-reklamacje">Zwroty i reklamacje</a>
-                            <a href="/opinie">Opinie</a>
-                            <a href="/products" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Panel pracownika</a>
-                            <a href="/admin" sec:authorize="hasAnyRole('ADMIN')">Panel admina</a>
-                            <a href="/konto/wyloguj">Wyloguj się</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </nav>
-            <main>
-<form th:action="@{/order/submit}" method="post">
-    <h1>Dostawa i płatność</h1>
-<div class="">
-    <!-- TABELA ZAMÓWIENIA -->
-    <table>
-        <thead>
-        <tr>
-            <th>Nazwa</th>
-            <th>Marka</th>
-            <th>Cena</th>
-            <th>Ilość</th>
-            <th>Suma</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="entry : ${orderDetails}">
-            <td th:text="${entry.key.nazwa}"></td>
-            <td th:text="${entry.key.marka}"></td>
-            <td th:text="${#numbers.formatDecimal(entry.key.cena, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
-            <td th:text="${entry.value}"></td>
-            <td th:text="${#numbers.formatDecimal(entry.key.cena * entry.value, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="4"><strong>Łączna kwota:</strong></td>
-            <td th:text="${#numbers.formatDecimal(totalCost, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
-        </tr>
-        </tfoot>
-    </table>
-</div>
- 
-<div class="adresAndMore">
-    <div class="ordersAdres">
-        <!-- Adres dostawy -->
-        
-        <h2>Adres dostawy</h2>
-        <label>Ulica:</label><br/>
-        <input type="text" name="ulica" required><br/><br/>
+<!-- Pasek nawigacji -->
+<nav>
+    <div class="nav_img"></div>
 
-        <label>Miasto:</label><br/>
-        <input type="text" name="miasto" required><br/><br/>
+    <div class="nav_links">
 
-        <label>Kod pocztowy:</label><br/>
-        <input type="text" name="kodPocztowy" required><br/><br/>
+        <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
+        <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
+        <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
+        <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
+        <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
+        <div class="nav_box dropdown">
+            <a href="/kategoria">Kategorie produktów</a>
+            <div class="dropdown-content">
+                <a href="/kategoria/Drukarki">Drukarki</a>
+                <a href="/kategoria/Programy">Programy</a>
+                <a href="/kategoria">Wszystkie kategorie</a>
+            </div>
+        </div>
+        <div class="nav_box2 dropdown2">
+            <a href="/kategoria">Kategorie produktów</a>
+            <div class="dropdown-content">
+                <a href="/kategoria/Smartphony">Smartphony</a>
+                <a href="/kategoria/Laptopy">Laptopy</a>
+                <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
+                <a href="/kategoria/Zasilacze">Zasilacze</a>
+                <a href="/kategoria/TV">TV</a>
+                <a href="/kategoria/Drukarki">Drukarki</a>
+                <a href="/kategoria/Programy">Programy</a>
+                <a href="/kategoria">Wszystkie kategorie</a>
+            </div>
+        </div>
 
-        <label>Kraj:</label><br/>
-        <input type="text" name="kraj" required><br/><br/>
     </div>
-    <div class="">
-    <!-- Sposób dostawy -->
-    <label>Sposób dostawy:</label><br/>
-    <select name="sposobDostawy" required>
-        <option value="kurier">Kurier</option>
-        <option value="paczkomat">Paczkomat</option>
-    </select><br/><br/>
-
-        <!-- Sposób płatności -->
-        <label>Sposób płatności:</label><br/>
-        <select name="sposobPlatnosci" required>
-            <option value="gotowka">Gotówka</option>
-        </select><br/><br/>
-
-        <!-- Typ klienta -->
-        <label>Kupujesz jako:</label><br/>
-        <select name="typKlienta" required>
-            <option value="osobaPrywatna">Osoba prywatna</option>
-            <option value="firma">Firma</option>
-        </select><br/><br/>
     </div>
-</div>
-    <button type="submit">Złóż zamówienie</button>
-</form>
+
+    <div class="nav_right">
+        <a href="/koszyk" class="cart_icon">
+            🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+        </a>
+
+        <div class="nav_auth" sec:authorize="isAnonymous()">
+            <a href="/konto/logowanie" class="nav_login">Logowanie</a>
+            <!-- <a href="/konto/rejestracja" class="nav_register">Rejestracja</a> -->
+        </div>
+
+        <div class="nav_user" sec:authorize="isAuthenticated()">
+            <div class="user_dropdown">
+                <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
+                <div class="dropdown_content">
+                    <a href="/koszyk" class="cart_icon2">
+                        koszyk: <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+                    </a>
+                    <a href="/konto/zmien-haslo">Twoje konto (zmiana hasla)</a>
+                    <a href="/konto/zamowienia">Zamówienia</a>
+                    <a href="/zwroty-reklamacje">Zwroty i reklamacje</a>
+                    <a href="/opinie">Opinie</a>
+                    <a href="/products" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Panel pracownika</a>
+                    <a href="/admin" sec:authorize="hasAnyRole('ADMIN')">Panel admina</a>
+                    <a href="/konto/wyloguj">Wyloguj się</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</nav>
+<main>
+    <form th:action="@{/order/submit}" method="post">
+        <h1>Dostawa i płatność</h1>
+        <div class="">
+            <!-- TABELA ZAMÓWIENIA -->
+            <table>
+                <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Marka</th>
+                    <th>Cena</th>
+                    <th>Ilość</th>
+                    <th>Suma</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entry : ${orderDetails}">
+                    <td th:text="${entry.key.nazwa}"></td>
+                    <td th:text="${entry.key.marka}"></td>
+                    <td th:text="${#numbers.formatDecimal(entry.key.cena, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
+                    <td th:text="${entry.value}"></td>
+                    <td th:text="${#numbers.formatDecimal(entry.key.cena * entry.value, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="4"><strong>Łączna kwota:</strong></td>
+                    <td th:text="${#numbers.formatDecimal(totalCost, 1, 'POINT', 2, 'POINT')} + ' zł'"></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="adresAndMore">
+            <div class="ordersAdres">
+                <!-- Adres dostawy -->
+
+                <h2>Adres dostawy</h2>
+                <label>Ulica:</label><br/>
+                <input type="text" name="ulica" required><br/><br/>
+
+                <label>Miasto:</label><br/>
+                <input type="text" name="miasto" required><br/><br/>
+
+                <label>Kod pocztowy:</label><br/>
+                <input type="text" name="kodPocztowy" required><br/><br/>
+
+                <label>Kraj:</label><br/>
+                <input type="text" name="kraj" required><br/><br/>
+            </div>
+            <div class="">
+                <!-- Sposób dostawy -->
+                <label>Sposób dostawy:</label><br/>
+                <select name="sposobDostawy" required>
+                    <option value="kurier">Kurier</option>
+                    <option value="paczkomat">Paczkomat</option>
+                </select><br/><br/>
+
+                <!-- Sposób płatności -->
+                <label>Sposób płatności:</label><br/>
+                <select name="sposobPlatnosci" required>
+                    <option value="gotowka">Gotówka</option>
+                </select><br/><br/>
+
+                <!-- Typ klienta -->
+                <label>Kupujesz jako:</label><br/>
+                <select name="typKlienta" required>
+                    <option value="osobaPrywatna">Osoba prywatna</option>
+                    <option value="firma">Firma</option>
+                </select><br/><br/>
+            </div>
+        </div>
+        <button type="submit">Złóż zamówienie</button>
+    </form>
 </main>
 <!-- Stopka -->
 <footer>

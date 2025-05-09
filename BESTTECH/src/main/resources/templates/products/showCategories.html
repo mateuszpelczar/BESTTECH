@@ -11,7 +11,7 @@
     <title>Kategorie</title>
 </head>
 <body>
-     <!-- Pasek nawigacji -->
+<!-- Pasek nawigacji -->
 <nav>
     <div class="nav_img"></div>
 
@@ -25,26 +25,26 @@
         <div class="nav_box dropdown">
             <a href="/kategoria">Kategorie produktów</a>
             <div class="dropdown-content">
-                <a href="#">Drukarki</a>
-                <a href="#">Programy</a>
+                <a href="/kategoria/Drukarki">Drukarki</a>
+                <a href="/kategoria/Programy">Programy</a>
                 <a href="/kategoria">Wszystkie kategorie</a>
             </div>
         </div>
         <div class="nav_box2 dropdown2">
             <a href="/kategoria">Kategorie produktów</a>
-        <div class="dropdown-content">
+            <div class="dropdown-content">
                 <a href="/kategoria/Smartphony">Smartphony</a>
                 <a href="/kategoria/Laptopy">Laptopy</a>
                 <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
                 <a href="/kategoria/Zasilacze">Zasilacze</a>
                 <a href="/kategoria/TV">TV</a>
-                <a href="#">Drukarki</a>
-                <a href="#">Programy</a>
+                <a href="/kategoria/Drukarki">Drukarki</a>
+                <a href="/kategoria/Programy">Programy</a>
                 <a href="/kategoria">Wszystkie kategorie</a>
+            </div>
         </div>
-    </div>
 
-        </div>
+    </div>
     </div>
 
     <div class="nav_right">
@@ -77,45 +77,45 @@
     </div>
     </div>
 </nav>
-    <main>
-        <h1>Lista kategorii</h1>
+<main>
+    <h1>Lista kategorii</h1>
 
-        <!-- Formularz wyszukiwania -->
-        <form class="szukajKategorii" method="get" action="/products/showcategories">
-            <input placeholder="Szukaj kategorii" type="text" id="search" name="search" th:value="${param.search}">
-            <button type="submit">Szukaj</button>
-        </form>
+    <!-- Formularz wyszukiwania -->
+    <form class="szukajKategorii" method="get" action="/products/showcategories">
+        <input placeholder="Szukaj kategorii" type="text" id="search" name="search" th:value="${param.search}">
+        <button type="submit">Szukaj</button>
+    </form>
 
-        <div class="lista">
-            <div class="product" th:each="kategoria : ${kategorie}">
-                <div class="id_name">
-                    <div class="idName">
-                        <div th:utext="${'<strong>ID:</strong> ' + kategoria.kategoriaID}">ID: id</div>
-                    </div>
-                    <div class="nazwaName">
-                        <div th:utext="${'<strong>Nazwa:</strong> ' + kategoria.nazwa}">Nazwa: nazwa</div>
-                    </div>
+    <div class="lista">
+        <div class="product" th:each="kategoria : ${kategorie}">
+            <div class="id_name">
+                <div class="idName">
+                    <div th:utext="${'<strong>ID:</strong> ' + kategoria.kategoriaID}">ID: id</div>
                 </div>
-                    <div class="opisName">
-                        <strong>Opis:</strong>
-                        <div th:text="${kategoria.opis}">szczegółowy opis kategorii</div>
-                    </div>
-                <div>
-                    <div class="buttonsCategory">
-                        <!-- Przycisk edytuj -->
-                        <a th:href="@{'/products/editcategory/' + ${kategoria.kategoriaID}}">
-                            <button class="btn_buttonsCategory" type="button">Edytuj</button>
-                        </a>
+                <div class="nazwaName">
+                    <div th:utext="${'<strong>Nazwa:</strong> ' + kategoria.nazwa}">Nazwa: nazwa</div>
+                </div>
+            </div>
+            <div class="opisName">
+                <strong>Opis:</strong>
+                <div th:text="${kategoria.opis}">szczegółowy opis kategorii</div>
+            </div>
+            <div>
+                <div class="buttonsCategory">
+                    <!-- Przycisk edytuj -->
+                    <a th:href="@{'/products/editcategory/' + ${kategoria.kategoriaID}}">
+                        <button class="btn_buttonsCategory" type="button">Edytuj</button>
+                    </a>
 
-                        <!-- Formularz usuwania -->
-                        <form method="post" action="/products/deletecategory" style="display:inline;">
-                            <input type="hidden" name="id" th:value="${kategoria.kategoriaID}">
-                            <button class="btn_buttonsCategory" type="submit" onclick="return confirm('Czy na pewno chcesz usunąć tę kategorię?')">Usuń</button>
-                        </form>
-                    </div>
+                    <!-- Formularz usuwania -->
+                    <form method="post" action="/products/deletecategory" style="display:inline;">
+                        <input type="hidden" name="id" th:value="${kategoria.kategoriaID}">
+                        <button class="btn_buttonsCategory" type="submit" onclick="return confirm('Czy na pewno chcesz usunąć tę kategorię?')">Usuń</button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
 
 
@@ -130,12 +130,12 @@
 
 
 
-        
 
-        <a href="/products">Powrót </a>
-    </main>
 
-    <!-- Stopka -->
+    <a href="/products">Powrót </a>
+</main>
+
+<!-- Stopka -->
 <footer>
     <div class="footer_logos"></div>
     <div class="footer_box">

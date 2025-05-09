@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Zwroty i Reklamacje - panel zarządzania</title>
-    <link rel="stylesheet" th:href="@{/css/mainStyles.css}">
     <link rel="stylesheet" th:href="@{/css/nav_footer.css}">
+    <link rel="stylesheet" href="../../static/css/nav_footer.css">
+    <link rel="stylesheet" th:href="@{/css/mainStyles.css}">
+    <link rel="stylesheet" href="../../static/css/mainStyles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .card-centered {
@@ -33,8 +35,8 @@
         <div class="nav_box dropdown">
             <a href="/kategoria">Kategorie produktów</a>
             <div class="dropdown-content">
-                <a href="#">Drukarki</a>
-                <a href="#">Programy</a>
+                <a href="/kategoria/Drukarki">Drukarki</a>
+                <a href="/kategoria/Programy">Programy</a>
                 <a href="/kategoria">Wszystkie kategorie</a>
             </div>
         </div>
@@ -46,8 +48,8 @@
                 <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
                 <a href="/kategoria/Zasilacze">Zasilacze</a>
                 <a href="/kategoria/TV">TV</a>
-                <a href="#">Drukarki</a>
-                <a href="#">Programy</a>
+                <a href="/kategoria/Drukarki">Drukarki</a>
+                <a href="/kategoria/Programy">Programy</a>
                 <a href="/kategoria">Wszystkie kategorie</a>
             </div>
         </div>

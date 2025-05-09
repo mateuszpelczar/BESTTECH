@@ -5,45 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logowanie</title>
     <link rel="stylesheet" th:href="@{/css/kontoStyles.css}">
+    <link rel="stylesheet" href="../../static/css/kontoStyles.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
     </style>
 </head>
 <body>
-    <main>
-<div class="loginBody">
-    <p>Okno logowania BEST-TECH</p>
+<main>
+    <div class="loginBody">
+        <p>Okno logowania BEST-TECH</p>
 
-    <div th:if="${param.error}">
-        <p style="color: red;">Nieprawidłowy e-mail lub hasło.</p>
+        <div th:if="${param.error}">
+            <p style="color: red;">Nieprawidłowy e-mail lub hasło.</p>
+        </div>
+        <div th:if="${param.logout}">
+            <p style="color: green;">Zostałeś wylogowany.</p>
+        </div>
+
+        <form th:action="@{/konto/logowanie}" method="post">
+            <div class="login_email">
+                <label for="email">E-mail</label>
+                <input type="text" id="email" name="username" required>
+            </div>
+
+            <div class="login_password">
+                <label for="password">Hasło</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" id="login">Zaloguj się!</button>
+
+            <div class="login_statute">
+                <a href="#">Zapomniałeś hasła?</a>
+            </div>
+
+            <br>
+            <div class="log_register">
+                <a href="/konto/rejestracja"> Zarejestruj się </a>
+            </div>
+        </form>
     </div>
-    <div th:if="${param.logout}">
-        <p style="color: green;">Zostałeś wylogowany.</p>
-    </div>
-
-    <form th:action="@{/konto/logowanie}" method="post">
-        <div class="login_email">
-            <label for="email">E-mail</label>
-            <input type="text" id="email" name="username" required>
-        </div>
-
-        <div class="login_password">
-            <label for="password">Hasło</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-
-        <button type="submit" id="login">Zaloguj się!</button>
-
-        <div class="login_statute">
-            <a href="#">Zapomniałeś hasła?</a>
-        </div>
-
-        <br>
-        <div class="log_register">
-            <a href="/konto/rejestracja"> Zarejestruj się </a>
-        </div>
-    </form>
-</div>
 </main>
 </body>
 </html>
