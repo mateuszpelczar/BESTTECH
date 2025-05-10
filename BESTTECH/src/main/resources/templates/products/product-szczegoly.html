@@ -85,6 +85,8 @@
         <div class="produkt_TextImg">
             <div class="produkt_img">
                 <img th:if="${zdjecieBase64 != null}" th:src="@{'data:image/png;base64,' + zdjecieBase64}" alt="Zdjęcie produktu">
+                <img th:if="${produkt.zdjecieUrl != null}" th:src="${produkt.zdjecieUrl}" alt="Zdjęcie produktu"
+                     style="max-width:500px; max-height:500px; width:auto; height:auto; display:block; margin:auto;">
             </div>
 
             <div class="produkt_opis">
@@ -108,7 +110,7 @@
     </div>
 
 
-    
+
     <div class="recommended">
         <h2>Polecane produkty: </h2>
     </div>
@@ -118,25 +120,25 @@
             <div class="recomended_item_name">procesor <br> intel core x59</div>
             <div class="recomended_item_price">155 zł</div>
         </div>
-    
+
         <div class="recomended_item">
             <div class="recomended_item_img"></div>
             <div class="recomended_item_name">procesor <br> intel core x59</div>
             <div class="recomended_item_price">155 zł</div>
         </div>
-    
+
         <div class="recomended_item">
             <div class="recomended_item_img"></div>
             <div class="recomended_item_name">procesor <br> intel core x59</div>
             <div class="recomended_item_price">155 zł</div>
         </div>
-    
+
         <div class="recomended_item">
             <div class="recomended_item_img"></div>
             <div class="recomended_item_name">procesor <br> intel core x59</div>
             <div class="recomended_item_price">155 zł</div>
         </div>
-    
+
         <div class="recomended_item">
             <div class="recomended_item_img"></div>
             <div class="recomended_item_name">procesor <br> intel core x59</div>
@@ -147,7 +149,7 @@
 
 
 
-    
+
     <div class="recenzje_box">
         <h2>Recenzje:</h2>
         <div th:if="${#lists.isEmpty(produkt.recenzje)}">

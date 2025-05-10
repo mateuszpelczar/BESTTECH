@@ -21,10 +21,17 @@ public class Produkt {
     private Integer stanMagazynowy;
     private String marka;
     private Date dataDodania;
-    @Lob
-    private byte[] zdjecie;
 
+    @Column(name = "zdjecie_url", columnDefinition = "text")
+    private String zdjecieUrl;
 
+    public String getZdjecieUrl() {
+        return zdjecieUrl;
+    }
+
+    public void setZdjecieUrl(String zdjecieUrl) {
+        this.zdjecieUrl = zdjecieUrl;
+    }
 
     @ManyToOne
     @JoinColumn(name = "kategoriaID")
@@ -76,9 +83,6 @@ public class Produkt {
         this.kategoria = kategoria;
     }
 
-    public void setZdjecie(byte[] zdjecie){
-        this.zdjecie=zdjecie;
-    }
 
 
 
@@ -118,9 +122,6 @@ public class Produkt {
         return kategoria;
     }
 
-    public byte[] getZdjecie(){
-        return zdjecie;
-    }
 
 
 
