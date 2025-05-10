@@ -110,6 +110,11 @@
         </div>
 
         <div class="boxImputLabel">
+            <label for="zdjecieUrl">Link do zdjęcia (max 500x500px):</label>
+            <input type="url" id="zdjecieUrl" name="zdjecieUrl" th:value="${produkt.zdjecieUrl}" required>
+        </div>
+
+        <div class="boxImputLabel">
             <label for="kategoriaID">Kategoria:</label>
             <select id="kategoriaID" name="kategoriaID" required>
                 <option th:each="kategoria : ${kategorie}" th:value="${kategoria.kategoriaID}"

@@ -85,6 +85,8 @@
         <div class="produkt_TextImg">
             <div class="produkt_img">
                 <img th:if="${zdjecieBase64 != null}" th:src="@{'data:image/png;base64,' + zdjecieBase64}" alt="Zdjęcie produktu">
+                <img th:if="${produkt.zdjecieUrl != null}" th:src="${produkt.zdjecieUrl}" alt="Zdjęcie produktu"
+                     style="max-width:500px; max-height:500px; width:auto; height:auto; display:block; margin:auto;">
             </div>
 
             <div class="produkt_opis">

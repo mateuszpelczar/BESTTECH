@@ -109,16 +109,15 @@ public class ProductsController {
                                @RequestParam Integer stanMagazynowy,
                                @RequestParam String marka,
                                @RequestParam Integer kategoriaID,
-                               @RequestParam(required = false) MultipartFile zdjecie,
-                               Model model,RedirectAttributes redirectAttributes, HttpServletRequest request) {
+                               @RequestParam String zdjecieUrl,
+                               Model model, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
-        // pobranie kategorii
-        Optional<Kategoria>kOpt = kategoriaRepository.findById(kategoriaID);
-        if(kOpt.isEmpty()){
-            redirectAttributes.addFlashAttribute("error","Kategoria o ID " + kategoriaID + " nie zostala znaleziona");
-            return "redirect://products/addproduct/";
+        Optional<Kategoria> kOpt = kategoriaRepository.findById(kategoriaID);
+        if (kOpt.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Kategoria o ID " + kategoriaID + " nie zostala znaleziona");
+            return "redirect:/products/addproduct/";
         }
-        Kategoria kategoria=kOpt.get();
+        Kategoria kategoria = kOpt.get();
 
         Produkt produkt = new Produkt();
         produkt.setNazwa(nazwa);
@@ -126,27 +125,17 @@ public class ProductsController {
         produkt.setCena(cena);
         produkt.setStanMagazynowy(stanMagazynowy);
         produkt.setMarka(marka);
-        produkt.setDataDodania(new Date()); // Ustawiamy bieżącą datę
+        produkt.setDataDodania(new Date());
         produkt.setKategoria(kategoria);
+        produkt.setZdjecieUrl(zdjecieUrl);
 
-        try{
-            if(zdjecie != null && !zdjecie.isEmpty()){
-                produkt.setZdjecie(zdjecie.getBytes());
-            }
-        }catch (IOException e){
-            redirectAttributes.addFlashAttribute("error", "Blad podczas odczytu pliku obrazu");
-            return "redirect:/products/addproduct/";
+        String currentUser = request.getUserPrincipal().getName();
+        logsRepository.save(new LogsSystem("Dodano nowy produkt: " + nazwa, currentUser, "INFO"));
 
-        }
+        produktRepository.save(produkt);
 
-        //log
-        String currentUser=request.getUserPrincipal().getName();
-        logsRepository.save(new LogsSystem("Dodano nowy produkt: " + nazwa ,currentUser,"INFO"));
-
-        produktRepository.save(produkt); // Zapisujemy produkt do bazy
-
-        redirectAttributes.addFlashAttribute("message","Produkt zostal dodany.");
-        return "redirect:/products/showproducts"; // Przekierowanie do strony z produktami
+        redirectAttributes.addFlashAttribute("message", "Produkt zostal dodany.");
+        return "redirect:/products/showproducts";
     }
 
 
@@ -185,15 +174,19 @@ public class ProductsController {
     }
 
     @PostMapping("/editproduct")
-    public String edytujProdukt(@RequestParam Integer id, @RequestParam String nazwa, @RequestParam String opis,
-                                @RequestParam Float cena, @RequestParam String marka,
-                                @RequestParam Integer kategoriaID, @RequestParam Integer stanMagazynowy,
+    public String edytujProdukt(@RequestParam Integer id,
+                                @RequestParam String nazwa,
+                                @RequestParam String opis,
+                                @RequestParam Float cena,
+                                @RequestParam String marka,
+                                @RequestParam Integer kategoriaID,
+                                @RequestParam Integer stanMagazynowy,
+                                @RequestParam String zdjecieUrl,
                                 Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
-        //znajdywanie produktu
         Optional<Produkt> opt = produktRepository.findById(id);
         if(opt.isEmpty()){
-            redirectAttributes.addFlashAttribute("error","Produkt o ID " + id + "nie został znaleziony");
+            redirectAttributes.addFlashAttribute("error","Produkt o ID " + id + " nie został znaleziony");
             return "redirect:/products/showproducts";
         }
         Produkt produkt = opt.get();
@@ -218,6 +211,7 @@ public class ProductsController {
         produkt.setMarka(marka);
         produkt.setKategoria(kategoria);
         produkt.setStanMagazynowy(stanMagazynowy);
+        produkt.setZdjecieUrl(zdjecieUrl);
         produktRepository.save(produkt);
 
         redirectAttributes.addFlashAttribute("message","Produkt został zaktualizowany");
