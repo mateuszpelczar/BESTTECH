@@ -48,9 +48,16 @@ text-align: center;
 }
 
 .nav_img{
-background-color: black;
-height: 50px;
-width: 50px;
+/*background-color: black;
+ */height: 100px;
+width: 100px;
+margin-top:15px;
+}
+
+.nav_img img {
+    display:block;
+    width: 100px;
+    height: 100px;
 }
 .nav_links {
     display: flex;
