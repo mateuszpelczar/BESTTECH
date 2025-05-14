@@ -2,6 +2,7 @@ package com.aplikacjazespolowa.BESTTECH.controllers;
 
 import com.aplikacjazespolowa.BESTTECH.dto.RaportSprzedazyDTO;
 import com.aplikacjazespolowa.BESTTECH.models.*;
+import com.aplikacjazespolowa.BESTTECH.services.ProduktService;
 import com.aplikacjazespolowa.BESTTECH.services.ZamowienieService;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,13 +25,16 @@ import java.util.Base64;
 public class ProductsController {
     private final ProduktRepository produktRepository;
     private final KategoriaRepository kategoriaRepository;
+
     @Autowired
     ZamowienieService zamowienieService;
-
     @Autowired
     LogsRepository logsRepository;
     @Autowired
     private HttpServletRequest request;
+    @Autowired
+    ProduktService produktService;
+
 
     public ProductsController(ProduktRepository produktRepository, KategoriaRepository kategoriaRepository) {
         this.produktRepository = produktRepository;
@@ -64,6 +68,8 @@ public class ProductsController {
     public String mainPage() {
         return "products/mainpage";
     }
+
+
 
 
     // poniżej dla admina
@@ -329,6 +335,16 @@ public class ProductsController {
         return "products/raportSprzedazy";
 
     }
+
+    @GetMapping("/produkt/{id}")
+    public String showProductDetails(@PathVariable("id") Integer id, Model model) {
+        Produkt produkt = produktService.findById(id);
+        model.addAttribute("produkt", produkt);
+        return "product-szczegoly";
+    }
+
+
+
 
 
 

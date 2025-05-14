@@ -4,6 +4,7 @@ import com.aplikacjazespolowa.BESTTECH.models.Kategoria;
 import com.aplikacjazespolowa.BESTTECH.models.KategoriaRepository;
 import com.aplikacjazespolowa.BESTTECH.models.Produkt;
 import com.aplikacjazespolowa.BESTTECH.models.ProduktRepository;
+import com.aplikacjazespolowa.BESTTECH.services.ProduktService;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +19,12 @@ import java.util.Optional;
 public class MyController {
     private final ProduktRepository produktRepository;
     private final KategoriaRepository kategoriaRepository;
+    private final ProduktService produktService;
 
-    public MyController(ProduktRepository produktRepository, KategoriaRepository kategoriaRepository) {
+    public MyController(ProduktRepository produktRepository, KategoriaRepository kategoriaRepository, ProduktService produktService) {
         this.produktRepository = produktRepository;
         this.kategoriaRepository = kategoriaRepository;
+        this.produktService=produktService;
     }
 
     @GetMapping("/")
@@ -29,6 +32,11 @@ public class MyController {
         if (principal != null) {
             System.out.println("Zalogowany: " + principal.getName());
         }
+
+        //Pobranie 5 losowych produktow
+        List<Produkt> losoweProdukty = produktService.getLosoweProdukty(5);
+
+        model.addAttribute("polecaneProdukty",losoweProdukty);
 
         return "index";
     }
