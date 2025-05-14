@@ -4,7 +4,6 @@ import com.aplikacjazespolowa.BESTTECH.models.Produkt;
 import com.aplikacjazespolowa.BESTTECH.models.ProduktRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -44,5 +43,7 @@ public class ProduktService {
         Optional<Produkt> produktOptional=produktRepository.findById(id);
         return  produktOptional.orElse(null);
     }
+
+
 
 }

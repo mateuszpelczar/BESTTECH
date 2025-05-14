@@ -98,7 +98,7 @@
 <div class="recomended_items">
     <div class="recomended_item" th:each="produkt : ${polecaneProdukty}">
         <div class="recomended_item_img">
-            <img th:src="@{${produkt.zdjecieUrl}}" alt="Produkt" style="width: 100%; height: 100%; object-fit: cover;" />
+            <img th:if="${produkt.zdjecieUrl != null}" th:src="@{${produkt.zdjecieUrl}}" alt="Produkt" style="width: 100%; height: 100%; object-fit: cover;" />
         </div>
         <div class="recomended_item_name" th:text="${produkt.nazwa}"></div>
         <div class="recomended_item_price" th:text="${produkt.cena + ' zł'}"></div>

@@ -80,6 +80,9 @@ public class MyController {
 
         model.addAttribute("produkt", produkt);
 
+        List<Produkt> losoweProdukty = produktService.getLosoweProdukty(5);
+        model.addAttribute("polecaneProdukty",losoweProdukty);
+
         return "products/product-szczegoly";
     }
 

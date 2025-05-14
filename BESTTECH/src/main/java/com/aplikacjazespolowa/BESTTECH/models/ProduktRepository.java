@@ -34,5 +34,6 @@ public interface ProduktRepository extends JpaRepository<Produkt, Integer> {
      * @return lista produktów należących do tej kategorii
      */
     List<Produkt> findByKategoria_Nazwa(String nazwa);
+
 }
 

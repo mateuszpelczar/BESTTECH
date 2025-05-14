@@ -32,8 +32,7 @@ public class ProductsController {
     LogsRepository logsRepository;
     @Autowired
     private HttpServletRequest request;
-    @Autowired
-    ProduktService produktService;
+
 
 
     public ProductsController(ProduktRepository produktRepository, KategoriaRepository kategoriaRepository) {
@@ -336,17 +335,4 @@ public class ProductsController {
 
     }
 
-    @GetMapping("/produkt/{id}")
-    public String showProductDetails(@PathVariable("id") Integer id, Model model) {
-        Produkt produkt = produktService.findById(id);
-        model.addAttribute("produkt", produkt);
-        return "product-szczegoly";
     }
-
-
-
-
-
-
-
-}
