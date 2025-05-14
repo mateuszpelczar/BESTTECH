@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -140,10 +144,14 @@ public class AdminController {
         Date dzisiaj = new Date();
         for (Zamowienie z : zamowienia) {
             if (z.getDataZamowienia() != null && z.getZamowienieID() != null) {
-                long dni = ChronoUnit.DAYS.between(z.getDataZamowienia().toInstant(), dzisiaj.toInstant());
+                LocalDate dataZamowienia = z.getDataZamowienia();
+                LocalDate dzisiajLocal = LocalDate.now();
+
+                long dni = ChronoUnit.DAYS.between(dataZamowienia, dzisiajLocal);
                 dniOdZamowieniaMap.put(z.getZamowienieID(), (int) dni);
             }
         }
+
 
 
         model.addAttribute("dniOdZamowieniaMap", dniOdZamowieniaMap);

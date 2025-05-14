@@ -1,9 +1,11 @@
 package com.aplikacjazespolowa.BESTTECH.models;
 
+import com.aplikacjazespolowa.BESTTECH.dto.RaportSprzedazyDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +18,7 @@ public class Zamowienie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer zamowienieID;
 
-    private Date dataZamowienia;
+    private LocalDate dataZamowienia;
     private String status;
     private Float kosztCalkowity;
 
@@ -52,11 +54,11 @@ public class Zamowienie {
         this.zamowienieID = zamowienieID;
     }
 
-    public Date getDataZamowienia() {
+    public LocalDate getDataZamowienia() {
         return dataZamowienia;
     }
 
-    public void setDataZamowienia(Date dataZamowienia) {
+    public void setDataZamowienia(LocalDate dataZamowienia) {
         this.dataZamowienia = dataZamowienia;
     }
 
@@ -135,6 +137,7 @@ public class Zamowienie {
     @Transient
     public long getDniOdZamowienia() {
         if (dataZamowienia == null) return Long.MAX_VALUE;
-        return ChronoUnit.DAYS.between(dataZamowienia.toInstant(), new Date().toInstant());
+        return ChronoUnit.DAYS.between(dataZamowienia, LocalDate.now());
     }
+
 }

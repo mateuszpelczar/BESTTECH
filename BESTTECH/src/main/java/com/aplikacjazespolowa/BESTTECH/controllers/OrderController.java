@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -112,7 +113,7 @@ public class OrderController {
 
         // Nowe zamówienie
         Zamowienie zamowienie = new Zamowienie();
-        zamowienie.setDataZamowienia(new Date());
+        zamowienie.setDataZamowienia(LocalDate.now());
         zamowienie.setStatus("w realizacji");
         zamowienie.setKosztCalkowity(totalCost);
         zamowienie.setKlient(klient);

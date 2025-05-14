@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Raport sprzedaży</title>
+    <link rel="stylesheet">
+</head>
+<body>
+<h1>Raport sprzedaży produktów</h1>
+
+<!-- Formularz do filtrowania raportu -->
+<form th:action="@{/products/raportSprzedazy}" method="get">
+    <label for="od">Od:</label>
+    <input type="date" id="od" name="od" th:value="${od}" required>
+
+    <label for="doDaty">Do:</label>
+    <input type="date" id="doDaty" name="doDaty" th:value="${doDaty}" required>
+
+    <button type="submit">Generuj raport</button>
+</form>
+
+<p th:if="${od !=null and doDaty !=null}">
+    Pokazuje raport od <span th:text="${od}"></span> do <span th:text="${doDaty}"></span>
+</p>
+
+<!-- Tabela raportu sprzedaży -->
+<table>
+    <tr>
+        <th>Nazwa produktu</th>
+        <th>Sprzedane sztuki</th>
+    </tr>
+    <tr th:each="produkt : ${raportSprzedazy}">
+        <td th:text="${produkt.nazwa}"></td>
+        <td th:text="${produkt.sprzedaneSztuki}"></td>
+    </tr>
+</table>
+
+<a href="/products">Powrót</a>
+</body>
+</html>

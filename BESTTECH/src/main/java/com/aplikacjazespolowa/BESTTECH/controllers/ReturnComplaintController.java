@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -38,9 +39,16 @@ public class ReturnComplaintController {
             Map<Integer, Long> dniOdZamowienia = new HashMap<>();
             Date today = new Date();
             for (Zamowienie z : zamowienia) {
-                long dni = ChronoUnit.DAYS.between(z.getDataZamowienia().toInstant(), today.toInstant());
-                dniOdZamowienia.put(z.getZamowienieID(), dni);
+                if (z.getDataZamowienia() != null && z.getZamowienieID() != null) {
+                    LocalDate dataZamowienia = z.getDataZamowienia();
+                    LocalDate dzisiajLocal = LocalDate.now();
+
+                    // Konwersja LocalDate do Instant na początku dnia
+                    long dni = ChronoUnit.DAYS.between(dataZamowienia.atStartOfDay(), dzisiajLocal.atStartOfDay());
+                    dniOdZamowienia.put(z.getZamowienieID(), dni);
+                }
             }
+
 
             model.addAttribute("zamowienia", zamowienia);
             model.addAttribute("dniMap", dniOdZamowienia);
@@ -56,10 +64,9 @@ public class ReturnComplaintController {
         if (optionalZamowienie.isPresent()) {
             Zamowienie zamowienie = optionalZamowienie.get();
             long dni = ChronoUnit.DAYS.between(
-                    zamowienie.getDataZamowienia().toInstant(),
-                    new Date().toInstant()
+                    zamowienie.getDataZamowienia().atStartOfDay(),
+                    LocalDate.now().atStartOfDay()
             );
-
             if (dni <= 14) {
                 Zwrot zwrot = new Zwrot();
                 zwrot.setZamowienie(zamowienie);
@@ -79,9 +86,10 @@ public class ReturnComplaintController {
         if (optionalZamowienie.isPresent()) {
             Zamowienie zamowienie = optionalZamowienie.get();
             long dni = ChronoUnit.DAYS.between(
-                    zamowienie.getDataZamowienia().toInstant(),
-                    new Date().toInstant()
+                    zamowienie.getDataZamowienia().atStartOfDay(),
+                    LocalDate.now().atStartOfDay()
             );
+
 
             if (dni <= 365) {
                 Reklamacja reklamacja = new Reklamacja();

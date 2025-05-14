@@ -1,27 +1,19 @@
 package com.aplikacjazespolowa.BESTTECH.controllers;
 
+import com.aplikacjazespolowa.BESTTECH.dto.RaportSprzedazyDTO;
 import com.aplikacjazespolowa.BESTTECH.models.*;
-import com.fasterxml.jackson.databind.ser.Serializers;
+import com.aplikacjazespolowa.BESTTECH.services.ZamowienieService;
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.websocket.Session;
-import org.postgresql.PGConnection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.postgresql.largeobject.LargeObject;
-import org.postgresql.largeobject.LargeObjectManager;
-import java.sql.Connection;
 
-import java.io.IOException;
-import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +24,8 @@ import java.util.Base64;
 public class ProductsController {
     private final ProduktRepository produktRepository;
     private final KategoriaRepository kategoriaRepository;
+    @Autowired
+    ZamowienieService zamowienieService;
 
     @Autowired
     LogsRepository logsRepository;
@@ -316,6 +310,26 @@ public class ProductsController {
     public String convertToBase64(byte[] bytes){
         return  bytes != null ? Base64.getEncoder().encodeToString(bytes) : null;
     }
+
+    @GetMapping("/raportSprzedazy")
+    public String raportSprzedazy(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate od,
+                                  @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate doDaty,
+                                  Model model) {
+        List<RaportSprzedazyDTO> raport = null;
+
+        if(od !=null && doDaty !=null) {
+            raport = zamowienieService.generujRaportSprzedazy(od, doDaty);
+            model.addAttribute("odDo", "Od " + od + " do " + doDaty);
+
+        }
+
+        model.addAttribute("raportSprzedazy",raport);
+        model.addAttribute("od",od);
+        model.addAttribute("doDaty",doDaty);
+        return "products/raportSprzedazy";
+
+    }
+
 
 
 
