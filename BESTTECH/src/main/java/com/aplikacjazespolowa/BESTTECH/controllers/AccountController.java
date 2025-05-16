@@ -4,7 +4,9 @@ import com.aplikacjazespolowa.BESTTECH.models.*;
 import com.aplikacjazespolowa.BESTTECH.services.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,20 @@ public class AccountController {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @GetMapping("/details")
+    public String showUserDetails( Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        DBUser user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono zalogowanego użytkownika"));
+
+
+        model.addAttribute("user", user);
+        return "konto/userDetails"; // widok: userDetails.html lub userDetails.jsp
     }
 
 
@@ -136,6 +152,69 @@ public class AccountController {
         model.addAttribute("success", "Hasło zostało zmienione pomyślnie.");
         return "konto/changepassword";
     }
+
+    @GetMapping("/zmien-imie")
+    public String showChangeNameForm() {
+        return "konto/changeName";
+    }
+
+    @PostMapping("/zmien-imie")
+    public String changeName(@RequestParam String newName, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        DBUser user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono użytkownika."));
+
+        user.setImie(newName);
+        userRepo.save(user);
+
+        model.addAttribute("success", "Imię zostało zmienione pomyślnie.");
+        return "konto/changeName";
+    }
+
+
+    @GetMapping("/zmien-nazwisko")
+    public String showChangeSurnameForm() {
+        return "konto/changeSurname";
+    }
+
+    @PostMapping("/zmien-nazwisko")
+    public String changeSurname(@RequestParam String newSurname, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        DBUser user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono użytkownika."));
+
+        user.setNazwisko(newSurname);
+        userRepo.save(user);
+
+        model.addAttribute("success", "Nazwisko zostało zmienione pomyślnie.");
+        return "konto/changeSurname";
+    }
+
+
+    @GetMapping("/zmien-telefon")
+    public String showChangePhoneNumberForm() {
+        return "konto/changePhone";
+    }
+
+    @PostMapping("/zmien-telefon")
+    public String changePhone(@RequestParam String newPhone, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        DBUser user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono użytkownika."));
+
+        user.setTelefon(newPhone);
+        userRepo.save(user);
+
+        model.addAttribute("success", "Numer telefonu został zmieniony pomyślnie.");
+        return "konto/changePhone";
+    }
+
 
 
 

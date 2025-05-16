@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" th:href="@{/css/nav_footer.css}">
-    <link rel="stylesheet" href="../static/css/nav_footer.css">
-
-    <link rel="stylesheet" th:href="@{/css/categoryStyles.css}">
-    <link rel="stylesheet" href="../static/css/categoryStyles.css">
+    <title>Dane użytkownika</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wszystkie kategorie (ta strona jest dla użytkownika)</title>
+    <link rel="stylesheet" th:href="@{/css/kontoStyles.css}">
+    <link rel="stylesheet" th:href="@{/css/nav_footer.css}">
 </head>
 <body>
-<!-- Pasek nawigacji -->
+
 <nav>
     <div class="nav_img">
         <img src="https://i.imgur.com/n0dADst.png" alt="Logo">
@@ -81,16 +77,40 @@
 </nav>
 
 <main>
-    <h1>Przejdź do produktów dla kategorii:</h1>
+<h1>Witaj, <span th:text="${user.imie}">Imię</span>!</h1>
 
-    <div th:each="kategoria : ${kategorie}">
-        <a class="out" th:href="@{/kategoria/{nazwa}(nazwa=${kategoria.nazwa})}" >
-            <div class="in" th:text="${kategoria.nazwa}">Podzespoły</div>
-        </a>
-    </div>
+<p>
+    <strong>Email:</strong> <span th:text="${user.email}">email@example.com</span>
+</p>
 
-    <a href="/">Powrót </a>
+<p>
+    <strong>Imię:</strong> <span th:text="${user.imie}">Imię</span>
+    <a th:href="@{/konto/zmien-imie}">
+        <button>Zmień</button>
+    </a>
+</p>
+
+<p>
+    <strong>Nazwisko:</strong> <span th:text="${user.nazwisko}">Nazwisko</span>
+    <a th:href="@{/konto/zmien-nazwisko}">
+        <button>Zmień</button>
+    </a>
+</p>
+
+<p>
+    <strong>Telefon:</strong> <span th:text="${user.telefon}">123456789</span>
+    <a th:href="@{/konto/zmien-telefon}">
+        <button>Zmień</button>
+    </a>
+</p>
+
+
+<a th:href="@{/konto/zmien-haslo}">
+    <button>Zmień hasło</button>
+</a>
+
 </main>
+
 <!-- Stopka -->
 <footer>
     <div class="footer_logos"></div>
@@ -110,5 +130,7 @@
         <h6>Regulamin</h6>
     </div>
 </footer>
+
+
 </body>
 </html>

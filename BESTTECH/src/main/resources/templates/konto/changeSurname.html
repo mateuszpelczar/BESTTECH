@@ -1,17 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" th:href="@{/css/nav_footer.css}">
-    <link rel="stylesheet" href="../static/css/nav_footer.css">
-
-    <link rel="stylesheet" th:href="@{/css/categoryStyles.css}">
-    <link rel="stylesheet" href="../static/css/categoryStyles.css">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wszystkie kategorie (ta strona jest dla użytkownika)</title>
+    <title>Zmiana nazwiska</title>
+    <link rel="stylesheet" th:href="@{/css/kontoStyles.css}">
+    <link rel="stylesheet" th:href="@{/css/nav_footer.css}">
 </head>
 <body>
-<!-- Pasek nawigacji -->
 <nav>
     <div class="nav_img">
         <img src="https://i.imgur.com/n0dADst.png" alt="Logo">
@@ -80,17 +75,24 @@
     </div>
 </nav>
 
+
 <main>
-    <h1>Przejdź do produktów dla kategorii:</h1>
+    <h2 class="changepassword_H2">Zmiana nazwiska - BEST-TECH</h2>
 
-    <div th:each="kategoria : ${kategorie}">
-        <a class="out" th:href="@{/kategoria/{nazwa}(nazwa=${kategoria.nazwa})}" >
-            <div class="in" th:text="${kategoria.nazwa}">Podzespoły</div>
-        </a>
-    </div>
+    <form th:action="@{/konto/zmien-nazwisko}" method="post">
+        <div class="login_email">
+            <label for="newSurname">Nowe nazwisko</label>
+            <input type="text" id="newSurname" name="newSurname" required>
+        </div>
 
-    <a href="/">Powrót </a>
+        <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+        <p th:if="${success}" th:text="${success}" style="color: green;"></p>
+
+        <button type="submit" id="register">Zmień nazwisko</button>
+        <a th:href="@{/konto/details}" id="backButton">Powrót</a>
+    </form>
 </main>
+
 <!-- Stopka -->
 <footer>
     <div class="footer_logos"></div>
