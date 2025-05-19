@@ -48,16 +48,16 @@ text-align: center;
 }
 
 .nav_img{
-/*background-color: black;
- */height: 100px;
-width: 100px;
-margin-top:15px;
+/*background-color: black;*/
+height: 75px;
+width: 75px;
+/* margin-top:15px; */
 }
 
 .nav_img img {
     display:block;
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
 }
 .nav_links {
     display: flex;
