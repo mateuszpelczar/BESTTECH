@@ -10,6 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+/**
+ * Kontroler obsługujący zgłoszenia zwrotów i reklamacji produktów przez klientów.
+ *
+ * Umożliwia:
+ * <ul>
+ *     <li>Wyświetlanie strony z listą zamówień możliwych do zgłoszenia jako zwrot lub reklamacja</li>
+ *     <li>Składanie zgłoszeń zwrotów (do 14 dni od zakupu)</li>
+ *     <li>Składanie zgłoszeń reklamacyjnych (do 365 dni od zakupu)</li>
+ * </ul>
+ */
 
 @Controller
 @RequestMapping("/zwroty-reklamacje")
@@ -26,6 +36,16 @@ public class ReturnComplaintController {
 
     @Autowired
     private DBUserRepository dbUserRepository;
+
+    /**
+     * Wyświetla stronę zwrotów i reklamacji dla zalogowanego użytkownika.
+     *
+     * Pobiera listę zamówień przypisaną do zalogowanego klienta oraz oblicza,
+     * ile dni minęło od złożenia każdego z nich, by umożliwić określenie czy można je zgłosić.
+     *
+     * @param model model przekazywany do widoku
+     * @return nazwa widoku klienta z listą zamówień
+     */
 
     @GetMapping
     public String showReturnAndComplaintPage(Model model) {
@@ -57,6 +77,16 @@ public class ReturnComplaintController {
         return "client/returns";
     }
 
+    /**
+     * Obsługuje zgłoszenie zwrotu produktu.
+     *
+     * Zgłoszenie jest możliwe tylko wtedy, gdy od daty zamówienia nie minęło więcej niż 14 dni.
+     *
+     * @param zamowienieId ID zamówienia, którego dotyczy zwrot
+     * @param powod        powód zgłoszenia zwrotu
+     * @return przekierowanie do strony zwrotów i reklamacji
+     */
+
     @PostMapping("/submit-return")
     public String submitReturn(@RequestParam("zamowienieId") Integer zamowienieId,
                                @RequestParam("powod") String powod) {
@@ -78,6 +108,16 @@ public class ReturnComplaintController {
         }
         return "redirect:/zwroty-reklamacje";
     }
+
+    /**
+     * Obsługuje zgłoszenie reklamacji produktu.
+     *
+     * Zgłoszenie reklamacji jest możliwe tylko wtedy, gdy od daty zamówienia nie minęło więcej niż 365 dni.
+     *
+     * @param zamowienieId ID zamówienia, którego dotyczy reklamacja
+     * @param opis         opis problemu podany przez klienta
+     * @return przekierowanie do strony zwrotów i reklamacji
+     */
 
     @PostMapping("/submit-complaint")
     public String submitComplaint(@RequestParam("zamowienieId") Integer zamowienieId,

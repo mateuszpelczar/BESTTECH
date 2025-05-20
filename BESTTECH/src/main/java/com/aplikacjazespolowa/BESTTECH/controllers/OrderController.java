@@ -17,6 +17,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Kontroler zarządzający procesem składania zamówień w sklepie internetowym.
+ *
+ * Umożliwia podgląd podsumowania koszyka, dodanie adresu dostawy,
+ * zapisanie zamówienia wraz ze szczegółami oraz wyświetlenie potwierdzenia złożenia zamówienia.
+ */
 @Controller
 @RequestMapping("/order")
 public class OrderController {
@@ -31,6 +37,10 @@ public class OrderController {
 
     private final DBUserRepository dbUserRepository;
 
+    /**
+     * Konstruktor wstrzykujący wymagane repozytoria.
+     */
+
     public OrderController(ProduktRepository produktRepository,AdresDostawyRepository adresDostawyRepository,
                            ZamowienieRepository zamowienieRepository, SzczegolyZamowieniaRepository szczegolyZamowieniaRepository,
                            DostawaRepository dostawaRepository, DBUserRepository dbUserRepository) {
@@ -41,6 +51,14 @@ public class OrderController {
         this.dostawaRepository = dostawaRepository;
         this.dbUserRepository = dbUserRepository;
     }
+
+    /**
+     * Wyświetla podsumowanie zamówienia z produktami znajdującymi się w koszyku.
+     *
+     * @param session sesja HTTP przechowująca dane koszyka
+     * @param model model MVC do przekazania danych do widoku
+     * @return widok z podsumowaniem zamówienia ("orders/details")
+     */
 
     @GetMapping("/details")
     public String showOrderSummary(HttpSession session, Model model) {
@@ -64,6 +82,22 @@ public class OrderController {
         model.addAttribute("adresDostawy", new AdresDostawy());
         return "orders/details";
     }
+
+    /**
+     * Obsługuje przesłanie zamówienia: zapisuje adres dostawy, zamówienie, szczegóły zamówienia,
+     * aktualizuje stan magazynowy produktów oraz tworzy wpis o dostawie.
+     * Po złożeniu zamówienia czyści koszyk w sesji.
+     *
+     * @param ulica ulica adresu dostawy
+     * @param miasto miasto adresu dostawy
+     * @param kodPocztowy kod pocztowy adresu dostawy
+     * @param kraj kraj adresu dostawy
+     * @param sposobDostawy wybrana metoda dostawy
+     * @param sposobPlatnosci wybrana metoda płatności
+     * @param typKlienta typ klienta (np. indywidualny/firma)
+     * @param session sesja HTTP przechowująca dane koszyka
+     * @return przekierowanie do strony potwierdzenia zamówienia
+     */
 
     @PostMapping("/submit")
     public String submitOrder(
@@ -161,6 +195,12 @@ public class OrderController {
 
         return "redirect:/order/confirmation"; // np. strona z potwierdzeniem zamówienia
     }
+
+    /**
+     * Wyświetla stronę z potwierdzeniem złożenia zamówienia.
+     *
+     * @return widok potwierdzenia zamówienia ("orders/confirmation")
+     */
 
     @GetMapping("/confirmation")
     public String showConfirmationPage() {
