@@ -19,11 +19,30 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Kontroler obsługujący operacje związane z kontem użytkownika.
+ *
+ * Odpowiada za rejestrację, logowanie, wyświetlanie danych użytkownika,
+ * zarządzanie zamówieniami oraz edycję danych osobowych (imię, nazwisko, telefon, hasło).
+ */
+
+
+
+
 @Controller
 @RequestMapping("/konto")
 
 public class AccountController {
 
+    // Iniekcja zależności do repozytoriów użytkowników, ról i zamówień oraz kodera haseł
+
+    /**
+     * Tworzy nowy kontroler konta z wymaganymi zależnościami.
+     *
+     * @param userRepo repozytorium użytkowników
+     * @param roleRepo repozytorium ról
+     * @param passwordEncoder enkoder haseł
+     */
 
     private final DBUserRepository userRepo;
     private final DBRoleRepository roleRepo;
@@ -32,11 +51,21 @@ public class AccountController {
     @Autowired
     private ZamowienieRepository zamowienieRepository;
 
+
+
     public AccountController(DBUserRepository userRepo, DBRoleRepository roleRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
         this.passwordEncoder = passwordEncoder;
     }
+
+    /**
+     * Wyświetla szczegóły zalogowanego użytkownika.
+     *
+     * @param model model do przekazania danych do widoku
+     * @return widok z danymi użytkownika
+     */
+
 
     @GetMapping("/details")
     public String showUserDetails( Model model) {
@@ -51,13 +80,29 @@ public class AccountController {
         model.addAttribute("user", user);
         return "konto/userDetails"; // widok: userDetails.html lub userDetails.jsp
     }
-
+    /**
+     * Wyświetla formularz rejestracji nowego użytkownika.
+     *
+     * @return widok formularza rejestracyjnego
+     */
 
     @GetMapping("/rejestracja")
     public String showRegisterForm() {
         return "konto/registerform";
     }
-
+    /**
+     * Przetwarza dane rejestracyjne nowego użytkownika.
+     *
+     * Sprawdza unikalność e-maila, koduje hasło i przypisuje rolę 'CLIENT'.
+     *
+     * @param email adres e-mail
+     * @param password hasło
+     * @param imie imię
+     * @param nazwisko nazwisko
+     * @param telefon numer telefonu
+     * @param model model do przekazania błędów/wyników
+     * @return przekierowanie lub widok formularza z błędem
+     */
 
     @PostMapping("/rejestracja")
     public String register(@RequestParam String email,
@@ -95,7 +140,14 @@ public class AccountController {
     public String logowanie() {
         return "konto/loginform";
     }
-
+    /**
+     * Wyświetla listę zamówień zalogowanego użytkownika.
+     *
+     * Zamówienia są sortowane według statusu realizacji.
+     *
+     * @param model model do przekazania danych do widoku
+     * @return widok z listą zamówień
+     */
 
     @GetMapping("/zamowienia")
     public String showZamowieniaKlienta(Model model) {
@@ -118,10 +170,28 @@ public class AccountController {
         return "/konto/zamowienia";
     }
 
+    /**
+     * Wyświetla formularz zmiany hasła.
+     *
+     * @return widok formularza zmiany hasła
+     */
+
     @GetMapping("/zmien-haslo")
     public String showChangePasswordForm() {
         return "konto/changepassword";
     }
+
+    /**
+     * Przetwarza zmianę hasła zalogowanego użytkownika.
+     *
+     * Weryfikuje poprawność aktualnego hasła i zgodność nowych haseł.
+     *
+     * @param oldPassword obecne hasło
+     * @param newPassword nowe hasło
+     * @param confirmPassword potwierdzenie nowego hasła
+     * @param model model do przekazania komunikatów
+     * @return widok formularza ze statusem
+     */
 
     @PostMapping("/zmien-haslo")
     public String changePassword(@RequestParam String oldPassword,
@@ -152,11 +222,22 @@ public class AccountController {
         model.addAttribute("success", "Hasło zostało zmienione pomyślnie.");
         return "konto/changepassword";
     }
-
+    /**
+     * Wyświetla formularz zmiany imienia użytkownika.
+     *
+     * @return widok formularza zmiany imienia
+     */
     @GetMapping("/zmien-imie")
     public String showChangeNameForm() {
         return "konto/changeName";
     }
+    /**
+     * Przetwarza zmianę imienia zalogowanego użytkownika.
+     *
+     * @param newName nowe imię
+     * @param model model do przekazania komunikatów
+     * @return widok formularza ze statusem
+     */
 
     @PostMapping("/zmien-imie")
     public String changeName(@RequestParam String newName, Model model) {
@@ -172,12 +253,19 @@ public class AccountController {
         model.addAttribute("success", "Imię zostało zmienione pomyślnie.");
         return "konto/changeName";
     }
-
+    /**
+     * Wyświetla formularz zmiany nazwiska użytkownika.
+     *
+     * @return widok formularza zmiany nazwiska
+     */
 
     @GetMapping("/zmien-nazwisko")
     public String showChangeSurnameForm() {
         return "konto/changeSurname";
     }
+/**
+ * Przetwarza zmianę nazwiska zalogowanego użytkownika.
+ */
 
     @PostMapping("/zmien-nazwisko")
     public String changeSurname(@RequestParam String newSurname, Model model) {
@@ -193,13 +281,21 @@ public class AccountController {
         model.addAttribute("success", "Nazwisko zostało zmienione pomyślnie.");
         return "konto/changeSurname";
     }
-
+/**
+ * Wyświetla formularz zmiany numeru telefonu użytkownika.
+ */
 
     @GetMapping("/zmien-telefon")
     public String showChangePhoneNumberForm() {
         return "konto/changePhone";
     }
-
+    /**
+     * Przetwarza zmianę nazwiska zalogowanego użytkownika.
+     *
+     * @param //newSurname nowe nazwisko
+     * @param model model do przekazania komunikatów
+     * @return widok formularza ze statusem
+     */
     @PostMapping("/zmien-telefon")
     public String changePhone(@RequestParam String newPhone, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

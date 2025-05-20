@@ -9,15 +9,39 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+/**
+ * Kontroler obsługujący operacje związane z koszykiem zakupowym.
+ *
+ * Umożliwia dodawanie produktów do koszyka, usuwanie ich, aktualizowanie ilości,
+ * przeglądanie zawartości koszyka oraz jego czyszczenie.
+ */
+
+
+
+
 @Controller
 @RequestMapping("/koszyk")
 public class CartController {
 
     private final ProduktRepository produktRepository;
 
+    /**
+     * Konstruktor wstrzykujący repozytorium produktów.
+     *
+     * @param produktRepository repozytorium do operacji na produktach
+     */
+
     public CartController(ProduktRepository produktRepository) {
         this.produktRepository = produktRepository;
     }
+
+    /**
+     * Wyświetla zawartość koszyka.
+     *
+     * @param session sesja HTTP, z której pobierane są dane koszyka
+     * @param model   model MVC do przekazania danych do widoku
+     * @return widok koszyka (orders/cart)
+     */
 
     @GetMapping
     public String showCart(HttpSession session, Model model) {
@@ -35,6 +59,14 @@ public class CartController {
         return "orders/cart";
     }
 
+    /**
+     * Dodaje produkt do koszyka na podstawie jego ID.
+     *
+     * @param produktId ID produktu do dodania
+     * @param session   sesja HTTP, w której przechowywany jest koszyk
+     * @return przekierowanie do widoku koszyka
+     */
+
     @PostMapping("/dodaj/{id}")
     public String addToCart(@PathVariable("id") Integer produktId, HttpSession session) {
         Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
@@ -47,6 +79,13 @@ public class CartController {
         session.setAttribute("cart", cart);
         return "redirect:/koszyk";
     }
+    /**
+     * Usuwa produkt z koszyka na podstawie jego ID.
+     *
+     * @param produktId ID produktu do usunięcia
+     * @param session   sesja HTTP, w której przechowywany jest koszyk
+     * @return przekierowanie do widoku koszyka
+     */
 
     @PostMapping("/usun/{id}")
     public String removeFromCart(@PathVariable("id") Integer produktId, HttpSession session) {
@@ -59,6 +98,15 @@ public class CartController {
 
         return "redirect:/koszyk";
     }
+
+    /**
+     * Aktualizuje ilości produktów w koszyku.
+     *
+     * @param ids     lista ID produktów
+     * @param ilosci  lista odpowiadających ilości
+     * @param session sesja HTTP, w której przechowywany jest koszyk
+     * @return przekierowanie do widoku koszyka
+     */
 
     @PostMapping("/zmien-ilosc")
     public String updateQuantities(
@@ -94,6 +142,12 @@ public class CartController {
 
         return "redirect:/koszyk";
     }
+    /**
+     * Czyści cały koszyk zakupowy.
+     *
+     * @param session sesja HTTP, w której przechowywany jest koszyk
+     * @return przekierowanie do widoku koszyka
+     */
 
     @PostMapping("/wyczysc")
     public String clearCart(HttpSession session) {

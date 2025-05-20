@@ -15,17 +15,40 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Główny kontroler aplikacji, odpowiedzialny za wyświetlanie strony głównej,
+ * listy kategorii produktów, produktów w wybranej kategorii oraz szczegółów pojedynczego produktu.
+ */
 @Controller
 public class MyController {
     private final ProduktRepository produktRepository;
     private final KategoriaRepository kategoriaRepository;
     private final ProduktService produktService;
 
+    /**
+     * Konstruktor wstrzykujący zależności do repozytoriów i serwisu produktów.
+     *
+     * @param produktRepository repozytorium produktów
+     * @param kategoriaRepository repozytorium kategorii
+     * @param produktService serwis zarządzający logiką produktów
+     */
+
     public MyController(ProduktRepository produktRepository, KategoriaRepository kategoriaRepository, ProduktService produktService) {
         this.produktRepository = produktRepository;
         this.kategoriaRepository = kategoriaRepository;
         this.produktService=produktService;
     }
+
+    /**
+     * Wyświetla stronę główną sklepu.
+     *
+     * Jeśli użytkownik jest zalogowany, wypisuje jego nazwę w konsoli.
+     * Do modelu dodaje listę 5 losowych produktów jako polecane.
+     *
+     * @param model model MVC do przekazania danych do widoku
+     * @param principal obiekt reprezentujący zalogowanego użytkownika (jeśli istnieje)
+     * @return widok strony głównej ("index")
+     */
 
     @GetMapping("/")
     public String showStronaGlowna(Model model, Principal principal) {
@@ -41,6 +64,12 @@ public class MyController {
         return "index";
     }
 
+    /**
+     * Wyświetla listę wszystkich dostępnych kategorii produktów.
+     *
+     * @param model model MVC do przekazania danych do widoku
+     * @return widok listy kategorii ("kategoria")
+     */
 
     // dla klienta
     @GetMapping("/kategoria")
@@ -52,6 +81,14 @@ public class MyController {
         return "kategoria";
     }
 
+    /**
+     * Wyświetla produkty należące do wskazanej kategorii.
+     *
+     * @param nazwa nazwa kategorii, po której filtrowane są produkty
+     * @param model model MVC do przekazania danych do widoku
+     * @return widok produktów w kategorii ("kategoria-produkty")
+     */
+
     @GetMapping("/kategoria/{nazwa}")
     public String pokazKategorie(@PathVariable String nazwa, Model model) {
 
@@ -62,6 +99,15 @@ public class MyController {
 
         return "kategoria-produkty";
     }
+
+    /**
+     * Wyświetla szczegóły pojedynczego produktu.
+     *
+     * @param id ID produktu do wyświetlenia
+     * @param nazwa nazwa produktu (może służyć do SEO lub walidacji)
+     * @param model model MVC do przekazania danych do widoku
+     * @return widok szczegółów produktu ("products/product-szczegoly") lub przekierowanie do listy kategorii jeśli produkt nie istnieje
+     */
 
     @GetMapping("/product")
     public String pokazProdukt(@RequestParam("id") Integer id,

@@ -14,6 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+/**
+ * Kontroler odpowiadający za obsługę recenzji produktów w aplikacji sklepu internetowego.
+ *
+ * Obsługuje działania użytkowników (klientów) oraz pracowników i administratorów związane z opiniami o produktach.
+ * Umożliwia m.in. dodawanie, przeglądanie oraz moderowanie recenzji.
+ */
 @Controller
 @RequestMapping("/opinie")
 public class ReviewController {
@@ -29,6 +36,16 @@ public class ReviewController {
 
     @Autowired
     private DBUserRepository dbUserRepository;
+
+    /**
+     * Wyświetla stronę recenzji użytkownika.
+     *
+     * Pokazuje produkty, które użytkownik kupił i może ocenić, a także recenzje,
+     * które już napisał.
+     *
+     * @param model model przekazywany do widoku
+     * @return widok strony opinii użytkownika
+     */
 
     @GetMapping("")
     public String showOpiniePage(Model model) {
@@ -76,6 +93,14 @@ public class ReviewController {
         return "reviews/review";
     }
 
+    /**
+     * Wyświetla formularz dodawania nowej recenzji dla wybranego produktu.
+     *
+     * @param produktId ID produktu, dla którego dodawana jest recenzja
+     * @param model     model przekazywany do widoku
+     * @return widok formularza dodawania opinii
+     */
+
     @GetMapping("/dodaj_opinie")
     public String showAddReviewPage(@RequestParam("produktId") Integer produktId, Model model) {
         Optional<Produkt> produktOptional = produktRepository.findById(produktId);
@@ -90,6 +115,16 @@ public class ReviewController {
 
         return "reviews/add_review";
     }
+
+    /**
+     * Zapisuje nową recenzję dodaną przez użytkownika.
+     *
+     * Nowa opinia domyślnie otrzymuje status „OCZEKUJĄCA”.
+     *
+     * @param produktId ID produktu, którego dotyczy recenzja
+     * @param recenzja  obiekt recenzji wypełniony przez użytkownika
+     * @return przekierowanie do strony opinii
+     */
 
     @PostMapping("/dodaj_opinie")
     public String saveReview(@RequestParam("produktId") Integer produktId,
@@ -122,6 +157,16 @@ public class ReviewController {
         return "redirect:/opinie";
     }
 
+    /**
+     * Wyświetla panel zarządzania opiniami.
+     *
+     * Dostępny tylko dla użytkowników z rolą ADMIN lub EMPLOYEE.
+     * Pokazuje wszystkie recenzje w systemie.
+     *
+     * @param model model przekazywany do widoku
+     * @return widok panelu zarządzania recenzjami
+     */
+
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @GetMapping("/zarzadzaj_opiniami")
     public String showManageReviewsPage(Model model) {
@@ -129,6 +174,15 @@ public class ReviewController {
         model.addAttribute("recenzje", recenzje);
         return "reviews/manage_review";
     }
+
+    /**
+     * Zmienia status wybranej recenzji na „ZAAKCEPTOWANA”.
+     *
+     * Dostępne tylko dla ADMINA lub PRACOWNIKA.
+     *
+     * @param id ID recenzji do zatwierdzenia
+     * @return przekierowanie do panelu zarządzania recenzjami
+     */
 
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @PostMapping("/zaakceptuj")
@@ -139,6 +193,15 @@ public class ReviewController {
         });
         return "redirect:/opinie/zarzadzaj_opiniami";
     }
+
+    /**
+     * Zmienia status wybranej recenzji na „ODRZUCONA”.
+     *
+     * Dostępne tylko dla ADMINA lub PRACOWNIKA.
+     *
+     * @param id ID recenzji do odrzucenia
+     * @return przekierowanie do panelu zarządzania recenzjami
+     */
 
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @PostMapping("/odrzuc")
