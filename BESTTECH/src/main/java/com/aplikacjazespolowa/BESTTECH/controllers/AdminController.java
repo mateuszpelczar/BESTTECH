@@ -141,7 +141,8 @@ public class AdminController {
         model.addAttribute("zamowienia", zamowienia);
 
         Map<Integer, Integer> dniOdZamowieniaMap = new HashMap<>();
-        Date dzisiaj = new Date();
+//        Date dzisiaj = new Date();
+
         for (Zamowienie z : zamowienia) {
             if (z.getDataZamowienia() != null && z.getZamowienieID() != null) {
                 LocalDate dataZamowienia = z.getDataZamowienia();
@@ -170,7 +171,29 @@ public class AdminController {
         return "redirect:/admin/zwroty-reklamacje-administrator";
     }
 
+    // Akceptacja zwrotu
+    @PostMapping("/zwroty/odrzuc")
+    public String odrzucZwrot(@RequestParam("zwrotID") Integer id) {
+        Zwrot zwrot = zwrotRepository.findById(id).orElse(null);
+        if (zwrot != null) {
+            zwrot.setStatus("odrzucony");
+            zwrotRepository.save(zwrot);
+        }
+        return "redirect:/admin/zwroty-reklamacje-administrator";
+    }
 
+
+
+    // Akceptacja reklamacji
+    @PostMapping("/reklamacje/akceptuj")
+    public String akceptujReklamacja(@RequestParam("reklamacjaID") Integer id) {
+        Reklamacja reklamacja = reklamacjaRepository.findById(id).orElse(null);
+        if (reklamacja != null) {
+            reklamacja.setStatus("zaakceptowany");
+            reklamacjaRepository.save(reklamacja);
+        }
+        return "redirect:/admin/zwroty-reklamacje-administrator";
+    }
 
     // Odrzucenie reklamacji
     @PostMapping("/reklamacje/odrzuc")

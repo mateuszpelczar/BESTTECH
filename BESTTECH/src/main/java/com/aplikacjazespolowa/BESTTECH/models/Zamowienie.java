@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +18,6 @@ public class Zamowienie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer zamowienieID;
-
     private LocalDate dataZamowienia;
     private String status;
     private Float kosztCalkowity;
@@ -133,6 +133,7 @@ public class Zamowienie {
     public void setZwroty(List<Zwrot> zwroty) {
         this.zwroty = zwroty;
     }
+
 
     @Transient
     public long getDniOdZamowienia() {
