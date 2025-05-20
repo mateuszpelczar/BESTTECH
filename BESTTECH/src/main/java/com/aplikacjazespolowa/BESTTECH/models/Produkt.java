@@ -122,7 +122,7 @@ public class Produkt {
         return kategoria;
     }
 
- 
+
 
 
 

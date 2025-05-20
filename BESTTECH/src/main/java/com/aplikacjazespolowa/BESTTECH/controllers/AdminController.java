@@ -24,7 +24,6 @@ import java.util.Set;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-
 /**
  * Kontroler administratora odpowiedzialny za zarządzanie użytkownikami, pracownikami,
  * logami systemowymi oraz reklamacjami i zwrotami.
@@ -36,12 +35,8 @@ import java.util.*;
  * - obsługę zwrotów i reklamacji.
  */
 
-
 @Controller
 @RequestMapping("/admin")
-
-
-
 public class AdminController {
 
     @Autowired
@@ -58,6 +53,7 @@ public class AdminController {
     @Autowired
     private ReklamacjaRepository reklamacjaRepository;
 
+
     /**
      * Strona główna panelu administratora.
      *
@@ -68,12 +64,14 @@ public class AdminController {
     public String adminPanel() {
         return "admin/adminPanel";
     }
+
     /**
      * Wyświetla listę wszystkich użytkowników do zarządzania.
      *
      * @param model model przekazujący listę użytkowników
      * @return widok z listą użytkowników
      */
+
     @GetMapping("/manageusers")
     public String manageUsers(Model model) {
 
@@ -81,6 +79,7 @@ public class AdminController {
         model.addAttribute("users", users);
         return "admin/manage_users";
     }
+
     /**
      * Wyświetla formularz do zmiany ról wybranego użytkownika.
      *
@@ -88,6 +87,7 @@ public class AdminController {
      * @param model model przekazujący użytkownika i listę ról
      * @return widok formularza zmiany ról
      */
+
     @GetMapping("/manageusers/changerole")
     public String changeUserRole(@RequestParam Integer userId, Model model) {
 
@@ -99,6 +99,7 @@ public class AdminController {
         model.addAttribute("allRoles", allRoles);
         return "admin/change_role";
     }
+
     /**
      * Zapisuje zmienione role użytkownika.
      *
@@ -106,6 +107,7 @@ public class AdminController {
      * @param roleIds lista wybranych ról (opcjonalna)
      * @return przekierowanie do zarządzania użytkownikami
      */
+
     @PostMapping("/manageusers/changerole/save")
     public String saveUserRoles(@RequestParam Integer userId,
                                 @RequestParam(required = false) List<Integer> roleIds) {
@@ -186,6 +188,7 @@ public class AdminController {
      * @param model model przekazujący logi
      * @return widok logów systemowych
      */
+
     @GetMapping("/admin/logs")
     public String pokazLogi(Model model){
         List<LogsSystem>logi = logsRepository.findAll(Sort.by(Sort.Direction.DESC, "timestamp"));
@@ -202,13 +205,15 @@ public class AdminController {
      * @param model model przekazujący zamówienia i dni od zakupu
      * @return widok zarządzania zwrotami i reklamacjami
      */
+
     @GetMapping("/zwroty-reklamacje-administrator")
     public String zarzadzanieZwrotamiReklamacji(Model model) {
         List<Zamowienie> zamowienia = zamowienieRepository.findAll();
         model.addAttribute("zamowienia", zamowienia);
 
         Map<Integer, Integer> dniOdZamowieniaMap = new HashMap<>();
-        Date dzisiaj = new Date();
+//        Date dzisiaj = new Date();
+
         for (Zamowienie z : zamowienia) {
             if (z.getDataZamowienia() != null && z.getZamowienieID() != null) {
                 LocalDate dataZamowienia = z.getDataZamowienia();
@@ -231,6 +236,7 @@ public class AdminController {
      * @param id ID zwrotu
      * @return przekierowanie do widoku obsługi zwrotów i reklamacji
      */
+
     // Akceptacja zwrotu
     @PostMapping("/zwroty/akceptuj")
     public String akceptujZwrot(@RequestParam("zwrotID") Integer id) {
@@ -242,6 +248,29 @@ public class AdminController {
         return "redirect:/admin/zwroty-reklamacje-administrator";
     }
 
+    // Akceptacja zwrotu
+    @PostMapping("/zwroty/odrzuc")
+    public String odrzucZwrot(@RequestParam("zwrotID") Integer id) {
+        Zwrot zwrot = zwrotRepository.findById(id).orElse(null);
+        if (zwrot != null) {
+            zwrot.setStatus("odrzucony");
+            zwrotRepository.save(zwrot);
+        }
+        return "redirect:/admin/zwroty-reklamacje-administrator";
+    }
+
+
+
+    // Akceptacja reklamacji
+    @PostMapping("/reklamacje/akceptuj")
+    public String akceptujReklamacja(@RequestParam("reklamacjaID") Integer id) {
+        Reklamacja reklamacja = reklamacjaRepository.findById(id).orElse(null);
+        if (reklamacja != null) {
+            reklamacja.setStatus("zaakceptowany");
+            reklamacjaRepository.save(reklamacja);
+        }
+        return "redirect:/admin/zwroty-reklamacje-administrator";
+    }
 
     /**
      * Odrzuca wskazaną reklamację.
@@ -249,6 +278,7 @@ public class AdminController {
      * @param id ID reklamacji
      * @return przekierowanie do widoku obsługi zwrotów i reklamacji
      */
+
     // Odrzucenie reklamacji
     @PostMapping("/reklamacje/odrzuc")
     public String odrzucReklamacje(@RequestParam("reklamacjaID") Integer id) {
@@ -283,6 +313,7 @@ public class AdminController {
      * @param komentarz treść komentarza
      * @return przekierowanie do widoku obsługi zwrotów i reklamacji
      */
+
     @PostMapping("/reklamacje/dodaj-komentarz")
     public String dodajKomentarzDoReklamacji(@RequestParam("reklamacjaID") Integer id,
                                              @RequestParam("komentarz") String komentarz) {

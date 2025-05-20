@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
 
                         //publiczne endpointy
-                        .requestMatchers("/","/konto/rejestracja", "/konto/logowanie", "/resources/**", "/css/**", "/js/**","/koszyk").permitAll()
+                        .requestMatchers("/","/konto/rejestracja", "/konto/logowanie", "/resources/**", "/css/**", "/js/**","/koszyk","/zdjecia/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/product","/kategoria/**").permitAll()
 
                         //dostep dla admina i pracownika
