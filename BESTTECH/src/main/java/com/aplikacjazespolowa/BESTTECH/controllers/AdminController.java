@@ -248,7 +248,7 @@ public class AdminController {
         return "redirect:/admin/zwroty-reklamacje-administrator";
     }
 
-    // Akceptacja zwrotu
+    // Odrzucenie zwrotu
     @PostMapping("/zwroty/odrzuc")
     public String odrzucZwrot(@RequestParam("zwrotID") Integer id) {
         Zwrot zwrot = zwrotRepository.findById(id).orElse(null);
@@ -266,7 +266,7 @@ public class AdminController {
     public String akceptujReklamacja(@RequestParam("reklamacjaID") Integer id) {
         Reklamacja reklamacja = reklamacjaRepository.findById(id).orElse(null);
         if (reklamacja != null) {
-            reklamacja.setStatus("zaakceptowany");
+            reklamacja.setStatus("zaakceptowana");
             reklamacjaRepository.save(reklamacja);
         }
         return "redirect:/admin/zwroty-reklamacje-administrator";

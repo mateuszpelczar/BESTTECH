@@ -98,10 +98,12 @@
             <h4 class="text-success">Zaakceptowane:</h4>
             <ul class="list-unstyled">
                 <li th:each="zamowienie : ${zamowienia}" th:if="${zamowienie.zwroty.?[status == 'zaakceptowany'].size() > 0}">
-                    Zwrot – zamówienie <b th:text="${zamowienie.zamowienieID}"></b> – <span th:text="${zamowienie.klient.email}"></span>
+                    Zwrot – zamówienie <b th:text="${zamowienie.zamowienieID}"></b> – <span th:if="${zamowienie.klient !=null}" th:text="${zamowienie.klient.email}"></span>
+                    <span th:if="${zamowienie.klient ==null}" th:text="${#authentication.name}"></span>
                 </li>
                 <li th:each="zamowienie : ${zamowienia}" th:if="${zamowienie.reklamacje.?[status == 'zaakceptowana'].size() > 0}">
-                    Reklamacja – zamówienie <b th:text="${zamowienie.zamowienieID}"></b> – <span th:text="${zamowienie.klient.email}"></span>
+                    Reklamacja – zamówienie <b th:text="${zamowienie.zamowienieID}"></b> – <span th:if="${zamowienie.klient !=null}" th:text="${zamowienie.klient.email}"></span>
+                    <span th:if="${zamowienie.klient ==null}" th:text="${#authentication.name}"></span>
                 </li>
             </ul>
 
