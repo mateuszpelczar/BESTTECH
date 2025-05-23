@@ -485,4 +485,19 @@ public class ProductsController {
 
     }
 
+    @GetMapping("/search")
+    public String wyszukajProdukty(@RequestParam String query, Model model) {
+        List<Produkt> produkty = produktRepository.findByNazwaContainingIgnoreCase(query);
+        model.addAttribute("produkty", produkty);
+        model.addAttribute("query", query);
+        return "products/searchResults";
     }
+
+//     @GetMapping("/details/{id}")
+// public String getProductDetails(@PathVariable Integer id, Model model) {
+//     Produkt produkt = produktRepository.findById(id)
+//             .orElseThrow(() -> new IllegalArgumentException("Nie znaleziono produktu o ID: " + id));
+//     model.addAttribute("produkt", produkt);
+//     return "products/productDetails";
+// }
+}

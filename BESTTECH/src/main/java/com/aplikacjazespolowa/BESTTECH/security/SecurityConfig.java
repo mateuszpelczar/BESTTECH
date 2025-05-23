@@ -25,32 +25,31 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-
                 .csrf(csrf -> csrf.disable()) // WYŁĄCZENIE CSRF
                 .authorizeHttpRequests(authorize -> authorize
 
-                        //publiczne endpointy
-                        .requestMatchers("/","/konto/rejestracja", "/konto/logowanie", "/resources/**", "/css/**", "/js/**","/koszyk","/zdjecia/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/product","/kategoria/**").permitAll()
+                        // publiczne endpointy
+                        .requestMatchers("/", "/konto/rejestracja", "/konto/logowanie", "/resources/**", "/css/**", "/js/**", "/koszyk", "/zdjecia/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/product", "/kategoria/**", "/products/search").permitAll() // <-- Dodano /products/search
 
-                        //dostep dla admina i pracownika
-                        .requestMatchers(HttpMethod.GET,"/products","/products/showproducts", "/products/editproduct/{id}","/products/addproduct", "/products/addcategory","/products/editcategory/{id}","/employee/inventory","/products/showcategories").hasAnyRole("ADMIN", "EMPLOYEE")
-                        .requestMatchers(HttpMethod.POST, "/products","/products/editproduct","/products/deleteproduct","/products/addproduct", "/products/addcategory","/products/editcategory","/products/deletecategory").hasAnyRole("ADMIN", "EMPLOYEE")
+                        // dostęp dla admina i pracownika
+                        .requestMatchers(HttpMethod.GET, "/products", "/products/showproducts", "/products/editproduct/{id}", "/products/addproduct", "/products/addcategory", "/products/editcategory/{id}", "/employee/inventory", "/products/showcategories").hasAnyRole("ADMIN", "EMPLOYEE")
+                        .requestMatchers(HttpMethod.POST, "/products", "/products/editproduct", "/products/deleteproduct", "/products/addproduct", "/products/addcategory", "/products/editcategory", "/products/deletecategory").hasAnyRole("ADMIN", "EMPLOYEE")
 
-                        //dostep tylko dla admina
-                        .requestMatchers(HttpMethod.GET,"/admin","/admin/manageusers","/admin/manageusers/changerole","/admin/manageemployess","/admin/logs","/admin/deleteemployee").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/admin","/admin/manageusers/changerole/save","/admin/deleteemployee","/admin/deleteemployee").hasRole("ADMIN")
+                        // dostęp tylko dla admina
+                        .requestMatchers(HttpMethod.GET, "/admin", "/admin/manageusers", "/admin/manageusers/changerole", "/admin/manageemployess", "/admin/logs", "/admin/deleteemployee").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/admin", "/admin/manageusers/changerole/save", "/admin/deleteemployee", "/admin/deleteemployee").hasRole("ADMIN")
 
                         // dostęp do zarządzania opiniami tylko dla ADMIN i EMPLOYEE
                         .requestMatchers(HttpMethod.GET, "/opinie/zarzadzaj_opiniami").hasAnyRole("ADMIN", "EMPLOYEE")
 
-                        //dostep do koszyka dla niezalogowanych users
-                        .requestMatchers(HttpMethod.GET,"/koszyk").permitAll()
+                        // dostęp do koszyka dla niezalogowanych użytkowników
+                        .requestMatchers(HttpMethod.GET, "/koszyk").permitAll()
 
-                        //dla zalogowanych users
-                        .requestMatchers(HttpMethod.POST,"/koszyk/**").authenticated()
+                        // dla zalogowanych użytkowników
+                        .requestMatchers(HttpMethod.POST, "/koszyk/**").authenticated()
 
-                        //domyslnie reszta wymaga logowania
+                        // domyślnie reszta wymaga logowania
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -63,11 +62,7 @@ public class SecurityConfig {
                         .logoutUrl("/konto/wyloguj")
                         .logoutSuccessUrl("/konto/logowanie?logout")
                         .permitAll()
-                )
-
-
-
-        ;
+                );
 
         return http.build();
     }

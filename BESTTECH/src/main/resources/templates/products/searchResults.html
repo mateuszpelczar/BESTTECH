@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyniki wyszukiwania</title>
+    <link rel="stylesheet" href="/css/nav_footer.css"> <!-- Stylizacja wspólna dla wszystkich widoków -->
+    <link rel="stylesheet" href="/css/searchResults.css"> <!-- Stylizacja specyficzna dla tej strony -->
+</head>
+<body>
+    <!-- Pasek nawigacji -->
+    <header>
+        <nav>
+            <div class="nav_img">
+                <a href="/"><img src="https://i.imgur.com/n0dADst.png" alt="Logo"></a>
+            </div>
+            <div class="nav_links">
+                <a href="/kategoria/Smartphony">Smartphony</a>
+                <a href="/kategoria/Laptopy">Laptopy</a>
+                <a href="/kategoria/Podzespoły">Podzespoły komputerowe</a>
+                <a href="/kategoria/Zasilacze">Zasilacze</a>
+                <a href="/kategoria/TV">TV</a>
+                <a href="/kategoria">Kategorie produktów</a>
+            </div>
+            <form action="/products/search" method="get" class="search-form">
+                <input type="text" name="query" placeholder="Wyszukaj produkt..." required>
+                <button type="submit">Szukaj</button>
+            </form>
+            <div class="nav_right">
+                <a href="/koszyk" class="cart_icon">🛒</a>
+                <a href="/konto/logowanie" class="nav_login">Logowanie</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Główna zawartość strony -->
+    <main>
+        <div class="search-results-container">
+            <h1>Wyniki wyszukiwania dla: "<span th:text="${query}"></span>"</h1>
+
+            <div th:if="${produkty.isEmpty()}" class="no-results">
+                <p>Brak wyników dla podanego zapytania.</p>
+            </div>
+
+            <div th:if="${!produkty.isEmpty()}" class="results-list">
+                <ul>
+                    <li th:each="produkt : ${produkty}" class="product-item">
+                        <a th:href="@{/product(id=${produkt.produktID}, nazwa=${produkt.nazwa})}" th:text="${produkt.nazwa}"></a>
+                        <span class="product-price" th:text="${produkt.cena + ' zł'}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Stopka -->
+    <footer>
+        <p>&copy; 2025 BESTTECH. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+</body>
+</html>
