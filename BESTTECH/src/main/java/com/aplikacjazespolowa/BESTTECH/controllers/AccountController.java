@@ -3,6 +3,7 @@ package com.aplikacjazespolowa.BESTTECH.controllers;
 import com.aplikacjazespolowa.BESTTECH.models.*;
 import com.aplikacjazespolowa.BESTTECH.services.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -156,16 +157,19 @@ public class AccountController {
 
         DBUser user = userRepo.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Nie znaleziono zalogowanego użytkownika"));
-
         List<Zamowienie> zamowienia = zamowienieRepository.findByKlient_id(user.getId());
 
         List<String> statusOrder = Arrays.asList("w realizacji", "w drodze", "dostarczone");
 
         List<Zamowienie> posortowaneZamowienia = zamowienia.stream()
-                .sorted(Comparator.comparingInt(z -> statusOrder.indexOf(z.getStatus())))
+                .sorted(
+                        Comparator.comparingInt((Zamowienie z) -> statusOrder.indexOf(z.getStatus()))
+                                .thenComparing(Zamowienie::getDataZamowienia, Comparator.reverseOrder())
+                )
                 .collect(Collectors.toList());
 
         model.addAttribute("zamowienia", posortowaneZamowienia);
+
 
         return "/konto/zamowienia";
     }

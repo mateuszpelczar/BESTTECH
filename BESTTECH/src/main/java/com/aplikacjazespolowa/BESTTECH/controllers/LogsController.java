@@ -3,6 +3,7 @@ package com.aplikacjazespolowa.BESTTECH.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.ui.Model;
 import com.aplikacjazespolowa.BESTTECH.models.LogsRepository;
 import com.aplikacjazespolowa.BESTTECH.models.LogsSystem;
@@ -41,14 +42,16 @@ public class LogsController {
         boolean usernameEmpty=(username ==null || username.trim().isEmpty());
         boolean levelEmpty=(level ==null || level.trim().isEmpty());
 
+        Sort sortByTimestampDesc=Sort.by(Sort.Direction.DESC,"timestamp");
+
         if(!usernameEmpty && !levelEmpty){
-            logs=logsRepository.findByUsernameAndLevel(username,level);
+            logs=logsRepository.findByUsernameAndLevel(username,level,sortByTimestampDesc);
         } else if (!usernameEmpty) {
-            logs=logsRepository.findByUsername(username);
+            logs=logsRepository.findByUsername(username,sortByTimestampDesc);
         } else if (!levelEmpty) {
-            logs = logsRepository.findByLevel(level);
+            logs = logsRepository.findByLevel(level,sortByTimestampDesc);
         }else {
-            logs=logsRepository.findAll();
+            logs=logsRepository.findAll(sortByTimestampDesc);
         }
         model.addAttribute("logs", logs);
         return "admin/show_logs";

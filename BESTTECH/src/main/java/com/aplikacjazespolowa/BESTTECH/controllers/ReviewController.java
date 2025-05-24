@@ -3,6 +3,7 @@ package com.aplikacjazespolowa.BESTTECH.controllers;
 import com.aplikacjazespolowa.BESTTECH.models.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -76,8 +77,8 @@ public class ReviewController {
                 }
             }
         }
-
-        List<Recenzja> recenzjeUzytkownika = recenzjaRepository.findByKlient(user);
+        Sort sortByDateDesc=Sort.by(Sort.Direction.DESC,"dataDodania");
+        List<Recenzja> recenzjeUzytkownika = recenzjaRepository.findByKlient(user,sortByDateDesc);
 
         Set<Produkt> produktyZrecenzowane = recenzjeUzytkownika.stream()
                 .map(Recenzja::getProdukt)
@@ -170,7 +171,8 @@ public class ReviewController {
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @GetMapping("/zarzadzaj_opiniami")
     public String showManageReviewsPage(Model model) {
-        List<Recenzja> recenzje = recenzjaRepository.findAll();
+        Sort sortByDateDesc=Sort.by(Sort.Direction.DESC,"dataDodania");
+        List<Recenzja> recenzje = recenzjaRepository.findAll(sortByDateDesc);
         model.addAttribute("recenzje", recenzje);
         return "reviews/manage_review";
     }

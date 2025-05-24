@@ -208,7 +208,9 @@ public class AdminController {
 
     @GetMapping("/zwroty-reklamacje-administrator")
     public String zarzadzanieZwrotamiReklamacji(Model model) {
-        List<Zamowienie> zamowienia = zamowienieRepository.findAll();
+        Sort sortByDateDesc=Sort.by(Sort.Direction.DESC,"dataZamowienia");
+
+        List<Zamowienie> zamowienia = zamowienieRepository.findAll(sortByDateDesc);
         model.addAttribute("zamowienia", zamowienia);
 
         Map<Integer, Integer> dniOdZamowieniaMap = new HashMap<>();

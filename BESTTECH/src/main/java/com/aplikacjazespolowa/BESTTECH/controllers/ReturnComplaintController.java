@@ -2,6 +2,7 @@ package com.aplikacjazespolowa.BESTTECH.controllers;
 
 import com.aplikacjazespolowa.BESTTECH.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,9 +53,11 @@ public class ReturnComplaintController {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<DBUser> optionalUser = dbUserRepository.findByEmail(email);
 
+        Sort sortByDateDesc=Sort.by(Sort.Direction.DESC,"dataZamowienia");
+
         if (optionalUser.isPresent()) {
             DBUser user = optionalUser.get();
-            List<Zamowienie> zamowienia = zamowienieRepository.findByKlient_id(user.getId());
+            List<Zamowienie> zamowienia = zamowienieRepository.findByKlient_id(user.getId(), sortByDateDesc);
 
             Map<Integer, Long> dniOdZamowienia = new HashMap<>();
             Date today = new Date();
