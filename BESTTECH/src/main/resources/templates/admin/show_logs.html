@@ -73,6 +73,20 @@
     <div class="container">
         <h2 class="title">Logi systemowe</h2>
 
+        <form method="get" action="/admin/logs" class="form-inline" style="margin-bottom: 20px;">
+            <div class="form-group">
+                <label for="level">Poziom</label>
+                <input type="text" name="level" id="level" class="form-control" placeholder="np.INFO,ERROR">
+            </div>
+            <div class="form-group" style="margin-left:10px">
+                <label for="username">Uzytkownik:</label>
+                <input type="text" name="username" id="username" class="form-control" placeholder="nazwa uzytkownika">
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-left: 10px">Filtruj</button>
+
+
+        </form>
+
         <table class="log-table">
             <tr>
                 <th>Data</th><br>

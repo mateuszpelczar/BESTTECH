@@ -77,4 +77,5 @@ public class LogsSystem {
     public void setLevel(String level){
         this.level=level;
     }
+
 }
