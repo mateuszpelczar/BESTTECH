@@ -27,6 +27,9 @@ public class Kategoria {
         this.opis=opis;
     }
 
+    public Kategoria(int kategoria) {
+    }
+
     public void setNazwa(String nazwa) {
         this.nazwa = nazwa;
     }

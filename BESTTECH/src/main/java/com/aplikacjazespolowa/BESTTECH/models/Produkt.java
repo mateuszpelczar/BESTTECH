@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,19 @@ public class Produkt {
 
     @Column(name = "zdjecie_url", columnDefinition = "text")
     private String zdjecieUrl;
+
+    //konstruktor do testow
+    public Produkt(String urzadzenie, String opis, float cena, int stanMagazynowy, String nazwa, LocalDate data, int kategoria, String url) {
+        this.nazwa = urzadzenie;
+        this.opis = opis;
+        this.cena = cena;
+        this.stanMagazynowy = stanMagazynowy;
+        this.marka = nazwa;
+        this.dataDodania = java.sql.Date.valueOf(data);
+        this.kategoria = new Kategoria(kategoria);
+        this.zdjecieUrl = url;
+
+    }
 
     public String getZdjecieUrl() {
         return zdjecieUrl;

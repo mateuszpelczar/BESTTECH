@@ -30,7 +30,9 @@ public class SecurityConfig {
 
                         // publiczne endpointy
                         .requestMatchers("/", "/konto/rejestracja", "/konto/logowanie", "/resources/**", "/css/**", "/js/**", "/koszyk", "/zdjecia/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/product", "/kategoria/**", "/products/search").permitAll() // <-- Dodano /products/search
+                        .requestMatchers(HttpMethod.GET, "/product", "/kategoria/**", "/products/search").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/konto/rejestracja").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/konto/rejestracja").permitAll()
 
                         // dostęp dla admina i pracownika
                         .requestMatchers(HttpMethod.GET, "/products", "/products/showproducts", "/products/editproduct/{id}", "/products/addproduct", "/products/addcategory", "/products/editcategory/{id}", "/employee/inventory", "/products/showcategories").hasAnyRole("ADMIN", "EMPLOYEE")
@@ -84,5 +86,8 @@ public class SecurityConfig {
 
             return new User(user.getEmail(), user.getPassword(), authorities);
         };
+
+
     }
+
 }

@@ -28,7 +28,7 @@ public class ProduktService {
 
         // Filtrowanie tylko dostępnych produktów z obrazkiem
         List<Produkt> dostepneZObrazkiem = wszystkie.stream()
-                .filter(produkt -> produkt.getStanMagazynowy() > 0 && produkt.getZdjecieUrl() != null)
+                .filter(produkt -> produkt.getStanMagazynowy() != 0 && produkt.getZdjecieUrl() != null)
                 .collect(Collectors.toList());
 
         // Tasowanie listy

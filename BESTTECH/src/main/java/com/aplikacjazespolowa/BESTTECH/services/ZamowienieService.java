@@ -24,7 +24,7 @@ public class ZamowienieService {
 
     public List<RaportSprzedazyDTO> generujRaportSprzedazy(LocalDate od, LocalDate doDaty) {
         if (od == null || doDaty == null) {
-            return List.of(); // lub zwróć cały raport bez filtrowania, jak wolisz
+            return List.of();
         }
 
 
