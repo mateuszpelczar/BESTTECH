@@ -10,7 +10,12 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * Encja reprezentująca zamówienie w systemie sklepu internetowego.
+ * <p>
+ * Przechowuje informacje o dacie zamówienia, statusie, koszcie, powiązanych użytkowniku, adresie dostawy,
+ * szczegółach zamówienia, reklamacjach, fakturze, dostawie oraz ewentualnych zwrotach.
+ */
 @Entity
 @Getter
 @Setter

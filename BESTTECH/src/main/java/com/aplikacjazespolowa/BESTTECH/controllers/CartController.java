@@ -36,11 +36,11 @@ public class CartController {
     }
 
     /**
-     * Wyświetla zawartość koszyka.
+     * Wyświetla zawartość koszyka użytkownika.
      *
      * @param session sesja HTTP, z której pobierane są dane koszyka
      * @param model   model MVC do przekazania danych do widoku
-     * @return widok koszyka (orders/cart)
+     * @return widok koszyka ("orders/cart")
      */
 
     @GetMapping
@@ -61,6 +61,9 @@ public class CartController {
 
     /**
      * Dodaje produkt do koszyka na podstawie jego ID.
+     *
+     * Jeśli produkt już znajduje się w koszyku, zwiększa jego ilość o 1.
+     * Jeśli koszyk nie istnieje, tworzy nowy.
      *
      * @param produktId ID produktu do dodania
      * @param session   sesja HTTP, w której przechowywany jest koszyk
@@ -100,7 +103,10 @@ public class CartController {
     }
 
     /**
-     * Aktualizuje ilości produktów w koszyku.
+     * Aktualizuje ilości produktów w koszyku na podstawie przekazanych list ID oraz ilości.
+     *
+     * Sprawdza dostępność produktu w magazynie. Jeśli żądana ilość przekracza stan magazynowy,
+     * ustawia maksymalnie możliwą ilość. Jeśli ilość to 0, usuwa produkt z koszyka.
      *
      * @param ids     lista ID produktów
      * @param ilosci  lista odpowiadających ilości
@@ -143,7 +149,7 @@ public class CartController {
         return "redirect:/koszyk";
     }
     /**
-     * Czyści cały koszyk zakupowy.
+     * Czyści cały koszyk zakupowy użytkownika.
      *
      * @param session sesja HTTP, w której przechowywany jest koszyk
      * @return przekierowanie do widoku koszyka

@@ -3,7 +3,12 @@ package com.aplikacjazespolowa.BESTTECH.models;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
+/**
+ * Encja reprezentująca rolę użytkownika w systemie.
+ *
+ * Rola wykorzystywana jest do zarządzania uprawnieniami użytkowników (np. ADMIN, EMPLOYEE, CLIENT).
+ * Powiązana z wieloma użytkownikami (relacja wiele-do-wielu).
+ */
 @Entity
 public class DBRole {
 

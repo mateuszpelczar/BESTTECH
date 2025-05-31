@@ -7,7 +7,11 @@ import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-
+/**
+ * Encja reprezentująca log systemowy w aplikacji.
+ * <p>
+ * Przechowuje informacje o akcji, użytkowniku, dacie oraz poziomie logowania.
+ */
 @Entity
 public class LogsSystem {
 

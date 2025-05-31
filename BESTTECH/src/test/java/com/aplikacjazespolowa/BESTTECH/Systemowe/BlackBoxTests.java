@@ -38,12 +38,12 @@ class BlackBoxTests {
      * Metoda obsługuje różne typy żądań (GET, POST, PUT, DELETE) i automatycznie
      * sprawdza, czy odpowiedź jest poprawna (status 2xx lub 3xx).
      *
-     * @param url - adres URL endpointu
-     * @param method - metoda HTTP (GET, POST, PUT, DELETE)
-     * @param body - ciało żądania (obiekt JSON, formularz, lub null)
-     * @param headers - nagłówki HTTP, w tym ciasteczka sesji
-     * @param contentType - typ zawartości (np. APPLICATION_JSON, APPLICATION_FORM_URLENCODED)
-     * @return ResponseEntity<String> - pełna odpowiedź serwera
+     * @param url adres URL endpointu
+     * @param method metoda HTTP (GET, POST, PUT, DELETE)
+     * @param body ciało żądania (obiekt JSON, formularz, lub null)
+     * @param headers nagłówki HTTP, w tym ciasteczka sesji
+     * @param contentType typ zawartości (np. APPLICATION_JSON, APPLICATION_FORM_URLENCODED)
+     * @return ResponseEntity<String> pełna odpowiedź serwera
      */
     private ResponseEntity<String> sendRequestAndVerify(
             String url,
@@ -77,7 +77,7 @@ class BlackBoxTests {
 
     /**
      * TK01: Test rejestracji i logowania klienta
-     * 
+     *
      * Sprawdza czy:
      * 1. Można zarejestrować nowego użytkownika
      * 2. Można zalogować się na utworzone konto
@@ -671,14 +671,14 @@ class BlackBoxTests {
     }
 
     /**
-     * Pomocnicza metoda do logowania użytkownika
-     * 
+     * Pomocnicza metoda do logowania użytkownika.
+     *
      * Metoda loguje użytkownika i zwraca nagłówki z ciasteczkami sesji,
      * które są potrzebne do dalszych żądań wymagających zalogowania.
-     * 
-     * @param username - nazwa użytkownika (email)
-     * @param password - hasło
-     * @return HttpHeaders - nagłówki z zapisanymi ciasteczkami sesji
+     *
+     * @param username nazwa użytkownika (email)
+     * @param password hasło
+     * @return HttpHeaders nagłówki z zapisanymi ciasteczkami sesji
      */
     private HttpHeaders loginUser(String username, String password) {
         String loginUrl = "http://localhost:" + port + "/konto/logowanie";

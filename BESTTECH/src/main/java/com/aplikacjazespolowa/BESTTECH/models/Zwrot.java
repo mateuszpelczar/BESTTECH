@@ -6,7 +6,11 @@ import lombok.Setter;
 
 import java.util.Date;
 
-
+/**
+ * Encja reprezentująca zwrot produktu w systemie sklepu internetowego.
+ * <p>
+ * Przechowuje informacje o zamówieniu, dacie zwrotu, statusie, powodzie oraz komentarzu administratora.
+ */
 @Entity
 @Getter
 @Setter

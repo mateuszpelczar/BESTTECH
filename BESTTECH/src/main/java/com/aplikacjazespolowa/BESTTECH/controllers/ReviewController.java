@@ -45,7 +45,7 @@ public class ReviewController {
      * które już napisał.
      *
      * @param model model przekazywany do widoku
-     * @return widok strony opinii użytkownika
+     * @return widok strony opinii użytkownika ("reviews/review")
      */
 
     @GetMapping("")
@@ -99,7 +99,7 @@ public class ReviewController {
      *
      * @param produktId ID produktu, dla którego dodawana jest recenzja
      * @param model     model przekazywany do widoku
-     * @return widok formularza dodawania opinii
+     * @return widok formularza dodawania opinii ("reviews/add_review")
      */
 
     @GetMapping("/dodaj_opinie")
@@ -165,9 +165,8 @@ public class ReviewController {
      * Pokazuje wszystkie recenzje w systemie.
      *
      * @param model model przekazywany do widoku
-     * @return widok panelu zarządzania recenzjami
+     * @return widok panelu zarządzania recenzjami ("reviews/manage_review")
      */
-
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @GetMapping("/zarzadzaj_opiniami")
     public String showManageReviewsPage(Model model) {

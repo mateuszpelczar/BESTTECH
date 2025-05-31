@@ -4,7 +4,11 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+/**
+ * Encja reprezentująca użytkownika systemu sklepu internetowego.
+ *
+ * Zawiera podstawowe dane użytkownika, listę adresów dostawy, zamówień, recenzji oraz przypisane role.
+ */
 @Entity
 public class DBUser {
 

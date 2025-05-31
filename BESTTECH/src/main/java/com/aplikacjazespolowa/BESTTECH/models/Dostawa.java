@@ -5,7 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-
+/**
+ * Encja reprezentująca dostawę powiązaną z zamówieniem w systemie sklepu internetowego.
+ *
+ * Przechowuje informacje dotyczące wysyłki, przewidywanej daty dostawy, statusu oraz metody dostawy.
+ */
 @Entity
 @Getter
 @Setter

@@ -21,7 +21,10 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+/**
+ * Testy jednostkowe dla serwisu ZamowienieService.
+ * Testuje generowanie raportu sprzedaży na podstawie zamówień z repozytorium.
+ */
 @ExtendWith(MockitoExtension.class)
 class ZamowienieServiceTest {
 
@@ -30,12 +33,17 @@ class ZamowienieServiceTest {
 
     @InjectMocks
     private ZamowienieService zamowienieService;
-
+    /**
+     * Inicjalizuje mocki przed każdym testem.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-
+    /**
+     * Testuje przypadek, gdy w repozytorium nie ma żadnych zamówień w zadanym zakresie dat.
+     * Oczekuje pustej listy raportu sprzedaży.
+     */
     @Test
     void testGenerujRaportSprzedazy_GdyBrakZamowien() {
         // Symulacja pustego repozytorium zamówień
@@ -47,7 +55,10 @@ class ZamowienieServiceTest {
         assertTrue(raport.isEmpty());
         verify(zamowienieRepository).findByDataZamowieniaBetween(any(LocalDate.class), any(LocalDate.class));
     }
-
+    /**
+     * Testuje przypadek, gdy repozytorium zwraca jedno zamówienie z jednym produktem.
+     * Oczekuje raportu z jednym wpisem, odpowiadającym temu produktowi.
+     */
     @Test
     void testGenerujRaportSprzedazy_GdySaZamowienia() {
         // Tworzymy przykładowe zamówienie

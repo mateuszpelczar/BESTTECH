@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Kontroler przeznaczony dla pracownika, umożliwiający przegląd stanu magazynowego produktów.
  *
- * Wyświetla listę wszystkich produktów wraz z ich kategoriami.
+ * Umożliwia wyświetlenie listy wszystkich produktów dostępnych w magazynie wraz z kategoriami.
  */
 @Controller
 @RequestMapping("/employee")
@@ -33,10 +33,11 @@ public class Employee {
     /**
      * Wyświetla widok inwentarza (stanu magazynowego) dla pracownika.
      *
-     * Dodaje do modelu listę wszystkich produktów oraz listę kategorii.
+     * Dodaje do modelu listę wszystkich produktów oraz listę wszystkich kategorii,
+     * aby umożliwić przeglądanie stanu magazynowego przez pracownika.
      *
      * @param model model MVC do przekazania danych do widoku
-     * @return widok inventory w katalogu employee
+     * @return widok "employee/inventory" prezentujący stan magazynowy
      */
 
     @GetMapping("/inventory")

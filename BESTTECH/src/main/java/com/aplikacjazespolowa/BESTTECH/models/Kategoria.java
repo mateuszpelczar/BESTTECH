@@ -5,7 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-
+/**
+ * Encja reprezentująca kategorię produktu w systemie sklepu internetowego.
+ * <p>
+ * Przechowuje informacje o nazwie, opisie oraz powiązane produkty należące do danej kategorii.
+ */
 @Entity
 //@Getter
 //@Setter

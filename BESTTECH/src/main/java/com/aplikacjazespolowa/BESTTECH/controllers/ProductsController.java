@@ -22,12 +22,12 @@ import java.util.Base64;
 
 /**
  * Kontroler zarządzający produktami i kategoriami w systemie sklepu.
- * <p>
  * Umożliwia administratorowi:
- * - przeglądanie, dodawanie, edytowanie i usuwanie produktów oraz kategorii,
- * - generowanie raportów sprzedaży w wybranym przedziale czasowym,
- * - rejestrowanie działań w systemie logów.
- * </p>
+ * <ul>
+ *   <li>przeglądanie, dodawanie, edytowanie i usuwanie produktów oraz kategorii,</li>
+ *   <li>generowanie raportów sprzedaży w wybranym przedziale czasowym,</li>
+ *   <li>rejestrowanie działań w systemie logów.</li>
+ * </ul>
  */
 @Controller
 @RequestMapping("/products")
@@ -82,7 +82,7 @@ public class ProductsController {
     /**
      * Strona główna sekcji produktów.
      *
-     * @return widok strony głównej
+     * @return widok strony głównej produktów ("products/mainpage")
      */
 
     @GetMapping
@@ -95,10 +95,10 @@ public class ProductsController {
     /**
      * Wyświetla listę produktów z opcjonalnym filtrem nazwy lub kategorii.
      *
-     * @param search opcjonalny fragment nazwy produktu
+     * @param search     opcjonalny fragment nazwy produktu
      * @param categoryId opcjonalny identyfikator kategorii
-     * @param model model danych do widoku
-     * @return widok listy produktów
+     * @param model      model danych do widoku
+     * @return widok listy produktów ("products/showProducts")
      */
 
     // poniżej dla admina
@@ -128,7 +128,7 @@ public class ProductsController {
      * Formularz dodawania nowego produktu.
      *
      * @param model model danych do widoku
-     * @return widok formularza dodawania produktu
+     * @return widok formularza dodawania produktu ("products/addProduct")
      */
 
     @GetMapping("/addproduct")
@@ -140,19 +140,18 @@ public class ProductsController {
     /**
      * Obsługuje dodanie nowego produktu do systemu.
      *
-     * @param nazwa nazwa produktu
-     * @param opis opis produktu
-     * @param cena cena produktu
+     * @param nazwa         nazwa produktu
+     * @param opis          opis produktu
+     * @param cena          cena produktu
      * @param stanMagazynowy ilość dostępnych sztuk
-     * @param marka marka produktu
-     * @param kategoriaID ID wybranej kategorii
-     * @param zdjecieUrl adres URL zdjęcia
-     * @param model model danych
+     * @param marka         marka produktu
+     * @param kategoriaID   ID wybranej kategorii
+     * @param zdjecieUrl    adres URL zdjęcia
+     * @param model         model danych
      * @param redirectAttributes atrybuty przekazywane po przekierowaniu
-     * @param request obiekt żądania HTTP
+     * @param request       obiekt żądania HTTP
      * @return przekierowanie na listę produktów
      */
-
 
     @PostMapping("/addproduct")
     public String dodajProdukt(@RequestParam String nazwa,
@@ -193,8 +192,8 @@ public class ProductsController {
     /**
      * Usuwa produkt o podanym ID.
      *
-     * @param id identyfikator produktu
-     * @param request żądanie HTTP (do pobrania aktualnego użytkownika)
+     * @param id                identyfikator produktu
+     * @param request           żądanie HTTP (do pobrania aktualnego użytkownika)
      * @param redirectAttributes atrybuty do przekazania po przekierowaniu
      * @return przekierowanie na listę produktów
      */
@@ -223,9 +222,9 @@ public class ProductsController {
     /**
      * Formularz edycji produktu.
      *
-     * @param id identyfikator edytowanego produktu
+     * @param id    identyfikator edytowanego produktu
      * @param model model danych do widoku
-     * @return widok formularza edycji
+     * @return widok formularza edycji ("products/editProduct")
      */
 
     @GetMapping("/editproduct/{id}")
@@ -244,16 +243,16 @@ public class ProductsController {
     /**
      * Aktualizuje dane istniejącego produktu.
      *
-     * @param id identyfikator produktu
-     * @param nazwa nowa nazwa
-     * @param opis nowy opis
-     * @param cena nowa cena
-     * @param marka nowa marka
-     * @param kategoriaID nowy ID kategorii
-     * @param stanMagazynowy nowy stan magazynowy
-     * @param zdjecieUrl nowy URL zdjęcia
-     * @param model model danych
-     * @param request żądanie HTTP
+     * @param id              identyfikator produktu
+     * @param nazwa           nowa nazwa
+     * @param opis            nowy opis
+     * @param cena            nowa cena
+     * @param marka           nowa marka
+     * @param kategoriaID     nowy ID kategorii
+     * @param stanMagazynowy  nowy stan magazynowy
+     * @param zdjecieUrl      nowy URL zdjęcia
+     * @param model           model danych
+     * @param request         żądanie HTTP
      * @param redirectAttributes atrybuty po przekierowaniu
      * @return przekierowanie na listę produktów
      */
@@ -307,8 +306,8 @@ public class ProductsController {
      * Wyświetla listę kategorii z możliwością wyszukiwania.
      *
      * @param search opcjonalny fragment nazwy kategorii
-     * @param model model danych do widoku
-     * @return widok listy kategorii
+     * @param model  model danych do widoku
+     * @return widok listy kategorii ("products/showCategories")
      */
 
     @GetMapping("/showcategories")
@@ -326,8 +325,8 @@ public class ProductsController {
     /**
      * Usuwa kategorię o podanym ID.
      *
-     * @param id identyfikator kategorii
-     * @param request żądanie HTTP
+     * @param id                identyfikator kategorii
+     * @param request           żądanie HTTP
      * @param redirectAttributes atrybuty po przekierowaniu
      * @return przekierowanie na listę kategorii
      */
@@ -356,9 +355,9 @@ public class ProductsController {
     /**
      * Formularz edycji kategorii.
      *
-     * @param id identyfikator kategorii
+     * @param id    identyfikator kategorii
      * @param model model danych
-     * @return widok formularza edycji kategorii
+     * @return widok formularza edycji kategorii ("products/editCategory")
      */
 
     @GetMapping("/editcategory/{id}")
@@ -374,10 +373,10 @@ public class ProductsController {
     /**
      * Zapisuje zmiany w edytowanej kategorii.
      *
-     * @param id identyfikator kategorii
-     * @param nazwa nowa nazwa
-     * @param opis nowy opis
-     * @param request żądanie HTTP
+     * @param id                identyfikator kategorii
+     * @param nazwa             nowa nazwa
+     * @param opis              nowy opis
+     * @param request           żądanie HTTP
      * @param redirectAttributes atrybuty po przekierowaniu
      * @return przekierowanie na listę kategorii
      */
@@ -407,7 +406,7 @@ public class ProductsController {
     /**
      * Formularz dodawania nowej kategorii.
      *
-     * @return widok formularza dodawania kategorii
+     * @return widok formularza dodawania kategorii ("products/addCategory")
      */
 
     @GetMapping("/addcategory")
@@ -418,10 +417,10 @@ public class ProductsController {
     /**
      * Obsługuje dodanie nowej kategorii.
      *
-     * @param nazwa nazwa kategorii
-     * @param opis opis kategorii
-     * @param model model danych
-     * @param request żądanie HTTP
+     * @param nazwa             nazwa kategorii
+     * @param opis              opis kategorii
+     * @param model             model danych
+     * @param request           żądanie HTTP
      * @param redirectAttributes atrybuty po przekierowaniu
      * @return przekierowanie na listę kategorii
      */
@@ -448,6 +447,12 @@ public class ProductsController {
         return "/products/showcategories";
     }
 
+    /**
+     * Konwertuje tablicę bajtów na tekst zakodowany w Base64.
+     *
+     * @param bytes dane binarne
+     * @return tekst zakodowany w Base64 lub null, jeśli dane są puste
+     */
     public String convertToBase64(byte[] bytes){
         return  bytes != null ? Base64.getEncoder().encodeToString(bytes) : null;
     }
@@ -455,10 +460,10 @@ public class ProductsController {
     /**
      * Generuje raport sprzedaży w podanym zakresie dat.
      *
-     * @param od data początkowa
-     * @param doDaty data końcowa
-     * @param model model danych do widoku
-     * @return widok raportu sprzedaży
+     * @param od      data początkowa raportu
+     * @param doDaty  data końcowa raportu
+     * @param model   model danych do widoku
+     * @return widok raportu sprzedaży ("products/raportSprzedazy")
      */
 
     @GetMapping("/raportSprzedazy")
@@ -472,19 +477,20 @@ public class ProductsController {
             model.addAttribute("odDo", "Od " + od + " do " + doDaty);
 
         }
-        /**
-         * Konwertuje tablicę bajtów na ciąg zakodowany w Base64.
-         *
-         * @param bytes dane binarne
-         * @return tekst zakodowany w Base64 lub null
-         */
+
         model.addAttribute("raportSprzedazy",raport);
         model.addAttribute("od",od);
         model.addAttribute("doDaty",doDaty);
         return "products/raportSprzedazy";
 
     }
-
+    /**
+     * Wyszukuje produkty na podstawie fragmentu nazwy.
+     *
+     * @param query  fragment nazwy produktu do wyszukania
+     * @param model  model danych do widoku
+     * @return widok wyników wyszukiwania ("products/searchResults")
+     */
     @GetMapping("/search")
     public String wyszukajProdukty(@RequestParam String query, Model model) {
         List<Produkt> produkty = produktRepository.findByNazwaContainingIgnoreCase(query);

@@ -26,13 +26,16 @@ import java.util.*;
 
 /**
  * Kontroler administratora odpowiedzialny za zarządzanie użytkownikami, pracownikami,
- * logami systemowymi oraz reklamacjami i zwrotami.
+ * logami systemowymi oraz obsługą zwrotów i reklamacji.
  *
- * Umożliwia m.in.:
- * - przeglądanie i edycję ról użytkowników,
- * - usuwanie pracowników,
- * - przeglądanie logów systemowych,
- * - obsługę zwrotów i reklamacji.
+ * Funkcjonalności obejmują:
+ * <ul>
+ *     <li>zarządzanie użytkownikami i ich rolami,</li>
+ *     <li>przeglądanie i usuwanie pracowników,</li>
+ *     <li>przeglądanie logów systemowych,</li>
+ *     <li>obsługę zwrotów i reklamacji (akceptacja/odrzucanie, dodawanie komentarzy),</li>
+ *     <li>zarządzanie zamówieniami pod kątem zwrotów i reklamacji.</li>
+ * </ul>
  */
 
 @Controller
@@ -49,13 +52,14 @@ public class AdminController {
     private HttpServletRequest request; //aby pobrac aktualnego uzytkownika;
     @Autowired
     private ZwrotRepository zwrotRepository;
-
+    @Autowired
+    private ZamowienieRepository zamowienieRepository;
     @Autowired
     private ReklamacjaRepository reklamacjaRepository;
 
 
     /**
-     * Strona główna panelu administratora.
+     * Wyświetla stronę główną panelu administratora.
      *
      * @return widok panelu administratora
      */
@@ -84,7 +88,7 @@ public class AdminController {
      * Wyświetla formularz do zmiany ról wybranego użytkownika.
      *
      * @param userId ID użytkownika
-     * @param model model przekazujący użytkownika i listę ról
+     * @param model  model przekazujący użytkownika i listę ról
      * @return widok formularza zmiany ról
      */
 
@@ -103,7 +107,7 @@ public class AdminController {
     /**
      * Zapisuje zmienione role użytkownika.
      *
-     * @param userId ID użytkownika
+     * @param userId  ID użytkownika
      * @param roleIds lista wybranych ról (opcjonalna)
      * @return przekierowanie do zarządzania użytkownikami
      */
@@ -151,11 +155,11 @@ public class AdminController {
         return "admin/delete_employee";
     }
     /**
-     * Usuwa wskazanego pracownika i zapisuje informację w logach.
+     * Usuwa wskazanego pracownika i zapisuje informację w logach systemowych.
      *
-     * @param userId ID pracownika do usunięcia
+     * @param userId             ID pracownika do usunięcia
      * @param redirectAttributes do przekazania wiadomości do widoku
-     * @param request obiekt żądania do pobrania zalogowanego użytkownika
+     * @param request            obiekt żądania do pobrania zalogowanego użytkownika
      * @return przekierowanie do widoku usuwania pracowników
      */
 
@@ -197,10 +201,9 @@ public class AdminController {
     }
 
 
-    @Autowired
-    private ZamowienieRepository zamowienieRepository;
+
     /**
-     * Wyświetla zamówienia do obsługi zwrotów i reklamacji.
+     * Wyświetla zamówienia do obsługi zwrotów i reklamacji wraz z informacją o liczbie dni od zakupu.
      *
      * @param model model przekazujący zamówienia i dni od zakupu
      * @return widok zarządzania zwrotami i reklamacjami
@@ -239,7 +242,7 @@ public class AdminController {
      * @return przekierowanie do widoku obsługi zwrotów i reklamacji
      */
 
-    // Akceptacja zwrotu
+
     @PostMapping("/zwroty/akceptuj")
     public String akceptujZwrot(@RequestParam("zwrotID") Integer id) {
         Zwrot zwrot = zwrotRepository.findById(id).orElse(null);
@@ -250,7 +253,12 @@ public class AdminController {
         return "redirect:/admin/zwroty-reklamacje-administrator";
     }
 
-    // Odrzucenie zwrotu
+    /**
+     * Odrzuca wskazany zwrot.
+     *
+     * @param id ID zwrotu
+     * @return przekierowanie do widoku obsługi zwrotów i reklamacji
+     */
     @PostMapping("/zwroty/odrzuc")
     public String odrzucZwrot(@RequestParam("zwrotID") Integer id) {
         Zwrot zwrot = zwrotRepository.findById(id).orElse(null);
@@ -262,8 +270,13 @@ public class AdminController {
     }
 
 
+    /**
+     * Akceptuje wskazaną reklamację.
+     *
+     * @param id ID reklamacji
+     * @return przekierowanie do widoku obsługi zwrotów i reklamacji
+     */
 
-    // Akceptacja reklamacji
     @PostMapping("/reklamacje/akceptuj")
     public String akceptujReklamacja(@RequestParam("reklamacjaID") Integer id) {
         Reklamacja reklamacja = reklamacjaRepository.findById(id).orElse(null);
@@ -281,7 +294,7 @@ public class AdminController {
      * @return przekierowanie do widoku obsługi zwrotów i reklamacji
      */
 
-    // Odrzucenie reklamacji
+
     @PostMapping("/reklamacje/odrzuc")
     public String odrzucReklamacje(@RequestParam("reklamacjaID") Integer id) {
         Reklamacja reklamacja = reklamacjaRepository.findById(id).orElse(null);
@@ -294,7 +307,7 @@ public class AdminController {
     /**
      * Dodaje komentarz administratora do zwrotu.
      *
-     * @param id ID zwrotu
+     * @param id        ID zwrotu
      * @param komentarz treść komentarza
      * @return przekierowanie do widoku obsługi zwrotów i reklamacji
      */
@@ -311,7 +324,7 @@ public class AdminController {
     /**
      * Dodaje komentarz administratora do reklamacji.
      *
-     * @param id ID reklamacji
+     * @param id        ID reklamacji
      * @param komentarz treść komentarza
      * @return przekierowanie do widoku obsługi zwrotów i reklamacji
      */

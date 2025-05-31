@@ -7,7 +7,12 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * Encja reprezentująca produkt w systemie sklepu internetowego.
+ * <p>
+ * Przechowuje informacje o nazwie, opisie, cenie, stanie magazynowym, marce, dacie dodania,
+ * kategorii, zdjęciu oraz powiązanych recenzjach i szczegółach zamówień.
+ */
 @Entity
 //@Getter
 //@Setter

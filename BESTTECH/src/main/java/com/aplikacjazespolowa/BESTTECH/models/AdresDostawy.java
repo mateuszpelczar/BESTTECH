@@ -6,7 +6,11 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.util.List;
-
+/**
+ * Encja reprezentująca adres dostawy w systemie sklepu internetowego.
+ *
+ * Zawiera informacje o adresie dostawy powiązanym z użytkownikiem oraz zamówieniami.
+ */
 @Entity
 @Getter
 @Setter

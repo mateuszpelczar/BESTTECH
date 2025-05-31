@@ -2,7 +2,11 @@ package com.aplikacjazespolowa.BESTTECH.models;
 
 import jakarta.persistence.*;
 import java.util.Date;
-
+/**
+ * Encja reprezentująca reklamację złożoną do zamówienia w systemie sklepu internetowego.
+ * <p>
+ * Przechowuje informacje o zamówieniu, statusie, dacie zgłoszenia, opisie oraz komentarzu administratora.
+ */
 @Entity
 public class Reklamacja {
 

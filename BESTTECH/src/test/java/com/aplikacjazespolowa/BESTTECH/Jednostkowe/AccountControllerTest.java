@@ -22,7 +22,10 @@ import java.util.Optional;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.Mockito.*;
-
+/**
+ * Testy jednostkowe dla kontrolera AccountController.
+ * Testuje scenariusze rejestracji użytkownika w systemie.
+ */
 @WebMvcTest(AccountController.class)
 @Import(SecurityConfig.class)
 class AccountControllerTest {
@@ -44,7 +47,11 @@ class AccountControllerTest {
 
     @MockBean
     private RegisterService registerService;
-
+    /**
+     * Testuje poprawną rejestrację nowego użytkownika.
+     * Oczekuje przekierowania po udanej rejestracji.
+     * @throws Exception w przypadku błędu wykonania żądania
+     */
     @Test
     void testRejestracjaUzytkownika() throws Exception {
         DBRole clientRole=new DBRole();
@@ -65,7 +72,11 @@ class AccountControllerTest {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isFound()); // Oczekujemy przekierowania do logowania
     }
-
+    /**
+     * Testuje próbę rejestracji użytkownika o istniejącym adresie e-mail.
+     * Oczekuje powrotu formularza rejestracji z błędem (status OK).
+     * @throws Exception w przypadku błędu wykonania żądania
+     */
     @Test
     void testRejestracjaUzytkownikaKtoryJuzIstnieje() throws Exception {
         DBRole clientRole= new DBRole();

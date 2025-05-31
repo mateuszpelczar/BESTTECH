@@ -18,10 +18,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-
+/**
+ * Konfiguracja zabezpieczeń Spring Security dla aplikacji.
+ */
 @Configuration
 public class SecurityConfig {
-
+    /**
+     * Główna konfiguracja łańcucha filtrów bezpieczeństwa.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -68,12 +72,16 @@ public class SecurityConfig {
 
         return http.build();
     }
-
+    /**
+     * Bean odpowiedzialny za szyfrowanie haseł.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    /**
+     * Bean UserDetailsService, który ładuje użytkownika z bazy na podstawie adresu e-mail.
+     */
     @Bean
     public UserDetailsService userDetailsService(DBUserRepository userRepository) {
         return username -> {

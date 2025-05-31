@@ -24,14 +24,23 @@ import java.util.List;
 public class LogsController {
 
     private static final Logger log = LoggerFactory.getLogger(LogsController.class);
+
+    /**
+     * Logger do rejestrowania zdarzeń w tym kontrolerze.
+     */
     @Autowired
     private LogsRepository logsRepository;
 
     /**
-     * Pobiera wszystkie logi systemowe i przekazuje je do widoku.
+     * Pobiera i wyświetla listę logów systemowych.
      *
-     * @param model model MVC do przekazania danych do widoku
-     * @return widok z logami (admin/show_logs)
+     * Pozwala filtrować logi po nazwie użytkownika oraz poziomie logowania (np. INFO, WARN, ERROR).
+     * Jeżeli żadne filtry nie są ustawione, wyświetla wszystkie logi posortowane malejąco po dacie utworzenia.
+     *
+     * @param model    model MVC do przekazania danych do widoku
+     * @param username (opcjonalnie) nazwa użytkownika, po której logi mają być filtrowane
+     * @param level    (opcjonalnie) poziom logowania, po którym logi mają być filtrowane
+     * @return widok z logami ("admin/show_logs")
      */
 
     @GetMapping

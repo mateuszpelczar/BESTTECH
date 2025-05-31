@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Główny kontroler aplikacji, odpowiedzialny za wyświetlanie strony głównej,
+ * Główny kontroler aplikacji, odpowiedzialny za wyświetlanie strony głównej sklepu,
  * listy kategorii produktów, produktów w wybranej kategorii oraz szczegółów pojedynczego produktu.
  */
 @Controller
@@ -26,7 +26,7 @@ public class MyController {
     private final ProduktService produktService;
 
     /**
-     * Konstruktor wstrzykujący zależności do repozytoriów i serwisu produktów.
+     * Tworzy kontroler z wstrzykniętymi repozytoriami i serwisem produktów.
      *
      * @param produktRepository repozytorium produktów
      * @param kategoriaRepository repozytorium kategorii
@@ -41,11 +41,11 @@ public class MyController {
 
     /**
      * Wyświetla stronę główną sklepu.
-     *
+     * <p>
      * Jeśli użytkownik jest zalogowany, wypisuje jego nazwę w konsoli.
      * Do modelu dodaje listę 5 losowych produktów jako polecane.
      *
-     * @param model model MVC do przekazania danych do widoku
+     * @param model     model MVC do przekazania danych do widoku
      * @param principal obiekt reprezentujący zalogowanego użytkownika (jeśli istnieje)
      * @return widok strony głównej ("index")
      */
@@ -102,8 +102,11 @@ public class MyController {
 
     /**
      * Wyświetla szczegóły pojedynczego produktu.
+     * <p>
+     * Jeśli produkt o podanym ID nie istnieje, przekierowuje na stronę z kategoriami.
+     * Dodatkowo do widoku dodaje 5 losowych produktów jako polecane.
      *
-     * @param id ID produktu do wyświetlenia
+     * @param id    ID produktu do wyświetlenia
      * @param nazwa nazwa produktu (może służyć do SEO lub walidacji)
      * @param model model MVC do przekazania danych do widoku
      * @return widok szczegółów produktu ("products/product-szczegoly") lub przekierowanie do listy kategorii jeśli produkt nie istnieje

@@ -5,7 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-
+/**
+ * Encja reprezentująca recenzję produktu w systemie sklepu internetowego.
+ * <p>
+ * Zawiera informacje o produkcie, kliencie, ocenie, treści recenzji, dacie dodania oraz statusie recenzji.
+ */
 @Entity
 @Getter
 @Setter

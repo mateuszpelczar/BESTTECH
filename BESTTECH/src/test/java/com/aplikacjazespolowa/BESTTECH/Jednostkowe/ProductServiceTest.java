@@ -16,7 +16,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+/**
+ * Testy jednostkowe dla serwisu ProduktService.
+ * Testuje poprawność działania metod związanych z pobieraniem losowych produktów.
+ */
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
 
@@ -25,7 +28,10 @@ class ProductServiceTest {
 
     @InjectMocks
     private ProduktService produktService;
-
+    /**
+     * Testuje przypadek, gdy w repozytorium nie ma żadnych produktów.
+     * Oczekuje pustej listy zwróconej przez getLosoweProdukty().
+     */
     @Test
     void testGetLosoweProdukty_GdyBrakProduktow() {
         when(produktRepository.findAll()).thenReturn(Collections.emptyList());
@@ -35,7 +41,10 @@ class ProductServiceTest {
         assertTrue(produkty.isEmpty());
         verify(produktRepository).findAll();
     }
-
+    /**
+     * Testuje przypadek, gdy repozytorium zawiera dostępne produkty.
+     * Oczekuje, że zostanie zwrócona lista o żądanej liczbie elementów.
+     */
     @Test
     void testGetLosoweProdukty_GdySaDostepneProdukty() {
         Produkt produkt1 = new Produkt("Laptop", "Opis", 3000f, 10, "Dell", LocalDate.now(), 1, "laptop.jpg");

@@ -3,7 +3,11 @@ package com.aplikacjazespolowa.BESTTECH.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
+/**
+ * Encja reprezentująca szczegóły pozycji w zamówieniu.
+ * <p>
+ * Przechowuje informacje o zamówieniu, produkcie, ilości oraz cenie jednostkowej.
+ */
 @Entity
 @Getter
 @Setter

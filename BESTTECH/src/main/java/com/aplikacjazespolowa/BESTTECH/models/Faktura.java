@@ -5,7 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-
+/**
+ * Encja reprezentująca fakturę wystawioną do zamówienia w systemie sklepu internetowego.
+ *
+ * Przechowuje informacje o zamówieniu, dacie wystawienia faktury oraz jej całkowitej kwocie.
+ */
 @Entity
 @Getter
 @Setter

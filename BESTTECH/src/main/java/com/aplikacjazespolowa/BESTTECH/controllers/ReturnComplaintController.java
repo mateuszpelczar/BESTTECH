@@ -45,7 +45,7 @@ public class ReturnComplaintController {
      * ile dni minęło od złożenia każdego z nich, by umożliwić określenie czy można je zgłosić.
      *
      * @param model model przekazywany do widoku
-     * @return nazwa widoku klienta z listą zamówień
+     * @return nazwa widoku klienta z listą zamówień ("client/returns")
      */
 
     @GetMapping

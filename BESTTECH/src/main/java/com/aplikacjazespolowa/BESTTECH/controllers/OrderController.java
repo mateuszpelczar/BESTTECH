@@ -53,10 +53,12 @@ public class OrderController {
     }
 
     /**
-     * Wyświetla podsumowanie zamówienia z produktami znajdującymi się w koszyku.
+     * Wyświetla podsumowanie zamówienia na podstawie produktów znajdujących się w koszyku.
+     *
+     * Dodaje do modelu szczegóły produktów, całkowity koszt oraz pusty obiekt adresu dostawy.
      *
      * @param session sesja HTTP przechowująca dane koszyka
-     * @param model model MVC do przekazania danych do widoku
+     * @param model   model MVC do przekazania danych do widoku
      * @return widok z podsumowaniem zamówienia ("orders/details")
      */
 
@@ -84,18 +86,18 @@ public class OrderController {
     }
 
     /**
-     * Obsługuje przesłanie zamówienia: zapisuje adres dostawy, zamówienie, szczegóły zamówienia,
+     * Obsługuje złożenie zamówienia: zapisuje adres dostawy, zamówienie, szczegóły zamówienia,
      * aktualizuje stan magazynowy produktów oraz tworzy wpis o dostawie.
      * Po złożeniu zamówienia czyści koszyk w sesji.
      *
-     * @param ulica ulica adresu dostawy
-     * @param miasto miasto adresu dostawy
-     * @param kodPocztowy kod pocztowy adresu dostawy
-     * @param kraj kraj adresu dostawy
-     * @param sposobDostawy wybrana metoda dostawy
+     * @param ulica           ulica adresu dostawy
+     * @param miasto          miasto adresu dostawy
+     * @param kodPocztowy     kod pocztowy adresu dostawy
+     * @param kraj            kraj adresu dostawy
+     * @param sposobDostawy   wybrana metoda dostawy
      * @param sposobPlatnosci wybrana metoda płatności
-     * @param typKlienta typ klienta (np. indywidualny/firma)
-     * @param session sesja HTTP przechowująca dane koszyka
+     * @param typKlienta      typ klienta (np. indywidualny/firma)
+     * @param session         sesja HTTP przechowująca dane koszyka
      * @return przekierowanie do strony potwierdzenia zamówienia
      */
 
