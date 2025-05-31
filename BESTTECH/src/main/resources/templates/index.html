@@ -19,56 +19,65 @@
     <div class="nav_img">
         <img src="https://i.imgur.com/n0dADst.png" alt="Logo">
     </div>
-
-    <div class="nav_links">
-        <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
-        <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
-        <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
-        <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
-        <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
-        <div class="nav_box dropdown">
-            <a href="/kategoria">Kategorie produktów</a>
-            <div class="dropdown-content">
-                <a href="/kategoria/Drukarki">Drukarki</a>
-                <a href="/kategoria/Programy">Programy</a>
-                <a href="/kategoria">Wszystkie kategorie</a>
+    <div class="nav_all">
+        <div class="nav1"><!-- Formularz wyszukiwania -->
+            <div class="form">
+                <form action="/products/search" method="get" class="search-form">
+                    <input type="text" name="query" placeholder="Wyszukaj produkt..." required>
+                    <button type="submit">🔍︎</button>
+                </form>
             </div>
-        </div>
-    </div>
+            <div class="nav_right">
+                <a href="/koszyk" class="cart_icon">
+                    🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+                </a>
 
-    <!-- Formularz wyszukiwania -->
-    <form action="/products/search" method="get" class="search-form">
-        <input type="text" name="query" placeholder="Wyszukaj produkt..." required>
-        <button type="submit">Szukaj</button>
-    </form>
+                <div class="nav_auth" sec:authorize="isAnonymous()">
+                    <a href="/konto/logowanie" class="nav_login">Logowanie</a>
+                </div>
 
-    <div class="nav_right">
-        <a href="/koszyk" class="cart_icon">
-            🛒 <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
-        </a>
-
-        <div class="nav_auth" sec:authorize="isAnonymous()">
-            <a href="/konto/logowanie" class="nav_login">Logowanie</a>
-        </div>
-
-        <div class="nav_user" sec:authorize="isAuthenticated()">
-            <div class="user_dropdown">
-                <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
-                <div class="dropdown_content">
-                    <a href="/koszyk" class="cart_icon2">
-                        koszyk: <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
-                    </a>
-                    <a href="/konto/details">Twoje konto</a>
-                    <a href="/konto/zamowienia">Zamówienia</a>
-                    <a href="/zwroty-reklamacje">Zwroty i reklamacje</a>
-                    <a href="/opinie">Opinie</a>
-                    <a href="/products" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Panel pracownika</a>
-                    <a href="/admin" sec:authorize="hasAnyRole('ADMIN')">Panel admina</a>
-                    <a href="/konto/wyloguj">Wyloguj się</a>
+                <div class="nav_user" sec:authorize="isAuthenticated()">
+                    <div class="user_dropdown">
+                        <span class="user_name">Cześć, <span sec:authentication="name"></span> ▼</span>
+                        <div class="dropdown_content">
+                            <a href="/koszyk" class="cart_icon2">
+                                koszyk: <span th:if="${koszykIlosc > 0}" th:text="${koszykIlosc}">0</span>
+                            </a>
+                            <a href="/konto/details">Twoje konto</a>
+                            <a href="/konto/zamowienia">Zamówienia</a>
+                            <a href="/zwroty-reklamacje">Zwroty i reklamacje</a>
+                            <a href="/opinie">Opinie</a>
+                            <a href="/products" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Panel pracownika</a>
+                            <a href="/admin" sec:authorize="hasAnyRole('ADMIN')">Panel admina</a>
+                            <a href="/konto/wyloguj">Wyloguj się</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="nav2">
+            <div class="nav_links">
+                <div class="nav_box"><a href="/kategoria/Smartphony">Smartphony</a></div>
+                <div class="nav_box"><a href="/kategoria/Laptopy">Laptopy</a></div>
+                <div class="nav_box"><a href="/kategoria/Podzespoły">Podzespoły komputerowe</a></div>
+                <div class="nav_box"><a href="/kategoria/Zasilacze">Zasilacze</a></div>
+                <div class="nav_box"><a href="/kategoria/TV">TV</a></div>
+                <div class="nav_box dropdown">
+                    <a href="/kategoria">Kategorie produktów</a>
+                    <div class="dropdown-content">
+                        <a href="/kategoria/Drukarki">Drukarki</a>
+                        <a href="/kategoria/Programy">Programy</a>
+                        <a href="/kategoria">Wszystkie kategorie</a>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
     </div>
+    
+
+    
 </nav>
 
 
@@ -90,6 +99,7 @@
         <div class="recomended_item_name" th:text="${produkt.nazwa}"></div>
         <div class="recomended_item_price" th:text="${produkt.cena + ' zł'}"></div>
     </div>
+
 </div>
 
 <!-- Stopka -->
