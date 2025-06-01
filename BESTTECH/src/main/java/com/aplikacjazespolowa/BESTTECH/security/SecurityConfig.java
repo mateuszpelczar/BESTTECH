@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
 
                         // publiczne endpointy
-                        .requestMatchers("/", "/konto/rejestracja", "/konto/logowanie", "/resources/**", "/css/**", "/js/**", "/koszyk", "/zdjecia/**").permitAll()
+                        .requestMatchers("/", "/konto/rejestracja", "/konto/logowanie", "/resources/**", "/css/**", "/js/**", "/koszyk", "/zdjecia/**", "/scripts/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/product", "/kategoria/**", "/products/search").permitAll()
                         .requestMatchers(HttpMethod.GET,"/konto/rejestracja").permitAll()
                         .requestMatchers(HttpMethod.POST,"/konto/rejestracja").permitAll()
