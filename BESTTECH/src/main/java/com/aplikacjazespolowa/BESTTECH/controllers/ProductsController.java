@@ -444,7 +444,7 @@ public class ProductsController {
 
 
         redirectAttributes.addFlashAttribute("message","Dodano nowa kategorie: " + addingCategory);
-        return "/products/showcategories";
+        return "products/showcategories";
     }
 
     /**
